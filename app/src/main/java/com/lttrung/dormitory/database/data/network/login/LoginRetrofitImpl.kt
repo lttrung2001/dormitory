@@ -16,32 +16,42 @@ class LoginRetrofitImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : LoginNetwork {
     override fun login(username: String, password: String): Single<LoginResponseBody> {
-        return service.login(username, password)
-            .map { response ->
-                when (response.code()) {
-                    // Go to main screen
-                    HttpStatusCodes.OK -> response.body()!!
-                    // Handle to start new activity
-                    HttpStatusCodes.FORBIDDEN -> throw UnverifiedEmailException()
-                    // Notify error to screen
-                    HttpStatusCodes.BAD_REQUEST -> throw FailedException("Verify email failed.")
-                    HttpStatusCodes.UNAUTHORIZED -> throw FailedException("Wrong email, password.")
-                    else -> throw UnknownException()
+        return try {
+            service.login(username, password)
+                .map { response ->
+                    when (response.code()) {
+                        // Go to main screen
+                        HttpStatusCodes.OK -> response.body()!!
+                        // Handle to start new activity
+                        HttpStatusCodes.FORBIDDEN -> throw UnverifiedEmailException()
+                        // Notify error to screen
+                        HttpStatusCodes.BAD_REQUEST -> throw FailedException("Verify email failed.")
+                        HttpStatusCodes.UNAUTHORIZED -> throw FailedException("Wrong email, password.")
+                        else -> throw UnknownException()
+                    }
                 }
-            }
+        } catch (ex: Exception) {
+            throw ex
+        }
     }
 
     override fun register(username: String, password: String): Single<String> {
-        return service.register(username, password).map { response ->
-            when(response.code()) {
-                HttpStatusCodes.OK -> { response.body()!! }
-                else -> {
-                    response.body()?.let {
-                        throw FailedException(it)
+        return try {
+            service.register(username, password).map { response ->
+                when (response.code()) {
+                    HttpStatusCodes.OK -> {
+                        response.body()!!
                     }
-                    throw FailedException()
+                    else -> {
+                        response.body()?.let {
+                            throw FailedException(it)
+                        }
+                        throw FailedException()
+                    }
                 }
             }
+        } catch (ex: Exception) {
+            throw ex
         }
     }
 

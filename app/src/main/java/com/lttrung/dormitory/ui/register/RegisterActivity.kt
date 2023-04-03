@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
                     // Do something
                 }
                 is Resource.Error -> {
-                    binding.error.text = resource.data ?: "Unknown error"
+                    binding.error.text = resource.t.message ?: "Unknown error"
                 }
             }
         }

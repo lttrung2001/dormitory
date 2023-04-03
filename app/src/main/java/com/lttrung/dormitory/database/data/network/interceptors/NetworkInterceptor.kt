@@ -2,6 +2,7 @@ package com.lttrung.dormitory.database.data.network.interceptors
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.lttrung.dormitory.exceptions.NoInternetException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -14,7 +15,7 @@ class NetworkInterceptor @Inject constructor(@ApplicationContext private val con
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         return if (!isConnected) {
-            throw IOException("No internet connection")
+            throw NoInternetException()
         } else {
             val request: Request = chain.request()
             chain.proceed(request)
