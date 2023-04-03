@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.register.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/login_page_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/demo" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/identifier" />
+
+        <EditText
+            android:id="@+id/identifier"
+            style="@style/PrimaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="username"
+            android:drawableEnd="@drawable/ic_user"
+            android:hint="@string/identifier"
+            android:inputType="text" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/email"
+            style="@style/PrimaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:drawableEnd="@drawable/ic_email"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/PrimaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:drawableEnd="@drawable/ic_key"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_password" />
+
+        <EditText
+            android:id="@+id/confirm_password"
+            style="@style/PrimaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:drawableEnd="@drawable/ic_key"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/full_name" />
+
+        <EditText
+            android:id="@+id/full_name"
+            style="@style/PrimaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:drawableEnd="@drawable/ic_signature"
+            android:hint="@string/full_name"
+            android:inputType="textPersonName" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/birthday" />
+
+        <EditText
+            android:id="@+id/birthday"
+            style="@style/PrimaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="no"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:hint="@string/birthday"
+            android:inputType="date" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/address" />
+
+        <EditText
+            android:id="@+id/address"
+            style="@style/PrimaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="postalAddress"
+            android:drawableEnd="@drawable/ic_location"
+            android:hint="@string/address"
+            android:inputType="textPostalAddress" />
+
+        <TextView
+            style="@style/PrimaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gender" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/male" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/female" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button_sign_up"
+            style="@style/PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
