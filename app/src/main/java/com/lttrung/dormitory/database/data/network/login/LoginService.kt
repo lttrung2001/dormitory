@@ -13,4 +13,11 @@ interface LoginService {
         @Field("username") username: String?,
         @Field("password") password: String?
     ): Single<Response<LoginResponseBody>>
+
+    @FormUrlEncoded
+    @POST("/sign-up")
+    fun register(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Single<Response<String>>
 }

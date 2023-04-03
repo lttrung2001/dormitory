@@ -7,7 +7,7 @@ import javax.inject.Singleton
 @Singleton
 interface LoginNetwork {
     fun login(username: String, password: String): Single<LoginResponseBody>
-    fun register(): Completable
+    fun register(username: String, password: String): Single<String>
     fun forgotPassword(): Completable
     fun verifyCode(): Completable
     fun resetPassword(): Completable
