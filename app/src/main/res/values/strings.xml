@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Dormitory</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="identifier">Identifier</string>
+    <string name="login_page_image">Login page image</string>
+    <string name="dormitory">Dormitory</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PrimaryEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/bg_corner_8dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+</resources>

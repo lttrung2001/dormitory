@@ -1,0 +1,14 @@
+package com.lttrung.dormitory.database.data.network.login
+
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
+import javax.inject.Singleton
+
+@Singleton
+interface LoginNetwork {
+    fun login(username: String, password: String): Single<LoginResponseBody>
+    fun register(): Completable
+    fun forgotPassword(): Completable
+    fun verifyCode(): Completable
+    fun resetPassword(): Completable
+}
