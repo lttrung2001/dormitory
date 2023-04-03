@@ -31,26 +31,10 @@
             style="@style/PrimaryEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="username"
             android:drawableEnd="@drawable/ic_user"
             android:hint="@string/identifier"
-            android:inputType="text" />
-
-        <TextView
-            style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email" />
-
-        <EditText
-            android:id="@+id/email"
-            style="@style/PrimaryEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="emailAddress"
-            android:drawableEnd="@drawable/ic_email"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:inputType="text"
+            android:importantForAutofill="no" />
 
         <TextView
             style="@style/PrimaryTextView"
@@ -63,10 +47,10 @@
             style="@style/PrimaryEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="emailAddress"
             android:drawableEnd="@drawable/ic_key"
             android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:importantForAutofill="no" />
 
         <TextView
             style="@style/PrimaryTextView"
@@ -79,88 +63,22 @@
             style="@style/PrimaryEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="password"
             android:drawableEnd="@drawable/ic_key"
             android:hint="@string/confirm_password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:importantForAutofill="no" />
 
         <TextView
-            style="@style/PrimaryTextView"
+            android:id="@+id/error"
+            style="@style/ErrorTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/full_name" />
-
-        <EditText
-            android:id="@+id/full_name"
-            style="@style/PrimaryEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="emailAddress"
-            android:drawableEnd="@drawable/ic_signature"
-            android:hint="@string/full_name"
-            android:inputType="textPersonName" />
-
-        <TextView
-            style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/birthday" />
-
-        <EditText
-            android:id="@+id/birthday"
-            style="@style/PrimaryEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="no"
-            android:drawableEnd="@drawable/ic_calendar"
-            android:hint="@string/birthday"
-            android:inputType="date" />
-
-        <TextView
-            style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/address" />
-
-        <EditText
-            android:id="@+id/address"
-            style="@style/PrimaryEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="postalAddress"
-            android:drawableEnd="@drawable/ic_location"
-            android:hint="@string/address"
-            android:inputType="textPostalAddress" />
-
-        <TextView
-            style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/gender" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/male" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/female" />
-        </RadioGroup>
+            android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/button_sign_up"
+            android:id="@+id/button_register"
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up" />
+            android:text="@string/register" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

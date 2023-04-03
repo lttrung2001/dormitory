@@ -18,8 +18,8 @@ class LoginRepositoriesImpl @Inject constructor(
         catch (ex: Exception) { throw ex }
     }
 
-    override fun register(): Completable {
-        return Completable.complete()
+    override fun register(username: String, password: String): Single<String> {
+        return network.register(username, password)
     }
 
     override fun forgotPassword(): Completable {

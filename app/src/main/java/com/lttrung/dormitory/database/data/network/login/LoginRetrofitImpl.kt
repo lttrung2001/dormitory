@@ -1,6 +1,7 @@
 package com.lttrung.dormitory.database.data.network.login
 
 import android.content.Context
+import com.lttrung.dormitory.exceptions.FailedException
 import com.lttrung.dormitory.exceptions.UnknownException
 import com.lttrung.dormitory.exceptions.UnverifiedEmailException
 import com.lttrung.dormitory.utils.HttpStatusCodes
@@ -23,15 +24,25 @@ class LoginRetrofitImpl @Inject constructor(
                     // Handle to start new activity
                     HttpStatusCodes.FORBIDDEN -> throw UnverifiedEmailException()
                     // Notify error to screen
-                    HttpStatusCodes.BAD_REQUEST -> throw IOException("Verify email failed.")
-                    HttpStatusCodes.UNAUTHORIZED -> throw IOException("Wrong email, password.")
+                    HttpStatusCodes.BAD_REQUEST -> throw FailedException("Verify email failed.")
+                    HttpStatusCodes.UNAUTHORIZED -> throw FailedException("Wrong email, password.")
                     else -> throw UnknownException()
                 }
             }
     }
 
-    override fun register(): Completable {
-        return Completable.complete()
+    override fun register(username: String, password: String): Single<String> {
+        return service.register(username, password).map { response ->
+            when(response.code()) {
+                HttpStatusCodes.OK -> { response.body()!! }
+                else -> {
+                    response.body()?.let {
+                        throw FailedException(it)
+                    }
+                    throw FailedException()
+                }
+            }
+        }
     }
 
     override fun forgotPassword(): Completable {
