@@ -52,7 +52,7 @@
             android:autofillHints="username"
             android:drawableEnd="@drawable/ic_user"
             android:hint="@string/identifier"
-            android:inputType="textEmailAddress" />
+            android:inputType="username" />
 
         <TextView
             style="@style/PrimaryTextView"
