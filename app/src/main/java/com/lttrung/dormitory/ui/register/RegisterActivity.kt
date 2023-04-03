@@ -42,14 +42,9 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.password.text.trim().toString()
             val confirmPassword = binding.confirmPassword.text.trim().toString()
             if (password != confirmPassword) {
-                binding.password.error = ""
-                binding.confirmPassword.error = ""
                 binding.error.text = "Password not matched."
             } else {
-                binding.password.error = null
-                binding.confirmPassword.error = null
                 binding.error.text = ""
-
                 registerViewModel.register(username, password)
             }
         }
