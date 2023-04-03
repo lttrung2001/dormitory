@@ -30,7 +30,9 @@ class AuthorizationInterceptor @Inject constructor(
             val newRequest: Request = newBuilder.addHeader("Authorization", accessToken).build()
             val response = chain.proceed(newRequest)
             if (response.code == HttpStatusCodes.UNAUTHORIZED) {
-                applicationContext.startActivity(Intent(applicationContext, LoginActivity::class.java))
+                applicationContext.startActivity(Intent(applicationContext, LoginActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
                 throw IOException("Expired or invalid token.")
             } else {
                 return response
