@@ -5,5 +5,5 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class CurrentUser(@field:PrimaryKey val studentId: String, val role: String, val token: String) :
+class CurrentUser(@field:PrimaryKey val studentId: String, val password: String, val role: String, val token: String) :
     Serializable

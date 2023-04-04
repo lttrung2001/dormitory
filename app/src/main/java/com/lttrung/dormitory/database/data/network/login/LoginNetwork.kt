@@ -9,6 +9,6 @@ interface LoginNetwork {
     fun login(username: String, password: String): Single<LoginResponseBody>
     fun register(username: String, password: String): Single<String>
     fun forgotPassword(): Completable
-    fun verifyCode(): Completable
+    fun verifyCode(username: String, password: String, otp: String): Single<String>
     fun resetPassword(): Completable
 }

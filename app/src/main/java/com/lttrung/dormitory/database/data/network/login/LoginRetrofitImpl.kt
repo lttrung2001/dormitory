@@ -1,19 +1,15 @@
 package com.lttrung.dormitory.database.data.network.login
 
-import android.content.Context
 import com.lttrung.dormitory.exceptions.FailedException
-import com.lttrung.dormitory.exceptions.UnknownException
+import com.lttrung.dormitory.exceptions.NoInternetException
 import com.lttrung.dormitory.exceptions.UnverifiedEmailException
 import com.lttrung.dormitory.utils.HttpStatusCodes
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import java.io.IOException
 import javax.inject.Inject
 
 class LoginRetrofitImpl @Inject constructor(
-    private val service: LoginService,
-    @ApplicationContext private val context: Context
+    private val service: LoginService
 ) : LoginNetwork {
     override fun login(username: String, password: String): Single<LoginResponseBody> {
         return try {
@@ -27,7 +23,12 @@ class LoginRetrofitImpl @Inject constructor(
                         // Notify error to screen
                         HttpStatusCodes.BAD_REQUEST -> throw FailedException("Verify email failed.")
                         HttpStatusCodes.UNAUTHORIZED -> throw FailedException("Wrong email, password.")
-                        else -> throw UnknownException()
+                        else -> {
+                            response.body()?.let {
+                                throw FailedException()
+                            }
+                            throw FailedException()
+                        }
                     }
                 }
         } catch (ex: Exception) {
@@ -59,8 +60,20 @@ class LoginRetrofitImpl @Inject constructor(
         return Completable.complete()
     }
 
-    override fun verifyCode(): Completable {
-        return Completable.complete()
+    override fun verifyCode(username: String, password: String, otp: String): Single<String> {
+        return try {
+            service.verifyCode(username, password, otp).map { response ->
+                when (response.code()) {
+                    HttpStatusCodes.OK -> response.body()!!
+                    else -> {
+                        response.body()?.let { throw FailedException(it) }
+                        throw FailedException()
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            throw ex
+        }
     }
 
     override fun resetPassword(): Completable {

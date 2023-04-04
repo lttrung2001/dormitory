@@ -20,4 +20,14 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="register">Register</string>
+    <string name="identify_otp_code">Identify OTP code</string>
+    <string name="otp_code">OTP code</string>
+    <string name="verify">Verify</string>
+    <string name="loading">Loading</string>
+    <string name="profile">Profile</string>
+    <string name="room_type_image">Room type image</string>
+    <string name="type">Type</string>
+    <string name="outstanding_rooms">Outstanding rooms</string>
+    <string name="outstanding_room_image">Outstanding room image</string>
+    <string name="room_type">Room type</string>
 </resources>

@@ -40,7 +40,7 @@ class RegisterViewModel @Inject constructor(
             registerDisposable =
                 useCase.register(username, password).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(registerObserver) { t ->
-                        registerLiveData.postValue(Resource.Error(t))
+                        t.message?.let { registerLiveData.postValue(Resource.Error(t.message!!)) }
                     }
             registerDisposable?.let { composite.add(it) }
         }.start()
