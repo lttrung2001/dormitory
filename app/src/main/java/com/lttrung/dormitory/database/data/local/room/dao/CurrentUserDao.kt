@@ -13,7 +13,7 @@ interface CurrentUserDao {
     fun updateCurrentUser(currentUser: CurrentUser): Int
 
     @Query("DELETE FROM CurrentUser")
-    fun deleteCurrentUser(): Int?
+    fun deleteCurrentUser(): Int
 
     @get:Query("SELECT * FROM CurrentUser LIMIT 1")
     val currentUser: Single<CurrentUser>

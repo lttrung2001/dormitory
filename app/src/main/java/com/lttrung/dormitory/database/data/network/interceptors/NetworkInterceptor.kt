@@ -5,8 +5,11 @@ import android.net.ConnectivityManager
 import com.lttrung.dormitory.exceptions.NoInternetException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
+import okhttp3.MultipartBody
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.IOException
 import javax.inject.Inject
 
@@ -23,7 +26,7 @@ class NetworkInterceptor @Inject constructor(@ApplicationContext private val con
     }
 
     private val isConnected: Boolean
-        private get() {
+        get() {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkInfo = connectivityManager.activeNetworkInfo

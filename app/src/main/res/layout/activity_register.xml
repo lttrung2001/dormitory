@@ -68,12 +68,6 @@
             android:inputType="textPassword"
             android:importantForAutofill="no" />
 
-        <TextView
-            android:id="@+id/error"
-            style="@style/ErrorTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <Button
             android:id="@+id/button_register"
             style="@style/PrimaryButton"

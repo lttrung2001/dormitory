@@ -20,4 +20,12 @@ interface LoginService {
         @Field("username") username: String,
         @Field("password") password: String
     ): Single<Response<String>>
+
+    @FormUrlEncoded
+    @POST("verify-code")
+    fun verifyCode(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("OTP") otp: String
+    ): Single<Response<String>>
 }

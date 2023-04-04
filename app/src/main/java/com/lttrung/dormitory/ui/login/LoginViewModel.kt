@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.database.data.local.room.entities.CurrentUser
 import com.lttrung.dormitory.database.data.network.login.LoginResponseBody
 import com.lttrung.dormitory.exceptions.UnverifiedEmailException
 import com.lttrung.dormitory.utils.Resource
@@ -19,9 +20,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
     private val composite = CompositeDisposable()
-    var loginLiveData: MutableLiveData<Resource<LoginResponseBody>> =
-        MutableLiveData<Resource<LoginResponseBody>>()
-    private val loginObserver: Consumer<LoginResponseBody> by lazy {
+    var loginLiveData: MutableLiveData<Resource<CurrentUser>> =
+        MutableLiveData<Resource<CurrentUser>>()
+    private val loginObserver: Consumer<CurrentUser> by lazy {
         Consumer {
             loginLiveData.postValue(Resource.Success(it))
         }
@@ -35,7 +36,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             loginDisposable =
                 loginUseCase.login(username, password).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(loginObserver) { t: Throwable ->
-                        loginLiveData.postValue(Resource.Error(t))
+                        t.message?.let { loginLiveData.postValue(Resource.Error(t.message!!)) }
                     }
             loginDisposable?.let { composite.add(it) }
         }.start()

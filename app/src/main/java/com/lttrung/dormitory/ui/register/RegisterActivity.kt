@@ -1,11 +1,19 @@
 package com.lttrung.dormitory.ui.register
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.github.razir.progressbutton.attachTextChangeAnimator
+import com.github.razir.progressbutton.bindProgressButton
+import com.github.razir.progressbutton.hideProgress
+import com.github.razir.progressbutton.showProgress
+import com.google.android.material.snackbar.Snackbar
+import com.lttrung.dormitory.R
 import com.lttrung.dormitory.databinding.ActivityRegisterBinding
 import com.lttrung.dormitory.utils.Resource
+import com.lttrung.dormitory.utils.ValidationHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,12 +32,26 @@ class RegisterActivity : AppCompatActivity() {
             when (resource) {
                 is Resource.Loading -> {
                     // Loading
+                    binding.buttonRegister.isClickable = false
+                    binding.buttonRegister.showProgress {
+                        buttonTextRes = R.string.loading
+                        progressColor = Color.WHITE
+                    }
                 }
                 is Resource.Success -> {
                     // Do something
+                    binding.buttonRegister.isClickable = true
+                    binding.buttonRegister.hideProgress(R.string.register)
                 }
                 is Resource.Error -> {
-                    binding.error.text = resource.t.message ?: "Unknown error"
+                    binding.buttonRegister.isClickable = true
+                    binding.buttonRegister.hideProgress(R.string.register)
+                    Snackbar.make(
+                        this,
+                        binding.root,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -41,10 +63,20 @@ class RegisterActivity : AppCompatActivity() {
             val username = binding.identifier.text.trim().toString()
             val password = binding.password.text.trim().toString()
             val confirmPassword = binding.confirmPassword.text.trim().toString()
-            if (password != confirmPassword) {
-                binding.error.text = "Password not matched."
-            } else {
-                binding.error.text = ""
+            val validation = ValidationHelper
+            if (validation.isBlank(username)) {
+                binding.identifier.error = "Username can not be empty."
+            }
+            if (validation.isBlank(password)) {
+                binding.password.error = "Password can not be empty."
+            }
+            if (validation.isBlank(confirmPassword)) {
+                binding.confirmPassword.error = "Confirm password can not be empty."
+            }
+            if (!validation.isPasswordMatched(password, confirmPassword)) {
+                registerViewModel.registerLiveData.postValue(Resource.Error("Password not matched."))
+            }
+            if(!validation.hasError) {
                 registerViewModel.register(username, password)
             }
         }
@@ -54,5 +86,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        bindProgressButton(binding.buttonRegister)
+        binding.buttonRegister.attachTextChangeAnimator()
     }
 }
