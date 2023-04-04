@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.database.data.network.login
+package com.lttrung.dormitory.database.data.network.responses
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

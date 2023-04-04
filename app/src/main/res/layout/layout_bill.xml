@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_corner_16dp"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/room_name"
+        style="@style/PrimaryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room 4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_usage"
+        style="@style/PrimaryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usage:"
+        app:layout_constraintBottom_toBottomOf="@+id/usage"
+        app:layout_constraintLeft_toLeftOf="@id/room_name"
+        app:layout_constraintTop_toTopOf="@+id/usage" />
+
+    <TextView
+        android:id="@+id/title_cost"
+        style="@style/PrimaryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cost:"
+        app:layout_constraintBottom_toTopOf="@+id/total_cost"
+        app:layout_constraintLeft_toLeftOf="@id/title_usage"
+        app:layout_constraintTop_toBottomOf="@+id/usage" />
+
+    <TextView
+        android:id="@+id/title_total_cost"
+        style="@style/PrimaryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total cost:"
+        app:layout_constraintBottom_toTopOf="@+id/status"
+        app:layout_constraintLeft_toLeftOf="@id/title_cost"
+        app:layout_constraintTop_toBottomOf="@+id/cost" />
+
+    <TextView
+        android:id="@+id/title_status"
+        style="@style/PrimaryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status:"
+        app:layout_constraintBottom_toBottomOf="@+id/status"
+        app:layout_constraintLeft_toLeftOf="@id/title_total_cost"
+        app:layout_constraintTop_toBottomOf="@+id/total_cost" />
+
+    <TextView
+        android:id="@+id/time"
+        style="@style/PrimaryTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Feb 2023"
+        android:textAlignment="textEnd"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/room_name"
+        app:layout_constraintTop_toTopOf="@+id/room_name" />
+
+    <TextView
+        android:id="@+id/usage"
+        style="@style/PrimaryBillTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="100kWh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_usage"
+        app:layout_constraintTop_toBottomOf="@id/time" />
+
+    <TextView
+        android:id="@+id/cost"
+        style="@style/PrimaryBillTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="4000đ / kWh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_cost"
+        app:layout_constraintTop_toBottomOf="@id/usage" />
+
+    <TextView
+        android:id="@+id/total_cost"
+        style="@style/PrimaryBillTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="400.000 đ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_total_cost"
+        app:layout_constraintTop_toBottomOf="@id/cost" />
+
+    <TextView
+        android:id="@+id/status"
+        style="@style/PrimaryBillTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Paid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_status"
+        app:layout_constraintTop_toBottomOf="@id/total_cost" />
+</androidx.constraintlayout.widget.ConstraintLayout>

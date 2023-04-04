@@ -18,7 +18,7 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/login_page_image"
             android:scaleType="centerCrop"
-            android:src="@drawable/demo" />
+            android:src="@drawable/img_register" />
 
         <TextView
             style="@style/PrimaryTextView"

@@ -10,4 +10,6 @@
     <color name="primary_text_color">#34495e</color>
     <color name="primary_edit_text_background">#ecf0f1</color>
     <color name="primary_color">#2980b9</color>
+    <color name="success_color">#1bc47d</color>
+    <color name="error_color">#ff3333</color>
 </resources>

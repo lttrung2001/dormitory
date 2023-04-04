@@ -1,11 +1,10 @@
-package com.lttrung.dormitory.database.data.local.login
+package com.lttrung.dormitory.database.data.local.impl
 
 import android.content.SharedPreferences
+import com.lttrung.dormitory.database.data.local.LoginLocal
 import com.lttrung.dormitory.database.data.local.room.dao.CurrentUserDao
 import com.lttrung.dormitory.database.data.local.room.entities.CurrentUser
-import com.lttrung.dormitory.database.data.network.login.LoginResponseBody
 import com.lttrung.dormitory.utils.AppConstants
-import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class LoginLocalImpl @Inject constructor(

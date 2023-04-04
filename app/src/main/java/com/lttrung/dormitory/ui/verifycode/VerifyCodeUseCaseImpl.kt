@@ -1,6 +1,6 @@
 package com.lttrung.dormitory.ui.verifycode
 
-import com.lttrung.dormitory.database.repositories.login.LoginRepositories
+import com.lttrung.dormitory.database.repositories.LoginRepositories
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

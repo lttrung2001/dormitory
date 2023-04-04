@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(this, R.id.nav_host_fragment_activity_main)
         setupActionBarWithNavController(this, navController, appBarConfiguration)
         setupWithNavController(binding!!.navView, navController)
+        // Hide action bar
+        supportActionBar?.hide()
 
         startActivity(Intent(this, LoginActivity::class.java))
     }

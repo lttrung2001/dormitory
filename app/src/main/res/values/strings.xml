@@ -30,4 +30,7 @@
     <string name="outstanding_rooms">Outstanding rooms</string>
     <string name="outstanding_room_image">Outstanding room image</string>
     <string name="room_type">Room type</string>
+    <string name="log_out">Log out</string>
+    <string name="change_password">Change password</string>
+    <string name="edit_profile">Edit profile</string>
 </resources>

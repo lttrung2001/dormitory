@@ -1,9 +1,8 @@
-package com.lttrung.dormitory.database.repositories.login
+package com.lttrung.dormitory.database.repositories
 
-import com.lttrung.dormitory.database.data.local.login.LoginLocal
+import com.lttrung.dormitory.database.data.local.LoginLocal
 import com.lttrung.dormitory.database.data.local.room.entities.CurrentUser
-import com.lttrung.dormitory.database.data.network.login.LoginNetwork
-import com.lttrung.dormitory.database.data.network.login.LoginResponseBody
+import com.lttrung.dormitory.database.data.network.LoginNetwork
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Singleton

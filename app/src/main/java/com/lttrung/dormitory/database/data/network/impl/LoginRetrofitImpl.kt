@@ -1,7 +1,9 @@
-package com.lttrung.dormitory.database.data.network.login
+package com.lttrung.dormitory.database.data.network.impl
 
+import com.lttrung.dormitory.database.data.network.LoginNetwork
+import com.lttrung.dormitory.database.data.network.responses.LoginResponseBody
+import com.lttrung.dormitory.database.data.network.services.LoginService
 import com.lttrung.dormitory.exceptions.FailedException
-import com.lttrung.dormitory.exceptions.NoInternetException
 import com.lttrung.dormitory.exceptions.UnverifiedEmailException
 import com.lttrung.dormitory.utils.HttpStatusCodes
 import io.reactivex.rxjava3.core.Completable

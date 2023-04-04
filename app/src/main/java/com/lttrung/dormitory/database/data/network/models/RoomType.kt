@@ -1,3 +1,12 @@
 package com.lttrung.dormitory.database.data.network.models
 
-data class RoomType (val id: Int, val name: String, val image: String)
+import com.google.gson.annotations.SerializedName
+
+data class RoomType (
+    @SerializedName("id") val id: Int,
+    @SerializedName("tenLoai") val name: String,
+    @SerializedName("soGiuong") val numOfBeds: Int,
+    @SerializedName("giaPhong") val cost: Double,
+    @SerializedName("description") val description: String,
+    @SerializedName("image") val image: String
+    )
