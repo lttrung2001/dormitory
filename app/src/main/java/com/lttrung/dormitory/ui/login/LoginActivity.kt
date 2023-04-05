@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.lttrung.dormitory.R
 import com.lttrung.dormitory.databinding.ActivityLoginBinding
 import com.lttrung.dormitory.exceptions.UnverifiedEmailException
+import com.lttrung.dormitory.ui.forgotpassword.ForgotPasswordActivity
 import com.lttrung.dormitory.ui.main.MainActivity
 import com.lttrung.dormitory.ui.register.RegisterActivity
 import com.lttrung.dormitory.ui.verifycode.VerifyCodeActivity
@@ -88,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener {
             val username = binding.identifier.text.toString()
             val password = binding.password.text.toString()
-            val validation = ValidationHelper
+            val validation = ValidationHelper()
             if (validation.isBlank(username)) {
                 binding.identifier.error = "Username can not be empty."
             }
@@ -99,8 +100,12 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username, password)
             }
         }
-        binding.buttonSignUp.setOnClickListener {
+        binding.buttonRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
+        binding.buttonForgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
     }
 

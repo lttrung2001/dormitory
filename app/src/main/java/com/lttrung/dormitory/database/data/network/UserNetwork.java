@@ -11,5 +11,4 @@ import io.reactivex.rxjava3.core.Single;
 public interface UserNetwork {
     Single<Type> fetchProfile();
     Completable changePassword();
-    Completable editProfile();
 }

@@ -7,31 +7,31 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.lttrung.dormitory.database.data.network.models.WaterBill
+import com.lttrung.dormitory.database.data.network.models.ElectricBill
 import com.lttrung.dormitory.databinding.LayoutBillBinding
 import java.util.*
 
-class ElectricBillAdapter : ListAdapter<WaterBill, ElectricBillAdapter.ElectricBillViewHolder>(ITEM_CALLBACK) {
-    class ElectricBillViewHolder(private val binding: LayoutBillBinding) : ViewHolder(binding.root) {
+class ElectricBillAdapter :
+    ListAdapter<ElectricBill, ElectricBillAdapter.ElectricBillViewHolder>(ITEM_CALLBACK) {
+    class ElectricBillViewHolder(private val binding: LayoutBillBinding) :
+        ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(waterBill: WaterBill) {
-            val waterCostByMonth = waterBill.waterCostByMonth
-            val calendar = Calendar.getInstance().also {
-                it.set(waterCostByMonth.year, waterCostByMonth.month, 1)
-                return@also
-            }
-            binding.roomName.text = waterBill.roomId.toString()
-            binding.time.text = "${calendar.get(Calendar.MONTH)} ${calendar.get(Calendar.YEAR)}"
-            binding.usage.text = "${waterBill.waterUsage} kWh"
-            binding.cost.text = "${waterCostByMonth.cost}đ / kWh"
-            binding.totalCost.text = "${waterBill.totalCost}đ"
-            binding.status.setTextColor(if (waterBill.status) {
-                binding.status.text = "Paid"
-                Color.GREEN
-            } else {
-                binding.status.text = "Unpaid"
-                Color.RED
-            })
+        fun bind(electricBill: ElectricBill) {
+            val electricCostByMonth = electricBill.electricCostByMonth
+            binding.roomName.text = electricBill.roomId.toString()
+            binding.time.text = "${electricCostByMonth.month} ${electricCostByMonth.year} "
+            binding.usage.text = "${electricBill.waterUsage} kWh"
+            binding.cost.text = "${electricCostByMonth.cost}đ / kWh"
+            binding.totalCost.text = "${electricBill.totalCost}đ"
+            binding.status.setTextColor(
+                if (electricBill.status) {
+                    binding.status.text = "Paid"
+                    Color.GREEN
+                } else {
+                    binding.status.text = "Unpaid"
+                    Color.RED
+                }
+            )
         }
     }
 
@@ -45,12 +45,12 @@ class ElectricBillAdapter : ListAdapter<WaterBill, ElectricBillAdapter.ElectricB
     }
 
     companion object {
-        private val ITEM_CALLBACK = object : ItemCallback<WaterBill>() {
-            override fun areItemsTheSame(oldItem: WaterBill, newItem: WaterBill): Boolean {
+        private val ITEM_CALLBACK = object : ItemCallback<ElectricBill>() {
+            override fun areItemsTheSame(oldItem: ElectricBill, newItem: ElectricBill): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: WaterBill, newItem: WaterBill): Boolean {
+            override fun areContentsTheSame(oldItem: ElectricBill, newItem: ElectricBill): Boolean {
                 return oldItem == newItem
             }
         }

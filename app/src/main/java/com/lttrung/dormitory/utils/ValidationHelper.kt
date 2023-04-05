@@ -1,6 +1,6 @@
 package com.lttrung.dormitory.utils
 
-object ValidationHelper {
+class ValidationHelper {
     var hasError = false
     var numberOfErrors = 0
 

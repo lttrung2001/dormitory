@@ -22,8 +22,8 @@ class WaterBillAdapter : ListAdapter<WaterBill, WaterBillAdapter.WaterBillViewHo
             }
             binding.roomName.text = waterBill.roomId.toString()
             binding.time.text = "${calendar.get(Calendar.MONTH)} ${calendar.get(Calendar.YEAR)}"
-            binding.usage.text = "${waterBill.waterUsage} kWh"
-            binding.cost.text = "${waterCostByMonth.cost}đ / kWh"
+            binding.usage.text = "${waterBill.waterUsage} m3"
+            binding.cost.text = "${waterCostByMonth.cost}đ / m3"
             binding.totalCost.text = "${waterBill.totalCost}đ"
             binding.status.setTextColor(if (waterBill.status) {
                 binding.status.text = "Paid"

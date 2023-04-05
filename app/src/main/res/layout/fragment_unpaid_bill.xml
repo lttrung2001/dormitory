@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.main.home.viewbills.ViewElectricBillFragment">
+    tools:context=".ui.main.home.viewelectricbills.ViewElectricBillsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_bill"

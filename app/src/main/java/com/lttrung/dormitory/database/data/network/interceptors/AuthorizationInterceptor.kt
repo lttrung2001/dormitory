@@ -22,10 +22,13 @@ class AuthorizationInterceptor @Inject constructor(
         val newBuilder = chain.request().newBuilder()
         val accessToken = sharedPreferences.getString(AppConstants.ACCESS_TOKEN, "")
         return if (accessToken.isNullOrEmpty()) {
-            val loginIntent = Intent(applicationContext, LoginActivity::class.java)
-            loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            applicationContext.startActivity(loginIntent)
-            throw RuntimeException("Invalid token")
+//            val loginIntent = Intent(applicationContext, LoginActivity::class.java)
+//            loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            applicationContext.startActivity(loginIntent)
+//            throw RuntimeException("Invalid token")
+
+            // Ignore check access token
+            chain.proceed(newBuilder.build())
         } else {
             val newRequest: Request = newBuilder.addHeader("Authorization", accessToken).build()
             val response = chain.proceed(newRequest)

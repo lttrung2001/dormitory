@@ -58,7 +58,7 @@ class VerifyCodeActivity : AppCompatActivity() {
             val username = intent.getStringExtra(USERNAME) ?: ""
             val password = intent.getStringExtra(PASSWORD) ?: ""
             val otpCode = binding.otpCode.text.trim().toString()
-            val validation = ValidationHelper
+            val validation = ValidationHelper()
             if (validation.isBlank(username) or validation.isBlank(password)) {
                 verifyCodeViewModel.verifyCodeLiveData.postValue(Resource.Error("Username and password can not be empty."))
             } else if (validation.isBlank(otpCode)) {

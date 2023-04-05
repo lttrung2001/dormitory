@@ -13,21 +13,17 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lttrung.dormitory.database.data.network.models.OutstandingRoom
 import com.lttrung.dormitory.database.data.network.models.RoomType
-import com.lttrung.dormitory.database.data.network.models.WaterBill
-import com.lttrung.dormitory.database.data.network.models.WaterCostByMonth
 import com.lttrung.dormitory.databinding.FragmentHomeBinding
 import com.lttrung.dormitory.databinding.LayoutBillTabTitleBinding
 import com.lttrung.dormitory.ui.adapters.BillPagerAdapter
 import com.lttrung.dormitory.ui.adapters.OutstandingRoomAdapter
 import com.lttrung.dormitory.ui.adapters.RoomTypeAdapter
-import com.lttrung.dormitory.ui.adapters.WaterBillAdapter
 import com.lttrung.dormitory.ui.adapters.listeners.RoomTypeListener
 import com.lttrung.dormitory.ui.viewroomtypedetails.ViewRoomTypeDetailsActivity
 import com.lttrung.dormitory.utils.AppConstants.BILL_TAB_TITLES
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -61,30 +57,6 @@ class HomeFragment : Fragment() {
         data.add(OutstandingRoom(1, "Room name 1", "Basic", ""))
         data.add(OutstandingRoom(2, "Room name 2", "High End", ""))
         data.add(OutstandingRoom(3, "Room name 3", "Medium", ""))
-        adapter.submitList(data)
-        return adapter
-    }
-
-    fun createWaterBillAdapter(): WaterBillAdapter {
-        val adapter = WaterBillAdapter()
-        val data = mutableListOf<WaterBill>()
-        for (i in 1..20) {
-            data.add(
-                WaterBill(
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000) % 2 == 0,
-                    WaterCostByMonth(
-                        Random.nextInt(1, 1000),
-                        Random.nextInt(1, 12),
-                        2023,
-                        Random.nextInt(1, 1000).toDouble()
-                    ),
-                    Random.nextInt(1, 1000).toDouble()
-                )
-            )
-        }
         adapter.submitList(data)
         return adapter
     }
@@ -135,15 +107,12 @@ class HomeFragment : Fragment() {
         homeViewModel.roomTypesLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    binding!!.loadType.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    binding!!.loadType.visibility = View.INVISIBLE
                     val roomTypes = resource.data
                     roomTypeAdapter?.submitList(roomTypes)
                 }
                 is Resource.Error -> {
-                    binding!!.loadType.visibility = View.INVISIBLE
                     Snackbar.make(
                         requireContext(),
                         binding!!.root,

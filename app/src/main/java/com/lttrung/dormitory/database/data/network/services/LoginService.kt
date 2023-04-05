@@ -27,6 +27,6 @@ interface LoginService {
     fun verifyCode(
         @Field("username") username: String,
         @Field("password") password: String,
-        @Field("OTP") otp: String
+        @Field("otpCode") otp: String
     ): Single<Response<String>>
 }

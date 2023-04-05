@@ -31,6 +31,6 @@ class MainActivity : AppCompatActivity() {
         // Hide action bar
         supportActionBar?.hide()
 
-        startActivity(Intent(this, LoginActivity::class.java))
+//        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

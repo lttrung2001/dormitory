@@ -6,4 +6,6 @@ import javax.inject.Singleton
 @Singleton
 interface LoginLocal {
     fun login(currentUser: CurrentUser)
+    fun logout()
+    fun changePassword(newPassword: String)
 }
