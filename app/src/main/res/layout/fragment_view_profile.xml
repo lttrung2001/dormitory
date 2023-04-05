@@ -46,7 +46,7 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/bg_corner_16dp"
             android:padding="16dp"
-            android:text="@string/edit_profile"
+            android:text="@string/view_profile"
             app:drawableStartCompat="@drawable/ic_user" />
 
         <TextView

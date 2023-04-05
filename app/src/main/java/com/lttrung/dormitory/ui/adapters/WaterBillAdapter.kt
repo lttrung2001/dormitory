@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.adapters.bill
+package com.lttrung.dormitory.ui.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.lttrung.dormitory.R
 import com.lttrung.dormitory.database.data.network.models.WaterBill
 import com.lttrung.dormitory.databinding.LayoutBillBinding
 import java.util.*
 
-class BillAdapter : ListAdapter<WaterBill, BillAdapter.WaterBillViewHolder>(ITEM_CALLBACK) {
+class WaterBillAdapter : ListAdapter<WaterBill, WaterBillAdapter.WaterBillViewHolder>(ITEM_CALLBACK) {
     class WaterBillViewHolder(private val binding: LayoutBillBinding) : ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(waterBill: WaterBill) {

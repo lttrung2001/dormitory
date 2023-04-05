@@ -8,7 +8,6 @@ import io.reactivex.rxjava3.core.Single;
 
 @Singleton
 public interface RoomRepositories {
-    Single<Type> fetchRoomTypes();
     Single<Type> fetchRooms();
     Single<Type> fetchRoomDetails();
 }

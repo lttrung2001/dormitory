@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.adapters.roomtype
+package com.lttrung.dormitory.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -45,7 +45,6 @@ class OutstandingRoomAdapter :
             ): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }

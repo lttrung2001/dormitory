@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.database.data.network.impl
 
 import com.lttrung.dormitory.database.data.network.LoginNetwork
-import com.lttrung.dormitory.database.data.network.responses.LoginResponseBody
+import com.lttrung.dormitory.database.data.network.models.LoginResponse
 import com.lttrung.dormitory.database.data.network.services.LoginService
 import com.lttrung.dormitory.exceptions.FailedException
 import com.lttrung.dormitory.exceptions.UnverifiedEmailException
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class LoginRetrofitImpl @Inject constructor(
     private val service: LoginService
 ) : LoginNetwork {
-    override fun login(username: String, password: String): Single<LoginResponseBody> {
+    override fun login(username: String, password: String): Single<LoginResponse> {
         return try {
             service.login(username, password)
                 .map { response ->

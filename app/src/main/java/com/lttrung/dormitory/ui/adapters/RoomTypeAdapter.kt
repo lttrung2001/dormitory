@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.adapters.roomtype
+package com.lttrung.dormitory.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.lttrung.dormitory.database.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.LayoutRoomTypeBinding
+import com.lttrung.dormitory.ui.adapters.listeners.RoomTypeListener
 
 
-class RoomTypeAdapter : ListAdapter<RoomType, RoomTypeAdapter.RoomTypeViewHolder>(ITEM_CALLBACK) {
+class RoomTypeAdapter(
+    private val listener: RoomTypeListener
+) : ListAdapter<RoomType, RoomTypeAdapter.RoomTypeViewHolder>(ITEM_CALLBACK) {
     class RoomTypeViewHolder(private val binding: LayoutRoomTypeBinding) : ViewHolder(binding.root) {
-        fun bind(roomType: RoomType) {
+        fun bind(roomType: RoomType, listener: RoomTypeListener) {
             binding.roomTypeName.text = roomType.name
+            binding.root.setOnClickListener { listener.onClick(roomType) }
         }
     }
 
@@ -23,7 +27,7 @@ class RoomTypeAdapter : ListAdapter<RoomType, RoomTypeAdapter.RoomTypeViewHolder
     }
 
     override fun onBindViewHolder(holder: RoomTypeViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), listener)
     }
 
     companion object {

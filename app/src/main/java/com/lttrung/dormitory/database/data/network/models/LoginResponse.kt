@@ -1,9 +1,9 @@
-package com.lttrung.dormitory.database.data.network.responses
+package com.lttrung.dormitory.database.data.network.models
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class LoginResponseBody(
+data class LoginResponse(
     @SerializedName("mssv")
     val studentId: String, @SerializedName("token")
     val token: String, @SerializedName("role")

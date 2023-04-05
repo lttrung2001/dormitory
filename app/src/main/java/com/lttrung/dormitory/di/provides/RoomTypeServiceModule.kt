@@ -1,6 +1,6 @@
 package com.lttrung.dormitory.di.provides
 
-import com.lttrung.dormitory.database.data.network.services.LoginService
+import com.lttrung.dormitory.database.data.network.services.RoomTypeService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,10 +11,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class LoginServiceModule {
+class RoomTypeServiceModule {
     @Provides
     @Singleton
-    fun providesLoginService(@Named("NoTokenRetrofit") retrofit: Retrofit): LoginService {
-        return retrofit.create(LoginService::class.java)
+    fun providesRoomTypeService(@Named("NoTokenRetrofit") retrofit: Retrofit): RoomTypeService {
+        return retrofit.create(RoomTypeService::class.java)
     }
 }

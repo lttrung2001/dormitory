@@ -1,6 +1,6 @@
 package com.lttrung.dormitory.database.data.network.services
 
-import com.lttrung.dormitory.database.data.network.responses.LoginResponseBody
+import com.lttrung.dormitory.database.data.network.models.LoginResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.Field
@@ -13,7 +13,7 @@ interface LoginService {
     fun login(
         @Field("username") username: String?,
         @Field("password") password: String?
-    ): Single<Response<LoginResponseBody>>
+    ): Single<Response<LoginResponse>>
 
     @FormUrlEncoded
     @POST("/sign-up")
