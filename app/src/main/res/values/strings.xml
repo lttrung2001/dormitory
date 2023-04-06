@@ -38,4 +38,10 @@
     <string name="reset_password">Reset password</string>
     <string name="new_password">New password</string>
     <string name="save">Save</string>
+    <string name="room_id">Room ID</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="status">Status</string>
+    <string name="bills">Bills</string>
+    <string name="pay">Pay</string>
 </resources>

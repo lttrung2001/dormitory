@@ -1,5 +1,6 @@
 package com.lttrung.dormitory.ui.main.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
+import com.lttrung.dormitory.database.data.network.models.Contract
 import com.lttrung.dormitory.database.data.network.models.OutstandingRoom
 import com.lttrung.dormitory.database.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.FragmentHomeBinding
@@ -68,6 +70,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel.getRoomTypes()
+        homeViewModel.getUserProfile()
     }
 
     override fun onCreateView(
@@ -92,12 +95,12 @@ class HomeFragment : Fragment() {
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-        binding!!.listOutstandingRoom.let {
-            it.adapter = outstandingRoomAdapter ?: createOutstandingRoomAdapter()
-            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            val snapHelper = PagerSnapHelper()
-            snapHelper.attachToRecyclerView(binding!!.listOutstandingRoom)
-        }
+//        binding!!.listOutstandingRoom.let {
+//            it.adapter = outstandingRoomAdapter ?: createOutstandingRoomAdapter()
+//            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//            val snapHelper = PagerSnapHelper()
+//            snapHelper.attachToRecyclerView(binding!!.listOutstandingRoom)
+//        }
 
         // Setup tab layout with view pager 2
         setupTabLayoutWithViewPager2()
@@ -121,6 +124,52 @@ class HomeFragment : Fragment() {
                     )
                         .show()
                 }
+            }
+        }
+
+        homeViewModel.userProfileLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    val data = resource.data
+                    val userProfile = data.userProfile
+                    val contract = Contract(
+                        data.roomId,
+                        data.applicationDate,
+                        data.startDate,
+                        data.endDate,
+                        data.status
+                    )
+                    bindGreetings(userProfile.fullName)
+                    bindRoomContract(contract)
+                }
+                is Resource.Error -> {
+                    Snackbar.make(
+                        requireContext(),
+                        binding!!.root,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    )
+                        .show()
+                }
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun bindGreetings(fullName: String) {
+        binding!!.greetings.text = "Hey $fullName! Welcome back"
+    }
+
+    private fun bindRoomContract(contract: Contract) {
+        binding!!.roomId.text = contract.roomId.toString()
+        binding!!.startDate.text = contract.startDate.toString()
+        binding!!.endDate.text = contract.endDate.toString()
+        if (!contract.status) {
+            binding!!.buttonPay.visibility = View.VISIBLE
+            binding!!.buttonPay.setOnClickListener {
+                // Show dialog contains banking information
             }
         }
     }

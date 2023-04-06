@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lttrung.dormitory.database.data.network.models.RoomType
+import com.lttrung.dormitory.database.data.network.models.UserProfileResponse
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -40,6 +41,32 @@ class HomeViewModel @Inject constructor(
                     roomTypesLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
                 }
             roomTypesDisposable?.let { composite.add(it) }
+        }.start()
+    }
+
+
+
+
+
+    val userProfileLiveData: MutableLiveData<Resource<UserProfileResponse>> by lazy {
+        MutableLiveData<Resource<UserProfileResponse>>()
+    }
+    private var userProfileDisposable: Disposable? = null
+    private val userProfileObserver: Consumer<UserProfileResponse> by lazy {
+        Consumer {
+            userProfileLiveData.postValue(Resource.Success(it))
+        }
+    }
+
+    fun getUserProfile() {
+        viewModelScope.launch(Dispatchers.IO) {
+            userProfileLiveData.postValue(Resource.Loading())
+            userProfileDisposable?.let { composite.remove(it) }
+            userProfileDisposable = useCase.getUserProfile().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userProfileObserver) { t ->
+                    userProfileLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
+                }
+            userProfileDisposable?.let { composite.add(it) }
         }.start()
     }
 }
