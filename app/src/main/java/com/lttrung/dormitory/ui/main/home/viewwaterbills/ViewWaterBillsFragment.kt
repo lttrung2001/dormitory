@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lttrung.dormitory.database.data.network.models.WaterBill
 import com.lttrung.dormitory.database.data.network.models.WaterCostByMonth
-import com.lttrung.dormitory.databinding.FragmentPaidBillBinding
+import com.lttrung.dormitory.databinding.FragmentWaterBillsBinding
 import com.lttrung.dormitory.ui.adapters.WaterBillAdapter
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 @AndroidEntryPoint
 class ViewWaterBillsFragment : Fragment() {
-    private var binding: FragmentPaidBillBinding? = null
+    private var binding: FragmentWaterBillsBinding? = null
     private val viewWaterBillsViewModel: ViewWaterBillsViewModel by viewModels()
     private val waterBillAdapter: WaterBillAdapter by lazy {
         val adapter = WaterBillAdapter()
@@ -45,7 +45,7 @@ class ViewWaterBillsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentPaidBillBinding.inflate(layoutInflater)
+        binding = FragmentWaterBillsBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(

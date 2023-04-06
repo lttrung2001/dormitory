@@ -116,13 +116,13 @@ class HomeFragment : Fragment() {
                     roomTypeAdapter?.submitList(roomTypes)
                 }
                 is Resource.Error -> {
-                    Snackbar.make(
-                        requireContext(),
-                        binding!!.root,
-                        resource.message,
-                        Snackbar.LENGTH_LONG
-                    )
-                        .show()
+//                    Snackbar.make(
+//                        requireContext(),
+//                        binding!!.linearLayout,
+//                        resource.message,
+//                        Snackbar.LENGTH_LONG
+//                    )
+//                        .show()
                 }
             }
         }
@@ -145,13 +145,13 @@ class HomeFragment : Fragment() {
                     bindRoomContract(contract)
                 }
                 is Resource.Error -> {
-                    Snackbar.make(
-                        requireContext(),
-                        binding!!.root,
-                        resource.message,
-                        Snackbar.LENGTH_LONG
-                    )
-                        .show()
+//                    Snackbar.make(
+//                        requireContext(),
+//                        binding!!.linearLayout,
+//                        resource.message,
+//                        Snackbar.LENGTH_LONG
+//                    )
+//                        .show()
                 }
             }
         }
@@ -196,5 +196,7 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+        roomTypeAdapter = null
+        billPagerAdapter = null
     }
 }
