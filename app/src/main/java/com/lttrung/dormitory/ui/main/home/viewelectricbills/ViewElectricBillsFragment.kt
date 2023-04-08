@@ -78,12 +78,12 @@ class ViewElectricBillsFragment : Fragment() {
                     electricBillAdapter.submitList(electricBills)
                 }
                 is Resource.Error -> {
-                    Snackbar.make(
-                        requireContext(),
-                        binding!!.root,
-                        resource.message,
-                        Snackbar.LENGTH_LONG
-                    ).show()
+//                    Snackbar.make(
+//                        requireContext(),
+//                        binding!!.root,
+//                        resource.message,
+//                        Snackbar.LENGTH_LONG
+//                    ).show()
                 }
             }
         }
