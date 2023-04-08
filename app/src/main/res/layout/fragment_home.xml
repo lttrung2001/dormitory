@@ -7,6 +7,7 @@
     tools:context=".ui.main.home.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -32,19 +33,82 @@
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp">
+            android:background="@drawable/bg_corner_16dp"
+            android:padding="16dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/demo" />
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/title_room_id"
+                style="@style/PrimaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/room_id"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/room_id"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/room_id" />
+
+            <TextView
+                android:id="@+id/title_start_date"
+                style="@style/PrimaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/start_date"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/start_date" />
+
+            <TextView
+                android:id="@+id/title_end_date"
+                style="@style/PrimaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/end"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/end_date"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/end_date" />
+
+            <TextView
+                android:id="@+id/room_id"
+                style="@style/PrimaryBillTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/title_room_id"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/start_date"
+                style="@style/PrimaryBillTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/title_start_date"
+                app:layout_constraintTop_toBottomOf="@id/room_id" />
+
+            <TextView
+                android:id="@+id/end_date"
+                style="@style/PrimaryBillTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/title_end_date"
+                app:layout_constraintTop_toBottomOf="@id/start_date" />
+
+            <Button
+                android:id="@+id/button_pay"
+                style="@style/PrimaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pay"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/end_date" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/title_type"
@@ -65,31 +129,31 @@
             tools:itemCount="1"
             tools:listitem="@layout/layout_room_type" />
 
+        <!--        <TextView-->
+        <!--            style="@style/PrimaryTextView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="32dp"-->
+        <!--            android:layout_marginBottom="8dp"-->
+        <!--            android:text="@string/outstanding_rooms"-->
+        <!--            android:textSize="20sp"-->
+        <!--            android:textStyle="bold" />-->
+
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/list_outstanding_room"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+        <!--            tools:itemCount="1"-->
+        <!--            tools:listitem="@layout/layout_outstanding_room" />-->
+
         <TextView
             style="@style/PrimaryTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/outstanding_rooms"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_outstanding_room"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="1"
-            tools:listitem="@layout/layout_outstanding_room" />
-
-        <TextView
-            style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="8dp"
-            android:text="Bills"
+            android:text="@string/bills"
             android:textSize="20sp"
             android:textStyle="bold" />
 

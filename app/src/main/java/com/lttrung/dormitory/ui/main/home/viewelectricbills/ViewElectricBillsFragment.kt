@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lttrung.dormitory.database.data.network.models.ElectricBill
 import com.lttrung.dormitory.database.data.network.models.ElectricCostByMonth
-import com.lttrung.dormitory.databinding.FragmentUnpaidBillBinding
+import com.lttrung.dormitory.databinding.FragmentElectricBillsBinding
 import com.lttrung.dormitory.ui.adapters.ElectricBillAdapter
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +18,7 @@ import kotlin.random.Random
 
 @AndroidEntryPoint
 class ViewElectricBillsFragment : Fragment() {
-    private var binding: FragmentUnpaidBillBinding? = null
+    private var binding: FragmentElectricBillsBinding? = null
     private val viewElectricBillsViewModel: ViewElectricBillsViewModel by viewModels()
     private val electricBillAdapter: ElectricBillAdapter by lazy {
         val adapter = ElectricBillAdapter()
@@ -44,7 +44,7 @@ class ViewElectricBillsFragment : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentUnpaidBillBinding.inflate(layoutInflater)
+        binding = FragmentElectricBillsBinding.inflate(layoutInflater)
 
         viewElectricBillsViewModel.getElectricBills()
     }
