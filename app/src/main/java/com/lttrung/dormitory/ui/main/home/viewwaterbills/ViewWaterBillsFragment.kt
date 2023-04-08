@@ -72,12 +72,12 @@ class ViewWaterBillsFragment : Fragment() {
                     waterBillAdapter.submitList(waterBills)
                 }
                 is Resource.Error -> {
-                    Snackbar.make(
-                        requireContext(),
-                        binding!!.root,
-                        resource.message,
-                        Snackbar.LENGTH_LONG
-                    ).show()
+//                    Snackbar.make(
+//                        requireContext(),
+//                        binding!!.root,
+//                        resource.message,
+//                        Snackbar.LENGTH_LONG
+//                    ).show()
                 }
             }
         }
