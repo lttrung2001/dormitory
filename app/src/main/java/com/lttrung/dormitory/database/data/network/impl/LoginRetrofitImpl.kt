@@ -27,9 +27,9 @@ class LoginRetrofitImpl @Inject constructor(
                         HttpStatusCodes.UNAUTHORIZED -> throw FailedException("Wrong email, password.")
                         else -> {
                             response.body()?.let {
-                                throw FailedException()
+                                throw FailedException(response.message())
                             }
-                            throw FailedException()
+                            throw FailedException(response.message())
                         }
                     }
                 }

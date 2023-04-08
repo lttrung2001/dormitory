@@ -19,7 +19,7 @@ import javax.inject.Inject
 class ViewElectricBillsViewModel @Inject constructor(
     private val useCase: ViewElectricBillsUseCase
 ) : ViewModel() {
-    val electricBillsLiveData: MutableLiveData<Resource<List<ElectricBill>>> by lazy {
+    internal val electricBillsLiveData: MutableLiveData<Resource<List<ElectricBill>>> by lazy {
         MutableLiveData<Resource<List<ElectricBill>>>()
     }
     private val composite: CompositeDisposable by lazy {
@@ -32,7 +32,7 @@ class ViewElectricBillsViewModel @Inject constructor(
         }
     }
 
-    fun getElectricBills() {
+    internal fun getElectricBills() {
         viewModelScope.launch(Dispatchers.IO) {
             electricBillsLiveData.postValue(Resource.Loading())
             electricBillsDisposable?.let { composite.remove(it) }

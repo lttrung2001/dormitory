@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
     private val composite = CompositeDisposable()
-    var loginLiveData: MutableLiveData<Resource<CurrentUser>> =
+    internal val loginLiveData: MutableLiveData<Resource<CurrentUser>> =
         MutableLiveData<Resource<CurrentUser>>()
     private val loginObserver: Consumer<CurrentUser> by lazy {
         Consumer {
@@ -25,7 +25,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         }
     }
     private var loginDisposable: Disposable? = null
-    fun login(username: String, password: String) {
+    internal fun login(username: String, password: String) {
         // Async
         viewModelScope.launch(Dispatchers.IO) {
             loginLiveData.postValue(Resource.Loading())

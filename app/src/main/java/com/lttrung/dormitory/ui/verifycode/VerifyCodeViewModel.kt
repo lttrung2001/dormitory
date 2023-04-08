@@ -17,7 +17,7 @@ import javax.inject.Inject
 class VerifyCodeViewModel @Inject constructor(
     private val useCase: VerifyCodeUseCase
 ) : ViewModel() {
-    val verifyCodeLiveData: MutableLiveData<Resource<String>> by lazy {
+    internal val verifyCodeLiveData: MutableLiveData<Resource<String>> by lazy {
         MutableLiveData<Resource<String>>()
     }
     private val composite: CompositeDisposable by lazy {
@@ -30,7 +30,7 @@ class VerifyCodeViewModel @Inject constructor(
         }
     }
 
-    fun verifyCode(username: String, password: String, otp: String) {
+    internal fun verifyCode(username: String, password: String, otp: String) {
         viewModelScope.launch(Dispatchers.IO) {
             verifyCodeLiveData.postValue(Resource.Loading())
             verifyCodeDisposable?.let { composite.remove(it) }

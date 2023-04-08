@@ -9,24 +9,28 @@ import retrofit2.http.POST
 
 interface LoginService {
     @FormUrlEncoded
-    @POST("/login")
+    @POST("$PATH/login")
     fun login(
-        @Field("username") username: String?,
-        @Field("password") password: String?
+        @Field("username") username: String,
+        @Field("password") password: String
     ): Single<Response<LoginResponse>>
 
     @FormUrlEncoded
-    @POST("/sign-up")
+    @POST("$PATH/signup")
     fun register(
         @Field("username") username: String,
         @Field("password") password: String
     ): Single<Response<String>>
 
     @FormUrlEncoded
-    @POST("verify-code")
+    @POST("$PATH/two-factor-auth")
     fun verifyCode(
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("otpCode") otp: String
     ): Single<Response<String>>
+
+    companion object {
+        private const val PATH = "api/auth"
+    }
 }

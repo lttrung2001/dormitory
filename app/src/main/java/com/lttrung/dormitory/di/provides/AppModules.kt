@@ -36,7 +36,7 @@ class AppModules {
             context,
             CurrentUserDatabase::class.java,
             RoomUtils.CURRENT_USER_DATABASE_NAME
-        ).addMigrations(CurrentUserDatabase.MIGRATE_1_2).build()
+        ).addMigrations(CurrentUserDatabase.MIGRATE_2_3).build()
     }
 
     @Singleton

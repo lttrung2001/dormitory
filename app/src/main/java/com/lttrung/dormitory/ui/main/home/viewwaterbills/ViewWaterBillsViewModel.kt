@@ -19,7 +19,7 @@ import javax.inject.Inject
 class ViewWaterBillsViewModel @Inject constructor(
     private val useCase: ViewWaterBillsUseCase
 ) : ViewModel() {
-    val waterBillsLiveData: MutableLiveData<Resource<List<WaterBill>>> by lazy {
+    internal val waterBillsLiveData: MutableLiveData<Resource<List<WaterBill>>> by lazy {
         MutableLiveData<Resource<List<WaterBill>>>()
     }
     private val composite: CompositeDisposable by lazy {
@@ -32,7 +32,7 @@ class ViewWaterBillsViewModel @Inject constructor(
         }
     }
 
-    fun getRoomTypes() {
+    internal fun getRoomTypes() {
         viewModelScope.launch(Dispatchers.IO) {
             waterBillsLiveData.postValue(Resource.Loading())
             waterBillsDisposable?.let { composite.remove(it) }

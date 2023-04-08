@@ -15,5 +15,16 @@ abstract class CurrentUserDatabase : RoomDatabase() {
         val MIGRATE_1_2 = Migration(1, 2) {
             it.execSQL("ALTER TABLE CurrentUser ADD COLUMN password TEXT DEFAULT ''")
         }
+        val MIGRATE_2_3 = Migration(2, 3) {
+            it.beginTransaction()
+            it.execSQL("ALTER TABLE CurrentUser ADD COLUMN fullName TEXT DEFAULT ''")
+            it.execSQL("ALTER TABLE CurrentUser ADD COLUMN isMale NUMBER DEFAULT 1")
+            it.execSQL("ALTER TABLE CurrentUser ADD COLUMN dob NUMBER DEFAULT ''")
+            it.execSQL("ALTER TABLE CurrentUser ADD COLUMN email TEXT DEFAULT ''")
+            it.execSQL("ALTER TABLE CurrentUser ADD COLUMN identityCardId TEXT DEFAULT ''")
+            it.execSQL("ALTER TABLE CurrentUser ADD COLUMN phoneNumber TEXT DEFAULT ''")
+            it.setTransactionSuccessful()
+            it.endTransaction()
+        }
     }
 }

@@ -6,6 +6,10 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface RoomTypeService {
-    @GET("/get-room-types")
+    @GET("$PATH/room-type")
     fun fetchRoomTypes(): Single<Response<List<RoomType>>>
+
+    companion object {
+        private const val PATH = "api/student"
+    }
 }

@@ -46,9 +46,10 @@ class HomeFragment : Fragment() {
         }
         val adapter = RoomTypeAdapter(listener)
         val data = mutableListOf<RoomType>()
-        data.add(RoomType(1, "Basic", 1, 400000.0, "No description", ""))
-        data.add(RoomType(1, "Basic", 1, 400000.0, "No description", ""))
-        data.add(RoomType(1, "Basic", 1, 400000.0, "No description", ""))
+        data.add(RoomType(1, "Basic", 12, 400000.0, "No description", ""))
+        data.add(RoomType(2, "Medium", 6, 400000.0, "No description", ""))
+        data.add(RoomType(3, "High End", 4, 400000.0, "No description", ""))
+        data.add(RoomType(4, "Vip Pro No 1", 1, 400000.0, "No description", ""))
         adapter.submitList(data)
         return adapter
     }
@@ -132,17 +133,8 @@ class HomeFragment : Fragment() {
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
-                    val data = resource.data
-                    val userProfile = data.userProfile
-                    val contract = Contract(
-                        data.roomId,
-                        data.applicationDate,
-                        data.startDate,
-                        data.endDate,
-                        data.status
-                    )
+                    val userProfile = resource.data
                     bindGreetings(userProfile.fullName)
-                    bindRoomContract(contract)
                 }
                 is Resource.Error -> {
 //                    Snackbar.make(

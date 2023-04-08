@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lttrung.dormitory.database.data.network.models.RoomType
-import com.lttrung.dormitory.database.data.network.models.UserProfileResponse
+import com.lttrung.dormitory.database.data.network.models.UserProfile
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val useCase: HomeUseCase
 ) : ViewModel() {
-    val roomTypesLiveData: MutableLiveData<Resource<List<RoomType>>> by lazy {
+    internal val roomTypesLiveData: MutableLiveData<Resource<List<RoomType>>> by lazy {
         MutableLiveData<Resource<List<RoomType>>>()
     }
     private val composite: CompositeDisposable by lazy {
@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getRoomTypes() {
+    internal fun getRoomTypes() {
         viewModelScope.launch(Dispatchers.IO) {
             roomTypesLiveData.postValue(Resource.Loading())
             roomTypesDisposable?.let { composite.remove(it) }
@@ -48,17 +48,17 @@ class HomeViewModel @Inject constructor(
 
 
 
-    val userProfileLiveData: MutableLiveData<Resource<UserProfileResponse>> by lazy {
-        MutableLiveData<Resource<UserProfileResponse>>()
+    internal val userProfileLiveData: MutableLiveData<Resource<UserProfile>> by lazy {
+        MutableLiveData<Resource<UserProfile>>()
     }
     private var userProfileDisposable: Disposable? = null
-    private val userProfileObserver: Consumer<UserProfileResponse> by lazy {
+    private val userProfileObserver: Consumer<UserProfile> by lazy {
         Consumer {
             userProfileLiveData.postValue(Resource.Success(it))
         }
     }
 
-    fun getUserProfile() {
+    internal fun getUserProfile() {
         viewModelScope.launch(Dispatchers.IO) {
             userProfileLiveData.postValue(Resource.Loading())
             userProfileDisposable?.let { composite.remove(it) }

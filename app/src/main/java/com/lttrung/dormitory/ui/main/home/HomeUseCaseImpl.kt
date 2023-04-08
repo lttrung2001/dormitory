@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.ui.main.home
 
 import com.lttrung.dormitory.database.data.network.models.RoomType
-import com.lttrung.dormitory.database.data.network.models.UserProfileResponse
+import com.lttrung.dormitory.database.data.network.models.UserProfile
 import com.lttrung.dormitory.database.repositories.RoomTypeRepositories
 import com.lttrung.dormitory.database.repositories.UserRepositories
 import io.reactivex.rxjava3.core.Single
@@ -15,7 +15,7 @@ class HomeUseCaseImpl @Inject constructor(
         return roomTypeRepositories.fetchRoomTypes()
     }
 
-    override fun getUserProfile(): Single<UserProfileResponse> {
+    override fun getUserProfile(): Single<UserProfile> {
         return userRepositories.fetchProfile()
     }
 }
