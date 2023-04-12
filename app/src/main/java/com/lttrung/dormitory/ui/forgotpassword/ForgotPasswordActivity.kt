@@ -1,8 +1,8 @@
 package com.lttrung.dormitory.ui.forgotpassword
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.lttrung.dormitory.databinding.ActivityForgotPasswordBinding
 import com.lttrung.dormitory.ui.verifycode.VerifyCodeActivity
 import dagger.hilt.android.AndroidEntryPoint

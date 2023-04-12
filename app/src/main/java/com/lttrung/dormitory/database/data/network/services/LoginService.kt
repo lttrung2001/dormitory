@@ -30,6 +30,14 @@ interface LoginService {
         @Field("otpCode") otp: String
     ): Single<Response<String>>
 
+    @FormUrlEncoded
+    @POST(PATH)
+    fun forgotPassword(@Field("email") email: String): Single<Response<Unit>>
+
+    @FormUrlEncoded
+    @POST(PATH)
+    fun resetPassword(): Single<Response<Unit>>
+
     companion object {
         private const val PATH = "api/auth"
     }

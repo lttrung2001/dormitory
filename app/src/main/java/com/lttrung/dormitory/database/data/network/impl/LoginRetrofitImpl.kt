@@ -6,7 +6,6 @@ import com.lttrung.dormitory.database.data.network.services.LoginService
 import com.lttrung.dormitory.exceptions.FailedException
 import com.lttrung.dormitory.exceptions.UnverifiedEmailException
 import com.lttrung.dormitory.utils.HttpStatusCodes
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -58,8 +57,13 @@ class LoginRetrofitImpl @Inject constructor(
         }
     }
 
-    override fun forgotPassword(): Completable {
-        return Completable.complete()
+    override fun forgotPassword(email: String): Single<Unit> {
+        return service.forgotPassword(email).map { response ->
+            when (response.code()) {
+                HttpStatusCodes.OK -> response.body()!!
+                else -> throw FailedException(response.message())
+            }
+        }
     }
 
     override fun verifyCode(username: String, password: String, otp: String): Single<String> {
@@ -78,7 +82,12 @@ class LoginRetrofitImpl @Inject constructor(
         }
     }
 
-    override fun resetPassword(): Completable {
-        return Completable.complete()
+    override fun resetPassword(): Single<Unit> {
+        return service.resetPassword().map { response ->
+            when (response.code()) {
+                HttpStatusCodes.OK -> response.body()!!
+                else -> throw FailedException(response.message())
+            }
+        }
     }
 }
