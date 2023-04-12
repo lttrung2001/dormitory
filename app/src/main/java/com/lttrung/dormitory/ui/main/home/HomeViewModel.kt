@@ -43,30 +43,4 @@ class HomeViewModel @Inject constructor(
             roomTypesDisposable?.let { composite.add(it) }
         }.start()
     }
-
-
-
-
-
-    internal val userProfileLiveData: MutableLiveData<Resource<UserProfile>> by lazy {
-        MutableLiveData<Resource<UserProfile>>()
-    }
-    private var userProfileDisposable: Disposable? = null
-    private val userProfileObserver: Consumer<UserProfile> by lazy {
-        Consumer {
-            userProfileLiveData.postValue(Resource.Success(it))
-        }
-    }
-
-    internal fun getUserProfile() {
-        viewModelScope.launch(Dispatchers.IO) {
-            userProfileLiveData.postValue(Resource.Loading())
-            userProfileDisposable?.let { composite.remove(it) }
-            userProfileDisposable = useCase.getUserProfile().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userProfileObserver) { t ->
-                    userProfileLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
-                }
-            userProfileDisposable?.let { composite.add(it) }
-        }.start()
-    }
 }

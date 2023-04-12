@@ -17,7 +17,9 @@ class UserRepositoriesImpl @Inject constructor(
         }
     }
 
-    override fun changePassword(): Single<Unit> {
-        TODO("Not yet implemented")
+    override fun changePassword(oldPassword: String, newPassword: String): Single<Boolean> {
+        return network.changePassword(oldPassword, newPassword).doAfterSuccess {
+            local.changePassword(newPassword)
+        }
     }
 }

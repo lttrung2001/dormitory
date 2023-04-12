@@ -11,6 +11,7 @@ import com.lttrung.dormitory.ui.adapters.RoomAdapter
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class ViewRoomsActivity : AppCompatActivity() {
@@ -47,7 +48,7 @@ class ViewRoomsActivity : AppCompatActivity() {
                     roomAdapter.submitList(rooms)
                 }
                 is Resource.Error -> {
-
+                    // Error
                 }
             }
         }
@@ -61,5 +62,23 @@ class ViewRoomsActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ViewRoomsActivity)
             adapter = roomAdapter
         }
+        roomAdapter.submitList(createSomeRooms())
+    }
+
+    private fun createSomeRooms(): MutableList<Room> {
+        val data = mutableListOf<Room>()
+        for (i in 1 until 20) {
+            data.add(
+                Room(
+                    i,
+                    "Room name $i",
+                    Random.nextInt(1, 1000).toDouble(),
+                    Random.nextInt(1, 10),
+                    "",
+                    "No description"
+                )
+            )
+        }
+        return data
     }
 }

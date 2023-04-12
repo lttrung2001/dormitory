@@ -47,7 +47,7 @@ class VerifyCodeActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     binding.buttonVerify.isClickable = true
                     binding.buttonVerify.hideProgress(R.string.verify)
-                    Snackbar.make(this, binding.root, resource.message, Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(this, binding.linearLayout, resource.message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }

@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
                     binding.buttonRegister.hideProgress(R.string.register)
                     Snackbar.make(
                         this,
-                        binding.root,
+                        binding.linearLayout,
                         resource.message,
                         Snackbar.LENGTH_LONG
                     ).show()

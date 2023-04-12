@@ -71,7 +71,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeViewModel.getRoomTypes()
-        homeViewModel.getUserProfile()
     }
 
     override fun onCreateView(
@@ -115,26 +114,6 @@ class HomeFragment : Fragment() {
                 is Resource.Success -> {
                     val roomTypes = resource.data
                     roomTypeAdapter?.submitList(roomTypes)
-                }
-                is Resource.Error -> {
-//                    Snackbar.make(
-//                        requireContext(),
-//                        binding!!.linearLayout,
-//                        resource.message,
-//                        Snackbar.LENGTH_LONG
-//                    )
-//                        .show()
-                }
-            }
-        }
-
-        homeViewModel.userProfileLiveData.observe(viewLifecycleOwner) { resource ->
-            when (resource) {
-                is Resource.Loading -> {
-                }
-                is Resource.Success -> {
-                    val userProfile = resource.data
-                    bindGreetings(userProfile.fullName)
                 }
                 is Resource.Error -> {
 //                    Snackbar.make(

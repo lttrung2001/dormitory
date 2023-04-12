@@ -11,5 +11,5 @@ interface UserRepositories {
     val local: UserLocal
     val network: UserNetwork
     fun fetchProfile(): Single<UserProfile>
-    fun changePassword(): Single<Unit>
+    fun changePassword(oldPassword: String, newPassword: String): Single<Boolean>
 }

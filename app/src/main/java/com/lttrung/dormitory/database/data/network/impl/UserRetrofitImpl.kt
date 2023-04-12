@@ -20,7 +20,12 @@ class UserRetrofitImpl @Inject constructor(
         }
     }
 
-    override fun changePassword(): Single<Unit> {
-        TODO("Not yet implemented")
+    override fun changePassword(oldPassword: String, newPassword: String): Single<Boolean> {
+        return service.changePassword(oldPassword, newPassword).map { response ->
+            when (response.code()) {
+                HttpStatusCodes.OK -> response.body()!!
+                else -> throw FailedException(response.message())
+            }
+        }
     }
 }
