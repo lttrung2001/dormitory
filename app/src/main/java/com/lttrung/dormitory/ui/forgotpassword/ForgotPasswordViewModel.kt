@@ -1,0 +1,42 @@
+package com.lttrung.dormitory.ui.forgotpassword
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.Consumer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+@HiltViewModel
+class ForgotPasswordViewModel constructor(
+    private val forgotPasswordUseCase: ForgotPasswordUseCase
+) : ViewModel() {
+    private val composite = CompositeDisposable()
+    internal val forgotPasswordLiveData: MutableLiveData<Resource<String>> =
+        MutableLiveData<Resource<String>>()
+    private val forgotPasswordObserver: Consumer<String> by lazy {
+        Consumer {
+            forgotPasswordLiveData.postValue(Resource.Success(it))
+        }
+    }
+    private var forgotPasswordDisposable: Disposable? = null
+    internal fun forgotPassword(username: String) {
+        // Async
+        viewModelScope.launch(Dispatchers.IO) {
+            forgotPasswordLiveData.postValue(Resource.Loading())
+            forgotPasswordDisposable?.let { composite.remove(it) }
+            forgotPasswordDisposable =
+                forgotPasswordUseCase.forgotPassword(username)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(forgotPasswordObserver) { t: Throwable ->
+                        t.message?.let { forgotPasswordLiveData.postValue(Resource.Error(t.message!!)) }
+                    }
+            forgotPasswordDisposable?.let { composite.add(it) }
+        }.start()
+    }
+}

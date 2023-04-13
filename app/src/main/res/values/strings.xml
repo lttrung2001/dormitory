@@ -45,4 +45,6 @@
     <string name="bills">Bills</string>
     <string name="pay">Pay</string>
     <string name="current_password">Current password</string>
+    <string name="number_of_beds">Number of beds</string>
+    <string name="expand">Expand</string>
 </resources>

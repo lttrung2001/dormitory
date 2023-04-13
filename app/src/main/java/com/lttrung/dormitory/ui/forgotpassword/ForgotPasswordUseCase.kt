@@ -5,5 +5,5 @@ import javax.inject.Singleton
 
 @Singleton
 interface ForgotPasswordUseCase {
-    fun forgotPassword(email: String?): Single<Unit>
+    fun forgotPassword(username: String): Single<String>
 }

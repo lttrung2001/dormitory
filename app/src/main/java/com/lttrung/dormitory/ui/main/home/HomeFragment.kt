@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
+import com.lttrung.dormitory.R
 import com.lttrung.dormitory.database.data.network.models.Contract
+import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
 import com.lttrung.dormitory.database.data.network.models.OutstandingRoom
 import com.lttrung.dormitory.database.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.FragmentHomeBinding
@@ -26,6 +26,7 @@ import com.lttrung.dormitory.utils.AppConstants.BILL_TAB_TITLES
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -95,13 +96,6 @@ class HomeFragment : Fragment() {
             it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-//        binding!!.listOutstandingRoom.let {
-//            it.adapter = outstandingRoomAdapter ?: createOutstandingRoomAdapter()
-//            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//            val snapHelper = PagerSnapHelper()
-//            snapHelper.attachToRecyclerView(binding!!.listOutstandingRoom)
-//        }
-
         // Setup tab layout with view pager 2
         setupTabLayoutWithViewPager2()
     }
@@ -126,23 +120,61 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
+        homeViewModel.roomContractLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    val response = resource.data
+                    val userProfile = response.userProfile
+                    bindGreetings(userProfile.fullName)
+                    bindRoomContractData(response)
+                }
+                is Resource.Error -> {
+//                    Snackbar.make(
+//                        requireContext(),
+//                        binding!!.linearLayout,
+//                        resource.message,
+//                        Snackbar.LENGTH_LONG
+//                    )
+//                        .show()
+                }
+            }
+        }
+    }
+
+    private fun bindRoomContractData(response: FetchRoomContractResponse) {
+        val contract = response.contract
+        val roomType = response.roomType
+        binding?.let {
+            it.roomId.text = contract.roomId.toString()
+            it.roomType.text = roomType.name
+            it.roomBeds.text = roomType.numOfBeds.toString()
+            it.startDate.text = response.dateFrom.toString()
+            it.endDate.text = response.dateEnd.toString()
+            it.buttonPay.apply {
+                if (contract.status) {
+                    if (response.dateEnd.before(Date())) {
+                        this.visibility = View.VISIBLE
+                        this.text = getString(R.string.expand)
+                        // Can expand
+                    } else {
+                        this.visibility = View.GONE
+                    }
+                } else {
+                    this.visibility = View.VISIBLE
+                    this.text = getString(R.string.pay)
+                    // Can pay
+                }
+            }
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
     private fun bindGreetings(fullName: String) {
         binding!!.greetings.text = "Hey $fullName! Welcome back"
-    }
-
-    private fun bindRoomContract(contract: Contract) {
-        binding!!.roomId.text = contract.roomId.toString()
-        binding!!.startDate.text = contract.startDate.toString()
-        binding!!.endDate.text = contract.endDate.toString()
-        if (!contract.status) {
-            binding!!.buttonPay.visibility = View.VISIBLE
-            binding!!.buttonPay.setOnClickListener {
-                // Show dialog contains banking information
-            }
-        }
     }
 
     private fun setupListener() {

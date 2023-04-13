@@ -86,7 +86,7 @@ class AppModules {
     @Provides
     @Singleton
     fun providesGson(): Gson {
-        return GsonBuilder().create()
+        return GsonBuilder().setDateFormat("dd/MM/yyyy").create()
     }
 
     @Provides

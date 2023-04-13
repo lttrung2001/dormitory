@@ -8,7 +8,6 @@ import javax.inject.Singleton
 interface LoginNetwork {
     fun login(username: String, password: String): Single<LoginResponse>
     fun register(username: String, password: String): Single<String>
-    fun forgotPassword(email: String): Single<Unit>
+    fun forgotPassword(username: String): Single<String>
     fun verifyCode(username: String, password: String, otp: String): Single<String>
-    fun resetPassword(): Single<Unit>
 }

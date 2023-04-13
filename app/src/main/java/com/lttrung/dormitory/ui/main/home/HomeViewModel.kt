@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.main.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
 import com.lttrung.dormitory.database.data.network.models.RoomType
 import com.lttrung.dormitory.database.data.network.models.UserProfile
 import com.lttrung.dormitory.utils.Resource
@@ -41,6 +42,32 @@ class HomeViewModel @Inject constructor(
                     roomTypesLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
                 }
             roomTypesDisposable?.let { composite.add(it) }
+        }.start()
+    }
+
+
+
+
+
+    internal val roomContractLiveData: MutableLiveData<Resource<FetchRoomContractResponse>> by lazy {
+        MutableLiveData<Resource<FetchRoomContractResponse>>()
+    }
+    private var roomContractDisposable: Disposable? = null
+    private val roomContractObserver: Consumer<FetchRoomContractResponse> by lazy {
+        Consumer {
+            roomContractLiveData.postValue(Resource.Success(it))
+        }
+    }
+
+    internal fun getRoomContract() {
+        viewModelScope.launch(Dispatchers.IO) {
+            roomContractLiveData.postValue(Resource.Loading())
+            roomContractDisposable?.let { composite.remove(it) }
+            roomContractDisposable = useCase.getRoomContract().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(roomContractObserver) { t ->
+                    roomContractLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
+                }
+            roomContractDisposable?.let { composite.add(it) }
         }.start()
     }
 }

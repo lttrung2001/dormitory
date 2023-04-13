@@ -2,6 +2,7 @@ package com.lttrung.dormitory.database.repositories.impl
 
 import com.lttrung.dormitory.database.data.local.UserLocal
 import com.lttrung.dormitory.database.data.network.UserNetwork
+import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
 import com.lttrung.dormitory.database.data.network.models.UserProfile
 import com.lttrung.dormitory.database.repositories.UserRepositories
 import io.reactivex.rxjava3.core.Single
@@ -21,5 +22,9 @@ class UserRepositoriesImpl @Inject constructor(
         return network.changePassword(oldPassword, newPassword).doAfterSuccess {
             local.changePassword(newPassword)
         }
+    }
+
+    override fun getRoomContract(): Single<FetchRoomContractResponse> {
+        return network.getRoomContract()
     }
 }

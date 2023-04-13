@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface LoginService {
@@ -31,12 +32,8 @@ interface LoginService {
     ): Single<Response<String>>
 
     @FormUrlEncoded
-    @POST(PATH)
-    fun forgotPassword(@Field("email") email: String): Single<Response<Unit>>
-
-    @FormUrlEncoded
-    @POST(PATH)
-    fun resetPassword(): Single<Response<Unit>>
+    @GET(PATH)
+    fun forgotPassword(@Field("mssv") username: String): Single<Response<String>>
 
     companion object {
         private const val PATH = "api/auth"

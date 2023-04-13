@@ -57,8 +57,8 @@ class LoginRetrofitImpl @Inject constructor(
         }
     }
 
-    override fun forgotPassword(email: String): Single<Unit> {
-        return service.forgotPassword(email).map { response ->
+    override fun forgotPassword(username: String): Single<String> {
+        return service.forgotPassword(username).map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> response.body()!!
                 else -> throw FailedException(response.message())
@@ -79,15 +79,6 @@ class LoginRetrofitImpl @Inject constructor(
             }
         } catch (ex: Exception) {
             throw ex
-        }
-    }
-
-    override fun resetPassword(): Single<Unit> {
-        return service.resetPassword().map { response ->
-            when (response.code()) {
-                HttpStatusCodes.OK -> response.body()!!
-                else -> throw FailedException(response.message())
-            }
         }
     }
 }
