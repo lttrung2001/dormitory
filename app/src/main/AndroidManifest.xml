@@ -20,16 +20,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SuccessActivity"
+            android:name=".ui.registerroom.RegisterRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SuccessActivity"
             android:exported="false" />
         <activity
             android:name=".ui.changepassword.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.viewrooms.ViewRoomsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.resetpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.forgotpassword.ForgotPasswordActivity"
@@ -50,8 +50,7 @@
             android:theme="@style/Theme.Dormitory.NoActionBar" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

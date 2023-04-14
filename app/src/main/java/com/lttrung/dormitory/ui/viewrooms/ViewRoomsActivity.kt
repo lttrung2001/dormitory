@@ -1,5 +1,6 @@
 package com.lttrung.dormitory.ui.viewrooms
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -8,10 +9,11 @@ import com.lttrung.dormitory.database.data.network.models.Room
 import com.lttrung.dormitory.database.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.ActivityViewRoomsBinding
 import com.lttrung.dormitory.ui.adapters.RoomAdapter
+import com.lttrung.dormitory.ui.registerroom.RegisterRoomActivity
+import com.lttrung.dormitory.utils.AppConstants.ROOM
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class ViewRoomsActivity : AppCompatActivity() {
@@ -21,6 +23,12 @@ class ViewRoomsActivity : AppCompatActivity() {
         RoomAdapter(object : RoomAdapter.ItemListener {
             override fun onClick(room: Room) {
                 // View room details
+                val viewRoomDetailsIntent =
+                    Intent(this@ViewRoomsActivity, RegisterRoomActivity::class.java)
+                val roomType = intent.getSerializableExtra(ROOM_TYPE) as RoomType
+                viewRoomDetailsIntent.putExtra(ROOM_TYPE, roomType)
+                viewRoomDetailsIntent.putExtra(ROOM, room)
+                startActivity(viewRoomDetailsIntent)
             }
         })
     }

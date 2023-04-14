@@ -11,4 +11,8 @@ class ViewProfileUseCaseImpl @Inject constructor(
     override fun getUserProfile(): Single<UserProfile> {
         return userRepositories.fetchProfile()
     }
+
+    override fun logout() {
+        return userRepositories.logout()
+    }
 }

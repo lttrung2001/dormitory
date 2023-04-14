@@ -48,4 +48,5 @@
     <string name="number_of_beds">Number of beds</string>
     <string name="expand">Expand</string>
     <string name="successfully">Successfully</string>
+    <string name="select_room">Select room</string>
 </resources>

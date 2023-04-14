@@ -20,20 +20,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_view_room_type_image"
+            <com.lttrung.dormitory.customs.RoundedImageView
+                android:id="@+id/room_type_image"
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
-                app:cardCornerRadius="32dp"
-                app:cardElevation="0dp">
-
-                <ImageView
-                    android:id="@+id/room_type_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/demo" />
-            </androidx.cardview.widget.CardView>
+                android:scaleType="centerCrop"
+                android:src="@drawable/demo"
+                app:borderColor="@color/primary_edit_text_background"
+                app:borderWidth="40dp"
+                app:radius="16dp" />
 
             <TextView
                 android:id="@+id/room_type_name"
@@ -75,7 +70,7 @@
         style="@style/PrimaryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select room"
+        android:text="@string/select_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

@@ -14,4 +14,6 @@ interface UserRepositories {
     fun fetchProfile(): Single<UserProfile>
     fun changePassword(oldPassword: String, newPassword: String): Single<Boolean>
     fun getRoomContract(): Single<FetchRoomContractResponse>
+    fun registerRoom(roomId: Int): Single<Boolean>
+    fun logout()
 }

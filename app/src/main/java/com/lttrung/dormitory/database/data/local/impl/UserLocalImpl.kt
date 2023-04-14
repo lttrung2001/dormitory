@@ -1,14 +1,17 @@
 package com.lttrung.dormitory.database.data.local.impl
 
+import android.content.SharedPreferences
 import com.lttrung.dormitory.database.data.local.UserLocal
 import com.lttrung.dormitory.database.data.local.room.dao.CurrentUserDao
 import com.lttrung.dormitory.database.data.local.room.entities.CurrentUser
 import com.lttrung.dormitory.database.data.local.room.entities.CurrentUserProfile
 import com.lttrung.dormitory.database.data.network.models.UserProfile
+import com.lttrung.dormitory.utils.AppConstants.ACCESS_TOKEN
 import javax.inject.Inject
 
 class UserLocalImpl @Inject constructor(
     private val currentUserDao: CurrentUserDao,
+    private val sharedPreferences: SharedPreferences
 ) : UserLocal {
     override fun updateUserProfile(userProfile: UserProfile) {
         val currentUser = currentUserDao.currentUser
@@ -36,5 +39,13 @@ class UserLocalImpl @Inject constructor(
 
     override fun getCurrentUser(): CurrentUser? {
         return currentUserDao.currentUser
+    }
+
+    override fun logout() {
+        val currentUser = currentUserDao.currentUser
+        currentUser?.let {
+            currentUserDao.deleteCurrentUser()
+            sharedPreferences.edit().remove(ACCESS_TOKEN).apply()
+        }
     }
 }

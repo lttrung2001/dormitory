@@ -4,25 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginBottom="8dp"
     android:background="@drawable/bg_corner_16dp"
-    android:padding="16dp">
+    android:layout_marginBottom="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view_room_image"
+    <com.lttrung.dormitory.customs.RoundedImageView
+        android:id="@id/room_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/demo"
         android:layout_width="120dp"
+        app:borderColor="@color/primary_edit_text_background"
+        app:borderWidth="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_height="120dp"
-        app:cardCornerRadius="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/room_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/demo" />
-    </androidx.cardview.widget.CardView>
+        app:radius="8dp" />
 
     <TextView
         android:id="@+id/room_id"
@@ -32,8 +27,8 @@
         android:layout_marginTop="8dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/card_view_room_image"
-        app:layout_constraintTop_toTopOf="@+id/card_view_room_image" />
+        app:layout_constraintStart_toEndOf="@+id/room_image"
+        app:layout_constraintTop_toTopOf="@+id/room_image" />
 
     <TextView
         android:id="@+id/room_price"

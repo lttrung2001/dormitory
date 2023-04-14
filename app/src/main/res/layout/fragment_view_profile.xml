@@ -108,6 +108,7 @@
             android:drawableStart="@drawable/ic_key" />
 
         <TextView
+            android:id="@+id/button_logout"
             style="@style/PrimaryTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

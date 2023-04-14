@@ -39,4 +39,13 @@ class UserRetrofitImpl @Inject constructor(
             }
         }
     }
+
+    override fun registerRoom(roomId: Int): Single<Boolean> {
+        return service.registerRoom(roomId).map { response ->
+            when (response.code()) {
+                HttpStatusCodes.OK -> { response.body()!! }
+                else -> throw FailedException(response.message())
+            }
+        }
+    }
 }

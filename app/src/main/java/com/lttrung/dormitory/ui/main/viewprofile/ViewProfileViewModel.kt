@@ -66,4 +66,10 @@ class ViewProfileViewModel @Inject constructor(
             profileDisposable?.let { composite.add(it) }
         }.start()
     }
+
+    fun logout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.logout()
+        }.start()
+    }
 }

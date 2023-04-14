@@ -8,6 +8,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface LoginService {
     @POST("$PATH/signin")
@@ -30,9 +31,8 @@ interface LoginService {
         @Field("otpCode") otp: String
     ): Single<Response<String>>
 
-    @FormUrlEncoded
-    @GET(PATH)
-    fun forgotPassword(@Field("mssv") username: String): Single<Response<String>>
+    @GET("$PATH/forgot-password/{username}")
+    fun forgotPassword(@Path("username") username: String): Single<Response<String>>
 
     companion object {
         private const val PATH = "api/auth"

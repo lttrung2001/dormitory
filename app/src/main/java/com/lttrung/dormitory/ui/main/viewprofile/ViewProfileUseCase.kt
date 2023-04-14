@@ -7,4 +7,5 @@ import javax.inject.Singleton
 @Singleton
 interface ViewProfileUseCase {
     fun getUserProfile(): Single<UserProfile>
+    fun logout()
 }

@@ -29,4 +29,12 @@ class UserRepositoriesImpl @Inject constructor(
             local.updateUserProfile(it.userProfile)
         }
     }
+
+    override fun registerRoom(roomId: Int): Single<Boolean> {
+        return network.registerRoom(roomId)
+    }
+
+    override fun logout() {
+        local.logout()
+    }
 }

@@ -11,4 +11,5 @@ interface UserLocal {
     fun updateUserProfile(userProfile: UserProfile)
     fun changePassword(newPassword: String)
     fun getCurrentUser(): CurrentUser?
+    fun logout()
 }

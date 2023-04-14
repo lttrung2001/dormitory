@@ -10,17 +10,20 @@ import androidx.fragment.app.viewModels
 import com.lttrung.dormitory.database.data.network.models.UserProfile
 import com.lttrung.dormitory.databinding.FragmentViewProfileBinding
 import com.lttrung.dormitory.ui.changepassword.ChangePasswordActivity
+import com.lttrung.dormitory.ui.login.LoginActivity
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ViewProfileFragment : Fragment() {
-    private var binding: FragmentViewProfileBinding? = null
+    private val binding: FragmentViewProfileBinding by lazy {
+        FragmentViewProfileBinding.inflate(layoutInflater)
+    }
     private val viewProfileViewModel: ViewProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewProfileViewModel.profileLiveData.value?:let {
+        viewProfileViewModel.profileLiveData.value ?: let {
             viewProfileViewModel.getProfile()
         }
     }
@@ -29,12 +32,7 @@ class ViewProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentViewProfileBinding.inflate(
-            inflater,
-            container,
-            false
-        )
-        return binding!!.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,8 +42,14 @@ class ViewProfileFragment : Fragment() {
     }
 
     private fun setupListener() {
-        binding!!.buttonChangePassword.setOnClickListener {
+        binding.buttonChangePassword.setOnClickListener {
             startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
+        }
+        binding.buttonLogout.setOnClickListener {
+            viewProfileViewModel.logout()
+            startActivity(Intent(requireContext(), LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
         }
     }
 
@@ -68,7 +72,7 @@ class ViewProfileFragment : Fragment() {
     }
 
     private fun bindData(userProfile: UserProfile) {
-        binding?.let {
+        binding.let {
             it.name.text = userProfile.fullName
             it.username.text = userProfile.username.uppercase()
 
@@ -83,10 +87,5 @@ class ViewProfileFragment : Fragment() {
             it.email.text = userProfile.email
             it.phoneNumber.text = userProfile.phoneNumber
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }
