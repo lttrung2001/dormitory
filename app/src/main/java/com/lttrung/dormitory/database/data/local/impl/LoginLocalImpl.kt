@@ -22,8 +22,10 @@ class LoginLocalImpl @Inject constructor(
     }
 
     override fun changePassword(newPassword: String) {
-        val user = currentUserDao.currentUser.blockingGet()
-        user.password = newPassword
-        currentUserDao.updateCurrentUser(user)
+        val user = currentUserDao.currentUser
+        user?.let {
+            it.password = newPassword
+            currentUserDao.updateCurrentUser(it)
+        }
     }
 }

@@ -62,23 +62,5 @@ class ViewRoomsActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ViewRoomsActivity)
             adapter = roomAdapter
         }
-        roomAdapter.submitList(createSomeRooms())
-    }
-
-    private fun createSomeRooms(): MutableList<Room> {
-        val data = mutableListOf<Room>()
-        for (i in 1 until 20) {
-            data.add(
-                Room(
-                    i,
-                    "Room name $i",
-                    Random.nextInt(1, 1000).toDouble(),
-                    Random.nextInt(1, 10),
-                    "",
-                    "No description"
-                )
-            )
-        }
-        return data
     }
 }

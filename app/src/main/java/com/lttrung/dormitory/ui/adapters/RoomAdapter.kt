@@ -1,11 +1,14 @@
 package com.lttrung.dormitory.ui.adapters
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import coil.load
+import com.lttrung.dormitory.R
 import com.lttrung.dormitory.database.data.network.models.Room
 import com.lttrung.dormitory.databinding.LayoutRoomBinding
 
@@ -42,6 +45,10 @@ class RoomAdapter(private val itemListener: ItemListener) :
         @SuppressLint("SetTextI18n")
         fun bind(room: Room, listener: ItemListener) {
             // Coil
+            binding.roomImage.load(room.image) {
+                crossfade(true)
+                placeholder(R.drawable.demo)
+            }
             binding.roomId.text = room.id.toString()
             binding.roomPrice.text = "${room.price} vnđ"
             binding.roomAvailableBeds.text = "${room.availableBeds} available beds"

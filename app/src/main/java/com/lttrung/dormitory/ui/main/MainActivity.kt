@@ -30,7 +30,5 @@ class MainActivity : AppCompatActivity() {
         setupWithNavController(binding!!.navView, navController)
         // Hide action bar
         supportActionBar?.hide()
-
-//        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

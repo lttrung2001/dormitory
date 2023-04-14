@@ -14,7 +14,7 @@ class LoginRepositoriesImpl @Inject constructor(
     override fun login(username: String, password: String): Single<CurrentUser> {
         return try {
             network.login(username, password).map {
-                CurrentUser(it.studentId, password, it.role, it.token)
+                CurrentUser(it.studentId, password, it.roles, it.token)
             }.doOnSuccess { local.login(it) }
         } catch (ex: Exception) {
             throw ex

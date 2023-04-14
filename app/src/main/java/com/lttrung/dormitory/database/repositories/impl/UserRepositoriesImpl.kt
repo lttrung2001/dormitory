@@ -25,6 +25,8 @@ class UserRepositoriesImpl @Inject constructor(
     }
 
     override fun getRoomContract(): Single<FetchRoomContractResponse> {
-        return network.getRoomContract()
+        return network.getRoomContract().doAfterSuccess {
+            local.updateUserProfile(it.userProfile)
+        }
     }
 }

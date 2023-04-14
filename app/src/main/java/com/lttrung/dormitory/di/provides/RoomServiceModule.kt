@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class RoomServiceModule {
     @Provides
     @Singleton
-    fun providesRoomService(@Named("NoTokenRetrofit") retrofit: Retrofit): RoomService {
+    fun providesRoomService(@Named("TokenRetrofit") retrofit: Retrofit): RoomService {
         return retrofit.create(RoomService::class.java)
     }
 }

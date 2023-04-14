@@ -14,7 +14,8 @@ class LoginRetrofitImpl @Inject constructor(
 ) : LoginNetwork {
     override fun login(username: String, password: String): Single<LoginResponse> {
         return try {
-            service.login(username, password)
+            val body = hashMapOf(Pair("username", username), Pair("password", password))
+            service.login(body)
                 .map { response ->
                     when (response.code()) {
                         // Go to main screen

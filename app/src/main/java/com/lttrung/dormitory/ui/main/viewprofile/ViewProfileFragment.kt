@@ -20,7 +20,9 @@ class ViewProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewProfileViewModel.getProfile()
+        viewProfileViewModel.profileLiveData.value?:let {
+            viewProfileViewModel.getProfile()
+        }
     }
 
     override fun onCreateView(
@@ -67,6 +69,9 @@ class ViewProfileFragment : Fragment() {
 
     private fun bindData(userProfile: UserProfile) {
         binding?.let {
+            it.name.text = userProfile.fullName
+            it.username.text = userProfile.username.uppercase()
+
             it.studentId.text = userProfile.identityCardId
             it.fullName.text = userProfile.fullName
             it.gender.text = if (userProfile.isMale) {

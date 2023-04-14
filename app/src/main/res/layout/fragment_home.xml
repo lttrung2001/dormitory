@@ -213,6 +213,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager_bill"
             android:layout_width="match_parent"
+            android:saveEnabled="false"
             android:layout_height="400dp"
             android:layout_marginTop="8dp" />
 

@@ -1,9 +1,9 @@
 package com.lttrung.dormitory.ui.verifycode
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.github.razir.progressbutton.bindProgressButton
 import com.github.razir.progressbutton.detachTextChangeAnimator
 import com.github.razir.progressbutton.hideProgress
@@ -47,7 +47,7 @@ class VerifyCodeActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     binding.buttonVerify.isClickable = true
                     binding.buttonVerify.hideProgress(R.string.verify)
-                    Snackbar.make(this, binding.linearLayout, resource.message, Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(this, binding.root, resource.message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }

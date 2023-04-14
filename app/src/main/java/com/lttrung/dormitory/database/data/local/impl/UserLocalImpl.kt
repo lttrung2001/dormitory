@@ -11,26 +11,30 @@ class UserLocalImpl @Inject constructor(
     private val currentUserDao: CurrentUserDao,
 ) : UserLocal {
     override fun updateUserProfile(userProfile: UserProfile) {
-        val currentUser = currentUserDao.currentUser.blockingGet()
-        val currentUserProfile = CurrentUserProfile(
-            userProfile.fullName,
-            userProfile.isMale,
-            userProfile.dob.time,
-            userProfile.email,
-            userProfile.identityCardId,
-            userProfile.phoneNumber
-        )
-        currentUser.profile = currentUserProfile
-        currentUserDao.updateCurrentUser(currentUser)
+        val currentUser = currentUserDao.currentUser
+        currentUser?.let {
+            val currentUserProfile = CurrentUserProfile(
+                userProfile.fullName,
+                userProfile.isMale,
+                userProfile.dob.time,
+                userProfile.email,
+                userProfile.identityCardId,
+                userProfile.phoneNumber
+            )
+            currentUser.profile = currentUserProfile
+            currentUserDao.updateCurrentUser(currentUser)
+        }
     }
 
     override fun changePassword(newPassword: String) {
-        val currentUser = currentUserDao.currentUser.blockingGet()
-        currentUser.password = newPassword
-        currentUserDao.updateCurrentUser(currentUser)
+        val currentUser = currentUserDao.currentUser
+        currentUser?.let {
+            it.password = newPassword
+            currentUserDao.updateCurrentUser(it)
+        }
     }
 
-    override fun getCurrentUser(): CurrentUser {
-        return currentUserDao.currentUser.blockingGet()
+    override fun getCurrentUser(): CurrentUser? {
+        return currentUserDao.currentUser
     }
 }

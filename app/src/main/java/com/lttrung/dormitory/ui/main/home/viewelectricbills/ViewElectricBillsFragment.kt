@@ -45,8 +45,9 @@ class ViewElectricBillsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentElectricBillsBinding.inflate(layoutInflater)
-
-        viewElectricBillsViewModel.getElectricBills()
+        viewElectricBillsViewModel.electricBillsLiveData.value?:let {
+            viewElectricBillsViewModel.getElectricBills()
+        }
     }
 
     override fun onCreateView(

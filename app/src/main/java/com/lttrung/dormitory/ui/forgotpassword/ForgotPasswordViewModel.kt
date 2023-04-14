@@ -11,9 +11,10 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.Consumer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class ForgotPasswordViewModel constructor(
+class ForgotPasswordViewModel @Inject constructor(
     private val forgotPasswordUseCase: ForgotPasswordUseCase
 ) : ViewModel() {
     private val composite = CompositeDisposable()

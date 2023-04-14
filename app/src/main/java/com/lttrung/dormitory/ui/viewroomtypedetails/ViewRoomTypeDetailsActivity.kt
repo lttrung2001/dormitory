@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
+import com.lttrung.dormitory.R
 import com.lttrung.dormitory.database.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.ActivityViewRoomTypeDetailsBinding
 import com.lttrung.dormitory.ui.viewrooms.ViewRoomsActivity
@@ -44,7 +46,10 @@ class ViewRoomTypeDetailsActivity : AppCompatActivity() {
     private fun bindData() {
         val roomType = intent.getSerializableExtra(ROOM_TYPE) as RoomType
         // Replace by coil
-//        binding.roomTypeImage.setImageURI(Uri.parse(roomType.image))
+        binding.roomTypeImage.load(roomType.image) {
+            crossfade(true)
+            placeholder(R.drawable.demo)
+        }
         binding.roomTypeName.text = roomType.name
         binding.roomTypeCost.text = "${roomType.cost} vnđ / month"
         binding.roomTypeBeds.text = "${roomType.numOfBeds} beds"

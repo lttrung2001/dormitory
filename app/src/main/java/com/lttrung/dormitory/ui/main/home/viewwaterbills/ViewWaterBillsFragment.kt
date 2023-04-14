@@ -46,6 +46,9 @@ class ViewWaterBillsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentWaterBillsBinding.inflate(layoutInflater)
+        viewWaterBillsViewModel.waterBillsLiveData.value?:let {
+            viewWaterBillsViewModel.getWaterBills()
+        }
     }
 
     override fun onCreateView(

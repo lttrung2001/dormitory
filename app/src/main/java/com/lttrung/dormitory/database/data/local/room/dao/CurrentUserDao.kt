@@ -2,7 +2,6 @@ package com.lttrung.dormitory.database.data.local.room.dao
 
 import androidx.room.*
 import com.lttrung.dormitory.database.data.local.room.entities.CurrentUser
-import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface CurrentUserDao {
@@ -16,5 +15,5 @@ interface CurrentUserDao {
     fun deleteCurrentUser(): Int
 
     @get:Query("SELECT * FROM CurrentUser LIMIT 1")
-    val currentUser: Single<CurrentUser>
+    val currentUser: CurrentUser?
 }

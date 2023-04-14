@@ -38,18 +38,23 @@ class ViewProfileViewModel @Inject constructor(
     internal fun getProfile() {
         viewModelScope.launch(Dispatchers.IO) {
             val currentUser = userLocal.getCurrentUser()
-            val profile = currentUser.profile
-            val userProfile =
-                UserProfile(
-                    currentUser.studentId,
-                    profile!!.fullName,
-                    profile.isMale,
-                    Date(profile.dob),
-                    profile.email,
-                    profile.identityCardId,
-                    profile.phoneNumber
-                )
-            profileLiveData.postValue(Resource.Loading(userProfile))
+            var data: UserProfile? = null
+            currentUser?.let {
+                val profile = currentUser.profile
+                profile?.let {
+                    data =
+                        UserProfile(
+                            currentUser.studentId,
+                            profile.fullName,
+                            profile.isMale,
+                            Date(profile.dob),
+                            profile.email,
+                            profile.identityCardId,
+                            profile.phoneNumber
+                        )
+                }
+            }
+            profileLiveData.postValue(Resource.Loading(data))
             profileDisposable?.let { composite.remove(it) }
             profileDisposable = useCase.getUserProfile().observeOn(AndroidSchedulers.mainThread())
                 .subscribe(profileObserver) { t ->

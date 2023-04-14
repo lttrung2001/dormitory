@@ -56,7 +56,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     binding.buttonChangePassword.isClickable = true
                     binding.buttonChangePassword.hideProgress(R.string.change_password)
-                    Snackbar.make(this, binding.linearLayout, resource.message, Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(this, binding.root, resource.message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
@@ -80,7 +80,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             if (!helper.isPasswordMatched(newPassword, confirmPassword)) {
                 Snackbar.make(
                     this@ChangePasswordActivity,
-                    binding.linearLayout,
+                    binding.root,
                     "Password not matched.",
                     Snackbar.LENGTH_LONG
                 ).show()

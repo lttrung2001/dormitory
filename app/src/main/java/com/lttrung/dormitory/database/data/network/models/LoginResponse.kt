@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class LoginResponse(
-    @SerializedName("mssv")
-    val studentId: String, @SerializedName("token")
-    val token: String, @SerializedName("role")
-    val role: String
+    @SerializedName("username") val studentId: String,
+    @SerializedName("token") val token: String,
+    @SerializedName("roles") val roles: List<String>
 ) : Serializable

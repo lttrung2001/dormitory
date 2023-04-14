@@ -32,7 +32,7 @@ class ViewWaterBillsViewModel @Inject constructor(
         }
     }
 
-    internal fun getRoomTypes() {
+    internal fun getWaterBills() {
         viewModelScope.launch(Dispatchers.IO) {
             waterBillsLiveData.postValue(Resource.Loading())
             waterBillsDisposable?.let { composite.remove(it) }
