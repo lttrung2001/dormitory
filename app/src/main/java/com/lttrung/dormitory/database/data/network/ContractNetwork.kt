@@ -1,14 +1,13 @@
-package com.lttrung.dormitory.ui.main.home
+package com.lttrung.dormitory.database.data.network
 
 import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
-import com.lttrung.dormitory.database.data.network.models.RoomType
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Singleton
 
 @Singleton
-interface HomeUseCase {
-    fun getRoomTypes(): Single<List<RoomType>>
+interface ContractNetwork {
     fun getRoomContract(): Single<FetchRoomContractResponse>
+    fun registerRoom(roomId: Int): Single<Boolean>
     fun cancelContract(): Single<String>
     fun extendRoom(): Single<Boolean>
 }

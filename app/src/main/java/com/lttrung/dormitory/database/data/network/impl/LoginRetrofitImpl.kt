@@ -14,7 +14,9 @@ class LoginRetrofitImpl @Inject constructor(
 ) : LoginNetwork {
     override fun login(username: String, password: String): Single<LoginResponse> {
         return try {
-            val body = hashMapOf(Pair("username", username), Pair("password", password))
+            val body = hashMapOf<String, String>()
+            body["username"] = username
+            body["password"] = password
             service.login(body)
                 .map { response ->
                     when (response.code()) {
@@ -40,16 +42,20 @@ class LoginRetrofitImpl @Inject constructor(
 
     override fun register(username: String, password: String): Single<String> {
         return try {
-            service.register(username, password).map { response ->
+            val body = hashMapOf<String, String>()
+            body["username"] = username
+            body["password"] = password
+            service.register(body).map { response ->
                 when (response.code()) {
                     HttpStatusCodes.OK -> {
                         response.body()!!
                     }
+                    HttpStatusCodes.METHOD_NOT_ALLOWED -> {
+                        throw FailedException("Student doesn't exist or account already exists.")
+                    }
+                    // HttpStatusCodes.BAD_REQUEST
                     else -> {
-                        response.body()?.let {
-                            throw FailedException(it)
-                        }
-                        throw FailedException()
+                        throw FailedException("Send email to verify account failed.")
                     }
                 }
             }
@@ -62,19 +68,22 @@ class LoginRetrofitImpl @Inject constructor(
         return service.forgotPassword(username).map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> response.body()!!
-                else -> throw FailedException(response.message())
+                else -> throw FailedException("Invalid student ID or account not registered.")
             }
         }
     }
 
     override fun verifyCode(username: String, password: String, otp: String): Single<String> {
         return try {
-            service.verifyCode(username, password, otp).map { response ->
+            val body = hashMapOf<String, String>()
+            body["username"] = username
+            body["password"] = password
+            body["otpCode"] = otp
+            service.verifyCode(body).map { response ->
                 when (response.code()) {
                     HttpStatusCodes.OK -> response.body()!!
                     else -> {
-                        response.body()?.let { throw FailedException(it) }
-                        throw FailedException()
+                        throw FailedException("OTP expired or incorrect.")
                     }
                 }
             }

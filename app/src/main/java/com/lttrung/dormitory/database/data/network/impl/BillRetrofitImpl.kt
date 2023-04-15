@@ -21,7 +21,7 @@ class BillRetrofitImpl @Inject constructor(
         return service.fetchElectricBills().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> { response.body()!! }
-                else -> { throw FailedException(response.message()) }
+                else -> { throw FailedException("Get electric bills failed.") }
             }
         }
     }
@@ -30,7 +30,7 @@ class BillRetrofitImpl @Inject constructor(
         return service.fetchWaterBills().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> { response.body()!! }
-                else -> { throw FailedException(response.message()) }
+                else -> { throw FailedException("Get water bills failed.") }
             }
         }
     }

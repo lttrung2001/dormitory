@@ -18,7 +18,9 @@ import kotlin.random.Random
 
 @AndroidEntryPoint
 class ViewElectricBillsFragment : Fragment() {
-    private var binding: FragmentElectricBillsBinding? = null
+    private val binding: FragmentElectricBillsBinding by lazy {
+        FragmentElectricBillsBinding.inflate(layoutInflater)
+    }
     private val viewElectricBillsViewModel: ViewElectricBillsViewModel by viewModels()
     private val electricBillAdapter: ElectricBillAdapter by lazy {
         val adapter = ElectricBillAdapter()
@@ -44,8 +46,7 @@ class ViewElectricBillsFragment : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentElectricBillsBinding.inflate(layoutInflater)
-        viewElectricBillsViewModel.electricBillsLiveData.value?:let {
+        if (viewElectricBillsViewModel.electricBillsLiveData.value !is Resource.Success) {
             viewElectricBillsViewModel.getElectricBills()
         }
     }
@@ -55,7 +56,7 @@ class ViewElectricBillsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        return binding!!.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,12 +80,12 @@ class ViewElectricBillsFragment : Fragment() {
                     electricBillAdapter.submitList(electricBills)
                 }
                 is Resource.Error -> {
-//                    Snackbar.make(
-//                        requireContext(),
-//                        binding!!.root,
-//                        resource.message,
-//                        Snackbar.LENGTH_LONG
-//                    ).show()
+                    Snackbar.make(
+                        requireContext(),
+                        binding.root,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -95,7 +96,7 @@ class ViewElectricBillsFragment : Fragment() {
     }
 
     private fun setupView() {
-        binding!!.listBill.let {
+        binding.listBill.let {
             it.adapter = electricBillAdapter
             it.layoutManager = LinearLayoutManager(context)
         }

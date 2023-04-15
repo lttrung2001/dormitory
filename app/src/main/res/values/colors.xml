@@ -12,4 +12,5 @@
     <color name="primary_color">#2980b9</color>
     <color name="success_color">#1bc47d</color>
     <color name="error_color">#ff3333</color>
+    <color name="cancel_color">#ED6165</color>
 </resources>

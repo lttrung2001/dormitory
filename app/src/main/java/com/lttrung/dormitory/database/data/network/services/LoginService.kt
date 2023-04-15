@@ -4,8 +4,6 @@ import com.lttrung.dormitory.database.data.network.models.LoginResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -16,19 +14,14 @@ interface LoginService {
         @Body body: Map<String, String>
     ): Single<Response<LoginResponse>>
 
-    @FormUrlEncoded
     @POST("$PATH/signup")
     fun register(
-        @Field("username") username: String,
-        @Field("password") password: String
+        @Body body: Map<String, String>
     ): Single<Response<String>>
 
-    @FormUrlEncoded
     @POST("$PATH/two-factor-auth")
     fun verifyCode(
-        @Field("username") username: String,
-        @Field("password") password: String,
-        @Field("otpCode") otp: String
+        @Body body: Map<String, String>
     ): Single<Response<String>>
 
     @GET("$PATH/forgot-password/{username}")

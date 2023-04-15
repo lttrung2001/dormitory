@@ -1,7 +1,6 @@
 package com.lttrung.dormitory.database.data.network.impl
 
 import com.lttrung.dormitory.database.data.network.UserNetwork
-import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
 import com.lttrung.dormitory.database.data.network.models.UserProfile
 import com.lttrung.dormitory.database.data.network.services.UserService
 import com.lttrung.dormitory.exceptions.FailedException
@@ -16,7 +15,7 @@ class UserRetrofitImpl @Inject constructor(
         return service.fetchUserProfile().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> response.body()!!
-                else -> throw FailedException(response.message())
+                else -> throw FailedException("Can not get profile.")
             }
         }
     }
@@ -26,25 +25,7 @@ class UserRetrofitImpl @Inject constructor(
         return service.changePassword(body).map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> response.body()!!
-                else -> throw FailedException(response.message())
-            }
-        }
-    }
-
-    override fun getRoomContract(): Single<FetchRoomContractResponse> {
-        return service.fetchRoomContract().map { response ->
-            when (response.code()) {
-                HttpStatusCodes.OK -> { response.body()!! }
-                else -> throw FailedException(response.message())
-            }
-        }
-    }
-
-    override fun registerRoom(roomId: Int): Single<Boolean> {
-        return service.registerRoom(roomId).map { response ->
-            when (response.code()) {
-                HttpStatusCodes.OK -> { response.body()!! }
-                else -> throw FailedException(response.message())
+                else -> throw FailedException("Can not change password.")
             }
         }
     }

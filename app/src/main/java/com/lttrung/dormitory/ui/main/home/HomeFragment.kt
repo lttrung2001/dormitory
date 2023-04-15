@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lttrung.dormitory.R
 import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
@@ -23,9 +23,9 @@ import com.lttrung.dormitory.ui.login.LoginActivity
 import com.lttrung.dormitory.ui.viewroomtypedetails.ViewRoomTypeDetailsActivity
 import com.lttrung.dormitory.utils.AppConstants.BILL_TAB_TITLES
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
+import com.lttrung.dormitory.utils.ExtensionFunctionHelper.format
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -52,11 +52,11 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeViewModel.roomTypesLiveData.value?:let {
+        if (homeViewModel.roomTypesLiveData.value !is Resource.Success) {
             homeViewModel.getRoomTypes()
         }
 
-        homeViewModel.roomContractLiveData.value?:let {
+        if (homeViewModel.roomContractLiveData.value !is Resource.Success) {
             homeViewModel.getRoomContract()
         }
     }
@@ -89,22 +89,15 @@ class HomeFragment : Fragment() {
         homeViewModel.roomTypesLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
+                    binding.errorRoomTypes.text = ""
                 }
                 is Resource.Success -> {
+                    binding.errorRoomTypes.text = ""
                     val roomTypes = resource.data
                     roomTypeAdapter.submitList(roomTypes)
                 }
                 is Resource.Error -> {
-                    startActivity(Intent(requireContext(), LoginActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    })
-//                    Snackbar.make(
-//                        requireContext(),
-//                        binding!!.linearLayout,
-//                        resource.message,
-//                        Snackbar.LENGTH_LONG
-//                    )
-//                        .show()
+                    binding.errorRoomTypes.text = resource.message
                 }
             }
         }
@@ -112,21 +105,50 @@ class HomeFragment : Fragment() {
         homeViewModel.roomContractLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
+                    binding.errorCurrentRoom.text = ""
                 }
                 is Resource.Success -> {
+                    binding.errorCurrentRoom.text = ""
+
+                    binding.titleCurrentRoom.visibility = View.VISIBLE
+                    binding.currentRoomContainer.visibility = View.VISIBLE
+
                     val response = resource.data
-                    val userProfile = response.userProfile
-                    bindGreetings(userProfile.fullName)
+                    bindGreetings(response.fullName)
                     bindRoomContractData(response)
                 }
                 is Resource.Error -> {
-//                    Snackbar.make(
-//                        requireContext(),
-//                        binding!!.linearLayout,
-//                        resource.message,
-//                        Snackbar.LENGTH_LONG
-//                    )
-//                        .show()
+                    binding.errorCurrentRoom.text = resource.message
+                }
+            }
+        }
+
+        homeViewModel.cancelContractLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    binding.errorCurrentRoom.text = ""
+                }
+                is Resource.Success -> {
+                    // Hide
+                    binding.titleCurrentRoom.visibility = View.GONE
+                    binding.currentRoomContainer.visibility = View.GONE
+                }
+                is Resource.Error -> {
+                    binding.errorCurrentRoom.text = resource.message
+                }
+            }
+        }
+
+        homeViewModel.extendRoomLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    binding.errorCurrentRoom.text = ""
+                }
+                is Resource.Success -> {
+                    homeViewModel.getRoomContract()
+                }
+                is Resource.Error -> {
+                    binding.errorCurrentRoom.text = resource.message
                 }
             }
         }
@@ -134,30 +156,38 @@ class HomeFragment : Fragment() {
 
     private fun bindRoomContractData(response: FetchRoomContractResponse) {
         val contract = response.contract
-        val roomType = response.roomType
         binding.let {
             it.roomId.text = contract.roomId.toString()
-            it.roomType.text = roomType.name
-            it.roomBeds.text = roomType.numOfBeds.toString()
-            it.startDate.text = response.dateFrom.toString()
-            it.endDate.text = response.dateEnd.toString()
-            it.buttonPay.apply {
-                if (contract.status) {
-                    if (response.dateEnd.before(Date())) {
-                        this.visibility = View.VISIBLE
-                        this.text = getString(R.string.expand)
-                        // Can expand
-                    } else {
-                        this.visibility = View.GONE
+            it.roomType.text = response.roomTypeName
+            it.roomBeds.text = "0"
+            it.startDate.text = response.dateFrom.format()
+            it.endDate.text = response.dateEnd.format()
+            if (contract.status) {
+                if (response.dateEnd.before(Date())) {
+                    binding.buttonPay.visibility = View.VISIBLE
+                    binding.buttonPay.text = getString(R.string.expand)
+                    // Can extend
+                    binding.buttonPay.setOnClickListener {
+                        // Extend
+                        homeViewModel.extendRoom()
                     }
                 } else {
-                    this.visibility = View.VISIBLE
-                    this.text = getString(R.string.pay)
-                    // Can pay
+                    binding.buttonPay.visibility = View.GONE
+                    binding.buttonCancel.visibility = View.GONE
+                }
+            } else {
+                binding.buttonPay.visibility = View.VISIBLE
+                binding.buttonCancel.visibility = View.VISIBLE
+                // Can pay or cancel
+                binding.buttonPay.setOnClickListener {
+                    // Pay
+                }
+                binding.buttonCancel.setOnClickListener {
+                    // Cancel
+                    homeViewModel.cancelContract()
                 }
             }
         }
-
     }
 
     @SuppressLint("SetTextI18n")

@@ -70,4 +70,56 @@ class HomeViewModel @Inject constructor(
             roomContractDisposable?.let { composite.add(it) }
         }.start()
     }
+
+
+
+
+
+    internal val cancelContractLiveData: MutableLiveData<Resource<String>> by lazy {
+        MutableLiveData<Resource<String>>()
+    }
+    private var cancelContractDisposable: Disposable? = null
+    private val cancelContractObserver: Consumer<String> by lazy {
+        Consumer {
+            cancelContractLiveData.postValue(Resource.Success(it))
+        }
+    }
+
+    internal fun cancelContract() {
+        viewModelScope.launch(Dispatchers.IO) {
+            cancelContractLiveData.postValue(Resource.Loading())
+            cancelContractDisposable?.let { composite.remove(it) }
+            cancelContractDisposable = useCase.cancelContract().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(cancelContractObserver) { t ->
+                    cancelContractLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
+                }
+            cancelContractDisposable?.let { composite.add(it) }
+        }.start()
+    }
+
+
+
+
+
+    internal val extendRoomLiveData: MutableLiveData<Resource<Boolean>> by lazy {
+        MutableLiveData<Resource<Boolean>>()
+    }
+    private var extendRoomDisposable: Disposable? = null
+    private val extendRoomObserver: Consumer<Boolean> by lazy {
+        Consumer {
+            extendRoomLiveData.postValue(Resource.Success(it))
+        }
+    }
+
+    internal fun extendRoom() {
+        viewModelScope.launch(Dispatchers.IO) {
+            extendRoomLiveData.postValue(Resource.Loading())
+            extendRoomDisposable?.let { composite.remove(it) }
+            extendRoomDisposable = useCase.extendRoom().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(extendRoomObserver) { t ->
+                    extendRoomLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
+                }
+            extendRoomDisposable?.let { composite.add(it) }
+        }.start()
+    }
 }

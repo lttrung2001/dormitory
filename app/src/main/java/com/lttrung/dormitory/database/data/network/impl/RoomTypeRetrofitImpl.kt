@@ -15,7 +15,7 @@ class RoomTypeRetrofitImpl @Inject constructor(
         return service.fetchRoomTypes().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> { response.body()!! }
-                else -> { throw FailedException(response.message()) }
+                else -> { throw FailedException("Can not get room types.") }
             }
         }
     }

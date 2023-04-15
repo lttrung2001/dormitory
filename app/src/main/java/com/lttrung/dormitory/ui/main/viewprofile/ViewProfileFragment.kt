@@ -11,6 +11,7 @@ import com.lttrung.dormitory.database.data.network.models.UserProfile
 import com.lttrung.dormitory.databinding.FragmentViewProfileBinding
 import com.lttrung.dormitory.ui.changepassword.ChangePasswordActivity
 import com.lttrung.dormitory.ui.login.LoginActivity
+import com.lttrung.dormitory.utils.ExtensionFunctionHelper.format
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,7 +84,7 @@ class ViewProfileFragment : Fragment() {
             } else {
                 "Female"
             }
-            it.dob.text = userProfile.dob.toString()
+            it.dob.text = userProfile.dob.format()
             it.email.text = userProfile.email
             it.phoneNumber.text = userProfile.phoneNumber
         }

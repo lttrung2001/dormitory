@@ -17,7 +17,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 @AndroidEntryPoint
 class ViewWaterBillsFragment : Fragment() {
-    private var binding: FragmentWaterBillsBinding? = null
+    private val binding: FragmentWaterBillsBinding by lazy {
+        FragmentWaterBillsBinding.inflate(layoutInflater)
+    }
     private val viewWaterBillsViewModel: ViewWaterBillsViewModel by viewModels()
     private val waterBillAdapter: WaterBillAdapter by lazy {
         val adapter = WaterBillAdapter()
@@ -45,8 +47,7 @@ class ViewWaterBillsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentWaterBillsBinding.inflate(layoutInflater)
-        viewWaterBillsViewModel.waterBillsLiveData.value?:let {
+        if (viewWaterBillsViewModel.waterBillsLiveData.value !is Resource.Success) {
             viewWaterBillsViewModel.getWaterBills()
         }
     }
@@ -61,7 +62,7 @@ class ViewWaterBillsFragment : Fragment() {
         setupListener()
         // Setup observer
         setupObserver()
-        return binding!!.root
+        return binding.root
     }
 
     private fun setupObserver() {
@@ -75,12 +76,12 @@ class ViewWaterBillsFragment : Fragment() {
                     waterBillAdapter.submitList(waterBills)
                 }
                 is Resource.Error -> {
-//                    Snackbar.make(
-//                        requireContext(),
-//                        binding!!.root,
-//                        resource.message,
-//                        Snackbar.LENGTH_LONG
-//                    ).show()
+                    Snackbar.make(
+                        requireContext(),
+                        binding.root,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -91,7 +92,7 @@ class ViewWaterBillsFragment : Fragment() {
     }
 
     private fun setupView() {
-        binding!!.listBill.let {
+        binding.listBill.let {
             it.adapter = waterBillAdapter
             it.layoutManager = LinearLayoutManager(context)
         }

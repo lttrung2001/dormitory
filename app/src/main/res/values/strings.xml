@@ -49,4 +49,7 @@
     <string name="expand">Expand</string>
     <string name="successfully">Successfully</string>
     <string name="select_room">Select room</string>
+    <string name="current_room">Current room</string>
+    <string name="admin_login_page">Admin login page</string>
+    <string name="cancel">Cancel</string>
 </resources>
