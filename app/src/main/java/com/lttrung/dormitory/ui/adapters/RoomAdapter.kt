@@ -1,7 +1,6 @@
 package com.lttrung.dormitory.ui.adapters
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.lttrung.dormitory.R
-import com.lttrung.dormitory.database.data.network.models.Room
+import com.lttrung.dormitory.domain.data.network.models.Room
 import com.lttrung.dormitory.databinding.LayoutRoomBinding
 
 class RoomAdapter(private val itemListener: ItemListener) :

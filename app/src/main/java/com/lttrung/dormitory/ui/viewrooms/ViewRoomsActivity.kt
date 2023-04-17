@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.lttrung.dormitory.database.data.network.models.Room
-import com.lttrung.dormitory.database.data.network.models.RoomType
+import com.lttrung.dormitory.domain.data.network.models.Room
+import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.ActivityViewRoomsBinding
 import com.lttrung.dormitory.ui.adapters.RoomAdapter
 import com.lttrung.dormitory.ui.registerroom.RegisterRoomActivity

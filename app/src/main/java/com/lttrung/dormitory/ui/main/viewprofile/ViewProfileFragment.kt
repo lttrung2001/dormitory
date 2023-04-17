@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.lttrung.dormitory.database.data.network.models.UserProfile
+import com.lttrung.dormitory.domain.data.network.models.UserProfile
 import com.lttrung.dormitory.databinding.FragmentViewProfileBinding
 import com.lttrung.dormitory.ui.changepassword.ChangePasswordActivity
 import com.lttrung.dormitory.ui.login.LoginActivity

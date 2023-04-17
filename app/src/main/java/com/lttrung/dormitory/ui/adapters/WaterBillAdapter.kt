@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.lttrung.dormitory.database.data.network.models.WaterBill
+import com.lttrung.dormitory.domain.data.network.models.WaterBill
 import com.lttrung.dormitory.databinding.LayoutBillBinding
 import java.util.*
 

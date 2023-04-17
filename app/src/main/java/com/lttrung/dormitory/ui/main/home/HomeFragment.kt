@@ -9,20 +9,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lttrung.dormitory.R
-import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
-import com.lttrung.dormitory.database.data.network.models.RoomType
+import com.lttrung.dormitory.domain.data.network.models.FetchRoomContractResponse
+import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.FragmentHomeBinding
 import com.lttrung.dormitory.databinding.LayoutBillTabTitleBinding
 import com.lttrung.dormitory.ui.adapters.BillPagerAdapter
 import com.lttrung.dormitory.ui.adapters.RoomTypeAdapter
 import com.lttrung.dormitory.ui.adapters.listeners.RoomTypeListener
-import com.lttrung.dormitory.ui.login.LoginActivity
 import com.lttrung.dormitory.ui.viewroomtypedetails.ViewRoomTypeDetailsActivity
-import com.lttrung.dormitory.utils.AppConstants.BILL_TAB_TITLES
-import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
+import com.lttrung.dormitory.utils.AppConstants.*
 import com.lttrung.dormitory.utils.ExtensionFunctionHelper.format
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,6 +69,12 @@ class HomeFragment : Fragment() {
         // Setup observer
         setupObserver()
 
+        val roomContractResponse =
+            requireActivity().intent.getSerializableExtra(ROOM_CONTRACT_RESPONSE) as FetchRoomContractResponse?
+        roomContractResponse?.let {
+            bindRoomContractData(it)
+        }
+
         return binding.root
     }
 
@@ -118,7 +121,9 @@ class HomeFragment : Fragment() {
                     bindRoomContractData(response)
                 }
                 is Resource.Error -> {
-                    binding.errorCurrentRoom.text = resource.message
+//                    binding.errorCurrentRoom.text = resource.message
+                    binding.titleCurrentRoom.visibility = View.GONE
+                    binding.currentRoomContainer.visibility = View.GONE
                 }
             }
         }
@@ -129,9 +134,7 @@ class HomeFragment : Fragment() {
                     binding.errorCurrentRoom.text = ""
                 }
                 is Resource.Success -> {
-                    // Hide
-                    binding.titleCurrentRoom.visibility = View.GONE
-                    binding.currentRoomContainer.visibility = View.GONE
+                    homeViewModel.getRoomContract()
                 }
                 is Resource.Error -> {
                     binding.errorCurrentRoom.text = resource.message
@@ -155,6 +158,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindRoomContractData(response: FetchRoomContractResponse) {
+        binding.titleCurrentRoom.visibility = View.VISIBLE
+        binding.currentRoomContainer.visibility = View.VISIBLE
+
         val contract = response.contract
         binding.let {
             it.roomId.text = contract.roomId.toString()

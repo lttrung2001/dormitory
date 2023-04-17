@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.changepassword
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.domain.usecases.ChangePasswordUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -14,12 +15,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChangePasswordViewModel @Inject constructor(private val useCase: ChangePasswordUseCase) :
+class ChangePasswordViewModel @Inject constructor(private val changePasswordUseCase: ChangePasswordUseCase) :
     ViewModel() {
     private val composite = CompositeDisposable()
-    internal val changePasswordLiveData: MutableLiveData<Resource<Boolean>> =
-        MutableLiveData<Resource<Boolean>>()
-    private val changePasswordObserver: Consumer<Boolean> by lazy {
+    internal val changePasswordLiveData: MutableLiveData<Resource<Unit>> =
+        MutableLiveData<Resource<Unit>>()
+    private val changePasswordObserver: Consumer<Unit> by lazy {
         Consumer {
             changePasswordLiveData.postValue(Resource.Success(it))
         }
@@ -31,7 +32,8 @@ class ChangePasswordViewModel @Inject constructor(private val useCase: ChangePas
             changePasswordLiveData.postValue(Resource.Loading())
             changePasswordDisposable?.let { composite.remove(it) }
             changePasswordDisposable =
-                useCase.changePassword(currentPassword, newPassword).observeOn(AndroidSchedulers.mainThread())
+                changePasswordUseCase.execute(currentPassword, newPassword)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(changePasswordObserver) { t: Throwable ->
                         t.message?.let { changePasswordLiveData.postValue(Resource.Error(t.message!!)) }
                     }

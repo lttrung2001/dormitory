@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.domain.usecases.RegisterUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,10 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val useCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
-    internal val registerLiveData: MutableLiveData<Resource<String>> by lazy {
-        MutableLiveData<Resource<String>>()
+    internal val registerLiveData: MutableLiveData<Resource<Unit>> by lazy {
+        MutableLiveData<Resource<Unit>>()
     }
 
     private val composite: CompositeDisposable by lazy {
@@ -27,7 +28,7 @@ class RegisterViewModel @Inject constructor(
 
     private var registerDisposable: Disposable? = null
 
-    private val registerObserver: Consumer<String> by lazy {
+    private val registerObserver: Consumer<Unit> by lazy {
         Consumer {
             registerLiveData.postValue(Resource.Success(it))
         }
@@ -38,7 +39,7 @@ class RegisterViewModel @Inject constructor(
             registerLiveData.postValue(Resource.Loading())
             registerDisposable?.let { composite.remove(it) }
             registerDisposable =
-                useCase.register(username, password).observeOn(AndroidSchedulers.mainThread())
+                registerUseCase.execute(username, password).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(registerObserver) { t ->
                         t.message?.let { registerLiveData.postValue(Resource.Error(t.message!!)) }
                     }

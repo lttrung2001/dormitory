@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.ui.registerroom.RegisterRoomUseCase
-import com.lttrung.dormitory.ui.registerroom.RegisterRoomUseCaseImpl
+import com.lttrung.dormitory.domain.usecases.RegisterRoomUseCase
+import com.lttrung.dormitory.domain.usecases.impl.RegisterRoomUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

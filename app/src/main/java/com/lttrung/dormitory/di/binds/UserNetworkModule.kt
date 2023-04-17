@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.database.data.network.UserNetwork
-import com.lttrung.dormitory.database.data.network.impl.UserRetrofitImpl
+import com.lttrung.dormitory.domain.data.network.UserNetwork
+import com.lttrung.dormitory.domain.data.network.impl.UserRetrofitImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

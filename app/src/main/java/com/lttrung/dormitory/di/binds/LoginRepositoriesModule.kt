@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.database.repositories.LoginRepositories
-import com.lttrung.dormitory.database.repositories.impl.LoginRepositoriesImpl
+import com.lttrung.dormitory.domain.repositories.LoginRepositories
+import com.lttrung.dormitory.domain.repositories.impl.LoginRepositoriesImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.verifycode
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.domain.usecases.VerifyCodeUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,16 +16,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VerifyCodeViewModel @Inject constructor(
-    private val useCase: VerifyCodeUseCase
+    private val verifyCodeUseCase: VerifyCodeUseCase
 ) : ViewModel() {
-    internal val verifyCodeLiveData: MutableLiveData<Resource<String>> by lazy {
-        MutableLiveData<Resource<String>>()
+    internal val verifyCodeLiveData: MutableLiveData<Resource<Unit>> by lazy {
+        MutableLiveData<Resource<Unit>>()
     }
     private val composite: CompositeDisposable by lazy {
         CompositeDisposable()
     }
     private var verifyCodeDisposable: Disposable? = null
-    private val verifyCodeObserver: Consumer<String> by lazy {
+    private val verifyCodeObserver: Consumer<Unit> by lazy {
         Consumer {
             verifyCodeLiveData.postValue(Resource.Success(it))
         }
@@ -34,7 +35,7 @@ class VerifyCodeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             verifyCodeLiveData.postValue(Resource.Loading())
             verifyCodeDisposable?.let { composite.remove(it) }
-            verifyCodeDisposable = useCase.verifyCode(username, password, otp)
+            verifyCodeDisposable = verifyCodeUseCase.execute(username, password, otp)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(verifyCodeObserver) { t ->
                     t.message?.let { verifyCodeLiveData.postValue(Resource.Error(t.message!!)) }

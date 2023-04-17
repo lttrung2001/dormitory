@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.ui.changepassword.ChangePasswordUseCase
-import com.lttrung.dormitory.ui.changepassword.ChangePasswordUseCaseImpl
+import com.lttrung.dormitory.domain.usecases.ChangePasswordUseCase
+import com.lttrung.dormitory.domain.usecases.impl.ChangePasswordUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

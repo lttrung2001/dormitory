@@ -1,6 +1,5 @@
 package com.lttrung.dormitory.ui.adapters
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.lttrung.dormitory.R
-import com.lttrung.dormitory.database.data.network.models.RoomType
+import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.LayoutRoomTypeBinding
 import com.lttrung.dormitory.ui.adapters.listeners.RoomTypeListener
 

@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.ui.main.viewprofile.ViewProfileUseCase
-import com.lttrung.dormitory.ui.main.viewprofile.ViewProfileUseCaseImpl
+import com.lttrung.dormitory.domain.usecases.ViewProfileUseCase
+import com.lttrung.dormitory.domain.usecases.impl.ViewProfileUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

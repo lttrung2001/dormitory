@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.registerroom
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.domain.usecases.RegisterRoomUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterRoomViewModel @Inject constructor(
-    private val useCase: RegisterRoomUseCase
+    private val registerRoomUseCase: RegisterRoomUseCase
 ) : ViewModel() {
     internal val registerRoomLiveData: MutableLiveData<Resource<Boolean>> by lazy {
         MutableLiveData<Resource<Boolean>>()
@@ -34,7 +35,7 @@ class RegisterRoomViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             registerRoomLiveData.postValue(Resource.Loading())
             registerRoomDisposable?.let { composite.remove(it) }
-            registerRoomDisposable = useCase.registerRoom(roomId)
+            registerRoomDisposable = registerRoomUseCase.execute(roomId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(registerRoomObserver) { t ->
                     t.message?.let { registerRoomLiveData.postValue(Resource.Error(t.message!!)) }

@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.ui.forgotpassword.ForgotPasswordUseCase
-import com.lttrung.dormitory.ui.forgotpassword.ForgotPasswordUseCaseImpl
+import com.lttrung.dormitory.domain.usecases.ForgotPasswordUseCase
+import com.lttrung.dormitory.domain.usecases.impl.ForgotPasswordUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

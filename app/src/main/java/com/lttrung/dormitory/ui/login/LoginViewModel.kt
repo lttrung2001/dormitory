@@ -3,7 +3,8 @@ package com.lttrung.dormitory.ui.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lttrung.dormitory.database.data.local.room.entities.CurrentUser
+import com.lttrung.dormitory.domain.data.local.room.entities.CurrentUser
+import com.lttrung.dormitory.domain.usecases.LoginUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -31,7 +32,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             loginLiveData.postValue(Resource.Loading())
             loginDisposable?.let { composite.remove(it) }
             loginDisposable =
-                loginUseCase.login(username, password).observeOn(AndroidSchedulers.mainThread())
+                loginUseCase.execute(username, password).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(loginObserver) { t: Throwable ->
                         t.message?.let { loginLiveData.postValue(Resource.Error(t.message!!)) }
                     }

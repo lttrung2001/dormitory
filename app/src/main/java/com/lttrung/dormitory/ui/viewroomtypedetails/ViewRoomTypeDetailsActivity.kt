@@ -2,12 +2,11 @@ package com.lttrung.dormitory.ui.viewroomtypedetails
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.lttrung.dormitory.R
-import com.lttrung.dormitory.database.data.network.models.RoomType
+import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.ActivityViewRoomTypeDetailsBinding
 import com.lttrung.dormitory.ui.viewrooms.ViewRoomsActivity
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE

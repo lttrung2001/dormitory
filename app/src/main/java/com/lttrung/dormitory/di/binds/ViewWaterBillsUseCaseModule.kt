@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.ui.main.home.viewwaterbills.ViewWaterBillsUseCase
-import com.lttrung.dormitory.ui.main.home.viewwaterbills.ViewWaterBillsUseCaseImpl
+import com.lttrung.dormitory.domain.usecases.ViewWaterBillsUseCase
+import com.lttrung.dormitory.domain.usecases.impl.ViewWaterBillsUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

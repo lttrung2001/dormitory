@@ -5,10 +5,10 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.lttrung.dormitory.database.data.local.room.CurrentUserDatabase
-import com.lttrung.dormitory.database.data.local.room.dao.CurrentUserDao
-import com.lttrung.dormitory.database.data.network.interceptors.AuthorizationInterceptor
-import com.lttrung.dormitory.database.data.network.interceptors.NetworkInterceptor
+import com.lttrung.dormitory.domain.data.local.room.CurrentUserDatabase
+import com.lttrung.dormitory.domain.data.local.room.dao.CurrentUserDao
+import com.lttrung.dormitory.domain.data.network.interceptors.AuthorizationInterceptor
+import com.lttrung.dormitory.domain.data.network.interceptors.NetworkInterceptor
 import com.lttrung.dormitory.utils.AppConstants
 import com.lttrung.dormitory.utils.RetrofitUtils
 import com.lttrung.dormitory.utils.RoomUtils
@@ -86,7 +86,7 @@ class AppModules {
     @Provides
     @Singleton
     fun providesGson(): Gson {
-        return GsonBuilder().setDateFormat("dd/MM/yyyy").create()
+        return GsonBuilder().setLenient().setDateFormat("dd/MM/yyyy").create()
     }
 
     @Provides

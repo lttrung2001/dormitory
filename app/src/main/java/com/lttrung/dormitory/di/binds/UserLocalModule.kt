@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.database.data.local.UserLocal
-import com.lttrung.dormitory.database.data.local.impl.UserLocalImpl
+import com.lttrung.dormitory.domain.data.local.UserLocal
+import com.lttrung.dormitory.domain.data.local.impl.UserLocalImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

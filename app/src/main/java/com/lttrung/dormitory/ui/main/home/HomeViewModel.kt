@@ -3,9 +3,12 @@ package com.lttrung.dormitory.ui.main.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lttrung.dormitory.database.data.network.models.FetchRoomContractResponse
-import com.lttrung.dormitory.database.data.network.models.RoomType
-import com.lttrung.dormitory.database.data.network.models.UserProfile
+import com.lttrung.dormitory.domain.data.network.models.FetchRoomContractResponse
+import com.lttrung.dormitory.domain.data.network.models.RoomType
+import com.lttrung.dormitory.domain.usecases.CancelContractUseCase
+import com.lttrung.dormitory.domain.usecases.ExtendRoomUseCase
+import com.lttrung.dormitory.domain.usecases.GetRoomContractUseCase
+import com.lttrung.dormitory.domain.usecases.GetRoomTypesUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -18,7 +21,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val useCase: HomeUseCase
+    private val getRoomTypesUseCase: GetRoomTypesUseCase,
+    private val getRoomContractUseCase: GetRoomContractUseCase,
+    private val cancelContractUseCase: CancelContractUseCase,
+    private val extendRoomUseCase: ExtendRoomUseCase
 ) : ViewModel() {
     internal val roomTypesLiveData: MutableLiveData<Resource<List<RoomType>>> by lazy {
         MutableLiveData<Resource<List<RoomType>>>()
@@ -37,10 +43,11 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             roomTypesLiveData.postValue(Resource.Loading())
             roomTypesDisposable?.let { composite.remove(it) }
-            roomTypesDisposable = useCase.getRoomTypes().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(roomTypesObserver) { t ->
-                    roomTypesLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
-                }
+            roomTypesDisposable =
+                getRoomTypesUseCase.execute().observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(roomTypesObserver) { t ->
+                        roomTypesLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
+                    }
             roomTypesDisposable?.let { composite.add(it) }
         }.start()
     }
@@ -63,23 +70,25 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             roomContractLiveData.postValue(Resource.Loading())
             roomContractDisposable?.let { composite.remove(it) }
-            roomContractDisposable = useCase.getRoomContract().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(roomContractObserver) { t ->
-                    roomContractLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
-                }
+            roomContractDisposable =
+                getRoomContractUseCase.execute().observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(roomContractObserver) { t ->
+                        roomContractLiveData.postValue(
+                            Resource.Error(
+                                t.message ?: "Unknown error."
+                            )
+                        )
+                    }
             roomContractDisposable?.let { composite.add(it) }
         }.start()
     }
 
 
-
-
-
-    internal val cancelContractLiveData: MutableLiveData<Resource<String>> by lazy {
-        MutableLiveData<Resource<String>>()
+    internal val cancelContractLiveData: MutableLiveData<Resource<Unit>> by lazy {
+        MutableLiveData<Resource<Unit>>()
     }
     private var cancelContractDisposable: Disposable? = null
-    private val cancelContractObserver: Consumer<String> by lazy {
+    private val cancelContractObserver: Consumer<Unit> by lazy {
         Consumer {
             cancelContractLiveData.postValue(Resource.Success(it))
         }
@@ -89,23 +98,25 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             cancelContractLiveData.postValue(Resource.Loading())
             cancelContractDisposable?.let { composite.remove(it) }
-            cancelContractDisposable = useCase.cancelContract().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(cancelContractObserver) { t ->
-                    cancelContractLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
-                }
+            cancelContractDisposable =
+                cancelContractUseCase.execute().observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(cancelContractObserver) { t ->
+                        cancelContractLiveData.postValue(
+                            Resource.Error(
+                                t.message ?: "Unknown error."
+                            )
+                        )
+                    }
             cancelContractDisposable?.let { composite.add(it) }
         }.start()
     }
 
 
-
-
-
-    internal val extendRoomLiveData: MutableLiveData<Resource<Boolean>> by lazy {
-        MutableLiveData<Resource<Boolean>>()
+    internal val extendRoomLiveData: MutableLiveData<Resource<Unit>> by lazy {
+        MutableLiveData<Resource<Unit>>()
     }
     private var extendRoomDisposable: Disposable? = null
-    private val extendRoomObserver: Consumer<Boolean> by lazy {
+    private val extendRoomObserver: Consumer<Unit> by lazy {
         Consumer {
             extendRoomLiveData.postValue(Resource.Success(it))
         }
@@ -115,10 +126,11 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             extendRoomLiveData.postValue(Resource.Loading())
             extendRoomDisposable?.let { composite.remove(it) }
-            extendRoomDisposable = useCase.extendRoom().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(extendRoomObserver) { t ->
-                    extendRoomLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
-                }
+            extendRoomDisposable =
+                extendRoomUseCase.execute().observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(extendRoomObserver) { t ->
+                        extendRoomLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
+                    }
             extendRoomDisposable?.let { composite.add(it) }
         }.start()
     }

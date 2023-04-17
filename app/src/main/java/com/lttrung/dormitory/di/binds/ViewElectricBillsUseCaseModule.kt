@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.di.binds
 
-import com.lttrung.dormitory.ui.main.home.viewelectricbills.ViewElectricBillsUseCase
-import com.lttrung.dormitory.ui.main.home.viewelectricbills.ViewElectricBillsUseCaseImpl
+import com.lttrung.dormitory.domain.usecases.ViewElectricBillsUseCase
+import com.lttrung.dormitory.domain.usecases.impl.ViewElectricBillsUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

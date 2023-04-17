@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.forgotpassword
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.domain.usecases.ForgotPasswordUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -18,9 +19,9 @@ class ForgotPasswordViewModel @Inject constructor(
     private val forgotPasswordUseCase: ForgotPasswordUseCase
 ) : ViewModel() {
     private val composite = CompositeDisposable()
-    internal val forgotPasswordLiveData: MutableLiveData<Resource<String>> =
-        MutableLiveData<Resource<String>>()
-    private val forgotPasswordObserver: Consumer<String> by lazy {
+    internal val forgotPasswordLiveData: MutableLiveData<Resource<Unit>> =
+        MutableLiveData<Resource<Unit>>()
+    private val forgotPasswordObserver: Consumer<Unit> by lazy {
         Consumer {
             forgotPasswordLiveData.postValue(Resource.Success(it))
         }
@@ -32,7 +33,7 @@ class ForgotPasswordViewModel @Inject constructor(
             forgotPasswordLiveData.postValue(Resource.Loading())
             forgotPasswordDisposable?.let { composite.remove(it) }
             forgotPasswordDisposable =
-                forgotPasswordUseCase.forgotPassword(username)
+                forgotPasswordUseCase.execute(username)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(forgotPasswordObserver) { t: Throwable ->
                         t.message?.let { forgotPasswordLiveData.postValue(Resource.Error(t.message!!)) }
