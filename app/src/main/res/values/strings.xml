@@ -52,4 +52,14 @@
     <string name="current_room">Current room</string>
     <string name="admin_login_page">Admin login page</string>
     <string name="cancel">Cancel</string>
+    <string name="go_to_manager_login_page">Go to manager login page</string>
+    <string name="room_type_image_transition">room_type_image_transition</string>
+    <string name="room_type_name_transition">room_type_name_transition</string>
+    <string name="room_image_transition">room_image_transition</string>
+    <string name="room_name_transition">room_name</string>
+    <string name="room_price_transition">room_price</string>
+    <string name="room_beds_transition">room_beds</string>
+    <string name="room_available_beds_transition">room_available_beds_transition</string>
+    <string name="room_description_transition">room_description_transition</string>
+
 </resources>

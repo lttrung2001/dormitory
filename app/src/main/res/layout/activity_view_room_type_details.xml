@@ -24,6 +24,7 @@
                 android:id="@+id/room_type_image"
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
+                android:transitionName="@string/room_type_image_transition"
                 android:scaleType="centerCrop"
                 android:src="@drawable/demo"
                 app:borderColor="@color/primary_edit_text_background"
@@ -31,6 +32,7 @@
                 app:radius="16dp" />
 
             <TextView
+                android:transitionName="@string/room_type_name_transition"
                 android:id="@+id/room_type_name"
                 style="@style/PrimaryTextView"
                 android:layout_width="match_parent"
