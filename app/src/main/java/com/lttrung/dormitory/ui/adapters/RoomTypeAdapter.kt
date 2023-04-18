@@ -22,7 +22,7 @@ class RoomTypeAdapter(
                 placeholder(R.drawable.demo)
             }
             binding.roomTypeName.text = roomType.name
-            binding.root.setOnClickListener { listener.onClick(roomType) }
+            binding.root.setOnClickListener { listener.onClick(binding, roomType) }
         }
     }
 

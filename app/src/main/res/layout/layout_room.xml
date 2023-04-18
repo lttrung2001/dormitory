@@ -9,6 +9,7 @@
 
     <com.lttrung.dormitory.customs.RoundedImageView
         android:id="@id/room_image"
+        android:transitionName="@string/room_image_transition"
         android:scaleType="centerCrop"
         android:src="@drawable/demo"
         android:layout_width="120dp"
@@ -21,6 +22,7 @@
 
     <TextView
         android:id="@+id/room_id"
+        android:transitionName="@string/room_name_transition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,6 +33,7 @@
         app:layout_constraintTop_toTopOf="@+id/room_image" />
 
     <TextView
+        android:transitionName="@string/room_price_transition"
         android:id="@+id/room_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +44,7 @@
 
     <TextView
         android:id="@+id/room_available_beds"
+        android:transitionName="@string/room_available_beds_transition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/room_price"

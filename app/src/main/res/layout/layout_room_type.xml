@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <com.lttrung.dormitory.customs.RoundedImageView
+        android:transitionName="@string/room_type_image_transition"
         android:id="@+id/room_type_image"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -18,6 +19,7 @@
         app:radius="16dp" />
 
     <TextView
+        android:transitionName="@string/room_type_name_transition"
         android:id="@+id/room_type_name"
         style="@style/PrimaryTextView"
         android:layout_width="wrap_content"

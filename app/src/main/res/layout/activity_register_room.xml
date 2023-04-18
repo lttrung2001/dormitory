@@ -22,6 +22,7 @@
             <com.lttrung.dormitory.customs.RoundedImageView
                 android:id="@+id/room_image"
                 android:layout_width="match_parent"
+                android:transitionName="@string/room_image_transition"
                 android:layout_height="320dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/demo"
@@ -34,6 +35,7 @@
 
             <TextView
                 android:id="@+id/room_name"
+                android:transitionName="@string/room_name_transition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Room 4"
@@ -47,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:transitionName="@string/room_beds_transition"
                 android:text="6 beds"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -56,6 +59,7 @@
                 android:id="@+id/room_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:transitionName="@string/room_price_transition"
                 android:text="240.000 đ/m"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -67,6 +71,7 @@
                 android:id="@+id/room_available_beds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:transitionName="@string/room_available_beds_transition"
                 android:text="1 available bed"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/room_beds"
@@ -88,6 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Basic"
+                    android:transitionName="@string/room_type_name_transition"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -95,6 +101,7 @@
                     android:id="@+id/room_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:transitionName="@string/room_description_transition"
                     android:text="Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
                     android:textSize="16sp" />
             </LinearLayout>

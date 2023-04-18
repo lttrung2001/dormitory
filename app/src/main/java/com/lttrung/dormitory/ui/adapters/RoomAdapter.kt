@@ -37,7 +37,7 @@ class RoomAdapter(private val itemListener: ItemListener) :
 
 
     interface ItemListener {
-        fun onClick(room: Room)
+        fun onClick(viewBinding: LayoutRoomBinding, room: Room)
     }
 
     class RoomViewHolder(private val binding: LayoutRoomBinding) : ViewHolder(binding.root) {
@@ -52,7 +52,7 @@ class RoomAdapter(private val itemListener: ItemListener) :
             binding.roomPrice.text = "${room.price} vnđ"
             binding.roomAvailableBeds.text = "${room.availableBeds} available beds"
             binding.root.setOnClickListener {
-                listener.onClick(room)
+                listener.onClick(binding, room)
             }
         }
     }
