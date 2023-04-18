@@ -98,10 +98,11 @@ class RegisterRoomActivity : AppCompatActivity() {
                 crossfade(true)
                 placeholder(R.drawable.demo)
             }
-            it.roomName.text = room.name
+            it.roomName.text = room.id.toString()
             it.roomBeds.text = "${roomType.numOfBeds} beds"
             it.roomPrice.text = "${room.price} đ/month"
             it.roomAvailableBeds.text = "${room.availableBeds} available beds"
+            it.roomType.text = roomType.name
             it.roomDescription.text = room.description
         }
 
