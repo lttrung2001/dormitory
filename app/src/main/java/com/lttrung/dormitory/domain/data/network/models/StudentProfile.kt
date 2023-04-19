@@ -3,7 +3,7 @@ package com.lttrung.dormitory.domain.data.network.models
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class UserProfile (
+data class StudentProfile (
         @SerializedName("username") val username: String,
         @SerializedName("hoTen") val fullName: String,
         @SerializedName("gioiTinh") val isMale: Boolean,

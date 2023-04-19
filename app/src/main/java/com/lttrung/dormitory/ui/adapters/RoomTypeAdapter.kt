@@ -7,22 +7,26 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.lttrung.dormitory.R
-import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.databinding.LayoutRoomTypeBinding
-import com.lttrung.dormitory.ui.adapters.listeners.RoomTypeListener
+import com.lttrung.dormitory.domain.data.network.models.RoomType
 
 
 class RoomTypeAdapter(
-    private val listener: RoomTypeListener
+    private val onClick: (viewBinding: LayoutRoomTypeBinding, roomType: RoomType) -> Unit
 ) : ListAdapter<RoomType, RoomTypeAdapter.RoomTypeViewHolder>(ITEM_CALLBACK) {
     class RoomTypeViewHolder(private val binding: LayoutRoomTypeBinding) : ViewHolder(binding.root) {
-        fun bind(roomType: RoomType, listener: RoomTypeListener) {
+        fun bind(
+            roomType: RoomType,
+            onClick: (viewBinding: LayoutRoomTypeBinding, roomType: RoomType) -> Unit
+        ) {
             binding.roomTypeImage.load(roomType.image) {
                 crossfade(true)
                 placeholder(R.drawable.demo)
             }
             binding.roomTypeName.text = roomType.name
-            binding.root.setOnClickListener { listener.onClick(binding, roomType) }
+            binding.root.setOnClickListener {
+                onClick(binding, roomType)
+            }
         }
     }
 
@@ -33,7 +37,7 @@ class RoomTypeAdapter(
     }
 
     override fun onBindViewHolder(holder: RoomTypeViewHolder, position: Int) {
-        holder.bind(getItem(position), listener)
+        holder.bind(getItem(position), onClick)
     }
 
     companion object {

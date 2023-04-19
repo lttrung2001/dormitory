@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.lttrung.dormitory.domain.data.network.models.UserProfile
+import com.lttrung.dormitory.domain.data.network.models.StudentProfile
 import com.lttrung.dormitory.databinding.FragmentViewProfileBinding
 import com.lttrung.dormitory.ui.changepassword.ChangePasswordActivity
 import com.lttrung.dormitory.ui.login.LoginActivity
@@ -72,7 +72,7 @@ class ViewProfileFragment : Fragment() {
         }
     }
 
-    private fun bindData(userProfile: UserProfile) {
+    private fun bindData(userProfile: StudentProfile) {
         binding.let {
             it.name.text = userProfile.fullName
             it.username.text = userProfile.username.uppercase()

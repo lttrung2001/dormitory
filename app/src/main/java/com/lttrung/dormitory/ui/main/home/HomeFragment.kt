@@ -14,12 +14,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.lttrung.dormitory.R
 import com.lttrung.dormitory.databinding.FragmentHomeBinding
 import com.lttrung.dormitory.databinding.LayoutBillTabTitleBinding
-import com.lttrung.dormitory.databinding.LayoutRoomTypeBinding
 import com.lttrung.dormitory.domain.data.network.models.FetchRoomContractResponse
-import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.ui.adapters.BillPagerAdapter
 import com.lttrung.dormitory.ui.adapters.RoomTypeAdapter
-import com.lttrung.dormitory.ui.adapters.listeners.RoomTypeListener
 import com.lttrung.dormitory.ui.viewroomtypedetails.ViewRoomTypeDetailsActivity
 import com.lttrung.dormitory.utils.AppConstants.*
 import com.lttrung.dormitory.utils.ExtensionFunctionHelper.format
@@ -34,21 +31,18 @@ class HomeFragment : Fragment() {
     }
     private val homeViewModel: HomeViewModel by viewModels()
     private val roomTypeAdapter: RoomTypeAdapter by lazy {
-        val listener = object : RoomTypeListener {
-            override fun onClick(viewBinding: LayoutRoomTypeBinding, roomType: RoomType) {
-                // Start room type details activity
-                val viewRoomTypeDetailsIntent =
-                    Intent(requireContext(), ViewRoomTypeDetailsActivity::class.java)
-                viewRoomTypeDetailsIntent.putExtra(ROOM_TYPE, roomType)
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    requireActivity(), androidx.core.util.Pair(
-                        viewBinding.roomTypeImage, getString(R.string.room_type_image_transition)
-                    )
+        RoomTypeAdapter { viewBinding, roomType ->
+            // Start room type details activity
+            val viewRoomTypeDetailsIntent =
+                Intent(requireContext(), ViewRoomTypeDetailsActivity::class.java)
+            viewRoomTypeDetailsIntent.putExtra(ROOM_TYPE, roomType)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(), androidx.core.util.Pair(
+                    viewBinding.roomTypeImage, getString(R.string.room_type_image_transition)
                 )
-                startActivity(viewRoomTypeDetailsIntent, options.toBundle())
-            }
+            )
+            startActivity(viewRoomTypeDetailsIntent, options.toBundle())
         }
-        RoomTypeAdapter(listener)
     }
     private val billPagerAdapter: BillPagerAdapter by lazy {
         BillPagerAdapter(this@HomeFragment)
@@ -225,9 +219,5 @@ class HomeFragment : Fragment() {
                 it.customView = titleTextView
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 }

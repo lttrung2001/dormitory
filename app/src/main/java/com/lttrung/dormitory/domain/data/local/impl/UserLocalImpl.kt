@@ -5,7 +5,7 @@ import com.lttrung.dormitory.domain.data.local.UserLocal
 import com.lttrung.dormitory.domain.data.local.room.dao.CurrentUserDao
 import com.lttrung.dormitory.domain.data.local.room.entities.CurrentUser
 import com.lttrung.dormitory.domain.data.local.room.entities.CurrentUserProfile
-import com.lttrung.dormitory.domain.data.network.models.UserProfile
+import com.lttrung.dormitory.domain.data.network.models.StudentProfile
 import com.lttrung.dormitory.utils.AppConstants.ACCESS_TOKEN
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ class UserLocalImpl @Inject constructor(
     private val currentUserDao: CurrentUserDao,
     private val sharedPreferences: SharedPreferences
 ) : UserLocal {
-    override fun updateUserProfile(userProfile: UserProfile) {
+    override fun updateUserProfile(userProfile: StudentProfile) {
         val currentUser = currentUserDao.currentUser
         currentUser?.let {
             val currentUserProfile = CurrentUserProfile(

@@ -1,7 +1,7 @@
 package com.lttrung.dormitory.domain.data.network.impl
 
 import com.lttrung.dormitory.domain.data.network.UserNetwork
-import com.lttrung.dormitory.domain.data.network.models.UserProfile
+import com.lttrung.dormitory.domain.data.network.models.StudentProfile
 import com.lttrung.dormitory.domain.data.network.services.UserService
 import com.lttrung.dormitory.exceptions.FailedException
 import com.lttrung.dormitory.utils.HttpStatusCodes
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class UserRetrofitImpl @Inject constructor(
     private val service: UserService
 ) : UserNetwork {
-    override fun fetchProfile(): Single<UserProfile> {
+    override fun fetchProfile(): Single<StudentProfile> {
         return service.fetchUserProfile().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> response.body()!!

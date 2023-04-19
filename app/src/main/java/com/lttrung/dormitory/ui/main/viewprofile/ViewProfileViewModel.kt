@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lttrung.dormitory.domain.data.local.UserLocal
-import com.lttrung.dormitory.domain.data.network.models.UserProfile
+import com.lttrung.dormitory.domain.data.network.models.StudentProfile
 import com.lttrung.dormitory.domain.usecases.LogoutUseCase
 import com.lttrung.dormitory.domain.usecases.ViewProfileUseCase
 import com.lttrung.dormitory.exceptions.FailedException
@@ -25,14 +25,14 @@ class ViewProfileViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val userLocal: UserLocal
 ) : ViewModel() {
-    internal val profileLiveData: MutableLiveData<Resource<UserProfile>> by lazy {
-        MutableLiveData<Resource<UserProfile>>()
+    internal val profileLiveData: MutableLiveData<Resource<StudentProfile>> by lazy {
+        MutableLiveData<Resource<StudentProfile>>()
     }
     private val composite: CompositeDisposable by lazy {
         CompositeDisposable()
     }
     private var profileDisposable: Disposable? = null
-    private val profileObserver: Consumer<UserProfile> by lazy {
+    private val profileObserver: Consumer<StudentProfile> by lazy {
         Consumer {
             profileLiveData.postValue(Resource.Success(it))
         }
@@ -41,12 +41,12 @@ class ViewProfileViewModel @Inject constructor(
     internal fun getProfile() {
         viewModelScope.launch(Dispatchers.IO) {
             val currentUser = userLocal.getCurrentUser()
-            var data: UserProfile? = null
+            var data: StudentProfile? = null
             currentUser?.let {
                 val profile = currentUser.profile
                 profile?.let {
                     data =
-                        UserProfile(
+                        StudentProfile(
                             currentUser.studentId,
                             profile.fullName,
                             profile.isMale,

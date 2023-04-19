@@ -1,6 +1,6 @@
 package com.lttrung.dormitory.domain.data.network.services
 
-import com.lttrung.dormitory.domain.data.network.models.UserProfile
+import com.lttrung.dormitory.domain.data.network.models.StudentProfile
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.Body
@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface UserService {
     @GET("api/student/info")
-    fun fetchUserProfile(): Single<Response<UserProfile>>
+    fun fetchUserProfile(): Single<Response<StudentProfile>>
 
     @POST("api/auth/change-password")
     fun changePassword(

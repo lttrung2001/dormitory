@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.lttrung.dormitory.R
-import com.lttrung.dormitory.domain.data.network.models.Room
 import com.lttrung.dormitory.databinding.LayoutRoomBinding
+import com.lttrung.dormitory.domain.data.network.models.Room
 
-class RoomAdapter(private val itemListener: ItemListener) :
+class RoomAdapter(private val onClick: (viewBinding: LayoutRoomBinding, room: Room) -> Unit) :
     ListAdapter<Room, RoomAdapter.RoomViewHolder>(ITEM_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
@@ -20,7 +20,7 @@ class RoomAdapter(private val itemListener: ItemListener) :
     }
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
-        holder.bind(getItem(position), itemListener)
+        holder.bind(getItem(position), onClick)
     }
 
     companion object {
@@ -42,7 +42,7 @@ class RoomAdapter(private val itemListener: ItemListener) :
 
     class RoomViewHolder(private val binding: LayoutRoomBinding) : ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(room: Room, listener: ItemListener) {
+        fun bind(room: Room, onClick: (viewBinding: LayoutRoomBinding, room: Room) -> Unit) {
             // Coil
             binding.roomImage.load(room.image) {
                 crossfade(true)
@@ -52,7 +52,7 @@ class RoomAdapter(private val itemListener: ItemListener) :
             binding.roomPrice.text = "${room.price} vnđ"
             binding.roomAvailableBeds.text = "${room.availableBeds} available beds"
             binding.root.setOnClickListener {
-                listener.onClick(binding, room)
+                onClick(binding, room)
             }
         }
     }

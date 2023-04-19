@@ -1,111 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.main.viewprofile.ViewProfileFragment">
-    <LinearLayout
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+
+        app:layoutDescription="@xml/fragment_view_profile_xml_linear_layout_scene">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/student_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            android:src="@drawable/img_view_profile" />
+            android:src="@drawable/img_view_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/name"
             style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Dang Bac"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/student_avatar" />
 
         <TextView
             android:id="@+id/username"
             style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="N19DCCN018"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <LinearLayout
+            android:id="@+id/info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/bg_corner_16dp"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username">
 
             <TextView
                 android:id="@+id/student_id"
                 style="@style/PrimaryBillTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_card"
-                android:paddingVertical="8dp" />
+                android:paddingVertical="8dp"
+                app:drawableStartCompat="@drawable/ic_card" />
 
             <TextView
                 android:id="@+id/full_name"
                 style="@style/PrimaryBillTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_signature"
-                android:paddingVertical="8dp" />
+                android:paddingVertical="8dp"
+                app:drawableStartCompat="@drawable/ic_signature" />
 
             <TextView
                 android:id="@+id/gender"
                 style="@style/PrimaryBillTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_gender"
-                android:paddingVertical="8dp" />
+                android:paddingVertical="8dp"
+                app:drawableStartCompat="@drawable/ic_gender" />
 
             <TextView
                 android:id="@+id/dob"
                 style="@style/PrimaryBillTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_cake"
-                android:paddingVertical="8dp" />
+                android:paddingVertical="8dp"
+                app:drawableStartCompat="@drawable/ic_cake" />
 
             <TextView
                 android:id="@+id/email"
                 style="@style/PrimaryBillTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_email"
-                android:paddingVertical="8dp" />
+                android:paddingVertical="8dp"
+                app:drawableStartCompat="@drawable/ic_email" />
 
             <TextView
                 android:id="@+id/phone_number"
                 style="@style/PrimaryBillTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_phone"
-                android:paddingVertical="8dp" />
+                android:paddingVertical="8dp"
+                app:drawableStartCompat="@drawable/ic_phone" />
         </LinearLayout>
 
         <TextView
-            style="@style/PrimaryTextView"
             android:id="@+id/button_change_password"
+            style="@style/PrimaryTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_corner_16dp"
             android:padding="16dp"
             android:text="@string/change_password"
-            android:drawableStart="@drawable/ic_key" />
+            app:drawableStartCompat="@drawable/ic_key"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_container" />
 
         <TextView
             android:id="@+id/button_logout"
@@ -118,6 +133,9 @@
             android:text="@string/log_out"
             android:textColor="@color/error_color"
             android:textStyle="bold"
-            android:drawableStart="@drawable/ic_logout" />
-    </LinearLayout>
+            app:drawableStartCompat="@drawable/ic_logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_change_password" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </androidx.core.widget.NestedScrollView>
