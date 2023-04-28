@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingHorizontal="16dp"
     android:paddingTop="16dp"
-    tools:context=".ui.roomManagement.RoomsManagementActivity">
+    tools:context=".ui.roommanagement.RoomsManagementActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

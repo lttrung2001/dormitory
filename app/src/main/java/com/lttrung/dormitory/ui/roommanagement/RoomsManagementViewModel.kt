@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.roomManagement
+package com.lttrung.dormitory.ui.roommanagement
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

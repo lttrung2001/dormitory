@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.database.data.network.services
+package com.lttrung.dormitory.domain.data.network.services
 
 import com.lttrung.dormitory.domain.data.network.models.Room
 import io.reactivex.rxjava3.core.Single

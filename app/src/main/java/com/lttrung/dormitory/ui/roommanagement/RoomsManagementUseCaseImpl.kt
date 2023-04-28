@@ -1,7 +1,7 @@
-package com.lttrung.dormitory.ui.roomManagement
+package com.lttrung.dormitory.ui.roommanagement
 
 import com.lttrung.dormitory.domain.data.network.models.Room
-import com.lttrung.dormitory.database.repositories.RoomManagementRepositories
+import com.lttrung.dormitory.domain.repositories.RoomManagementRepositories
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 

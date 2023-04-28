@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.roomManagement
+package com.lttrung.dormitory.ui.roommanagement
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -18,11 +18,9 @@ class RoomsManagementActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRoomsManagementBinding
     private val roomsManagementViewModel: RoomsManagementViewModel by viewModels()
     private val roomAdapter: RoomAdapter by lazy {
-        RoomAdapter(object : RoomAdapter.ItemListener {
-            override fun onClick(room: Room) {
-                // View room details
-            }
-        })
+        RoomAdapter { viewBinding, room ->
+            
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
