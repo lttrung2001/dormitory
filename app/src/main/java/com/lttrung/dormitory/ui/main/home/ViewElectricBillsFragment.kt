@@ -46,7 +46,7 @@ class ViewElectricBillsFragment : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (viewElectricBillsViewModel.electricBillsLiveData.value !is Resource.Success) {
+        viewElectricBillsViewModel.electricBillsLiveData.value?.let {
             viewElectricBillsViewModel.getElectricBills()
         }
     }

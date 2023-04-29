@@ -1,6 +1,5 @@
 package com.lttrung.dormitory.ui.main.home
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -50,11 +49,10 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (homeViewModel.roomTypesLiveData.value !is Resource.Success) {
+        homeViewModel.roomTypesLiveData.value?.let {
             homeViewModel.getRoomTypes()
         }
-
-        if (homeViewModel.roomContractLiveData.value !is Resource.Success) {
+        homeViewModel.roomContractLiveData.value?.let {
             homeViewModel.getRoomContract()
         }
     }
@@ -118,11 +116,12 @@ class HomeFragment : Fragment() {
                     binding.currentRoomContainer.visibility = View.VISIBLE
 
                     val response = resource.data
-                    bindGreetings(response.fullName)
+                    // Bind full name
+                    binding.fullName.text = response.fullName
+                    // Bind room contract
                     bindRoomContractData(response)
                 }
                 is Resource.Error -> {
-//                    binding.errorCurrentRoom.text = resource.message
                     binding.titleCurrentRoom.visibility = View.GONE
                     binding.currentRoomContainer.visibility = View.GONE
                 }
@@ -195,11 +194,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun bindGreetings(fullName: String) {
-        binding.greetings.text = "Hey $fullName! Welcome back"
     }
 
     private fun setupListener() {
