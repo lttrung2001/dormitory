@@ -14,15 +14,6 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/greetings"
-            style="@style/PrimaryTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hey Trung! Welcome back"
-            android:textSize="32sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/title_current_room"
             style="@style/PrimaryTextView"
             android:layout_width="match_parent"

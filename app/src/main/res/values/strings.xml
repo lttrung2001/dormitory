@@ -61,5 +61,13 @@
     <string name="room_beds_transition">room_beds</string>
     <string name="room_available_beds_transition">room_available_beds_transition</string>
     <string name="room_description_transition">room_description_transition</string>
+    <string name="overview">Overview</string>
+    <string name="electric_bills">Electric bills</string>
+    <string name="room_types">Room types</string>
+    <string name="water_bills">Water bills</string>
+    <string name="statistics">Statistics</string>
+    <string name="terms">Terms</string>
+    <string name="features">Features</string>
+    <string name="room_contracts">Room contracts</string>
 
 </resources>

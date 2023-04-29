@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".AdminHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.registerroom.RegisterRoomActivity"
             android:exported="false" />
         <activity
@@ -48,8 +51,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/Theme.Dormitory"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Dormitory">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
