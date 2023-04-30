@@ -16,6 +16,7 @@ import com.lttrung.dormitory.databinding.LayoutBillTabTitleBinding
 import com.lttrung.dormitory.domain.data.network.models.FetchRoomContractResponse
 import com.lttrung.dormitory.ui.adapters.BillPagerAdapter
 import com.lttrung.dormitory.ui.adapters.RoomTypeAdapter
+import com.lttrung.dormitory.ui.login.LoginActivity
 import com.lttrung.dormitory.ui.viewroomtypedetails.ViewRoomTypeDetailsActivity
 import com.lttrung.dormitory.utils.AppConstants.*
 import com.lttrung.dormitory.utils.ExtensionFunctionHelper.format
@@ -49,12 +50,9 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeViewModel.roomTypesLiveData.value?.let {
-            homeViewModel.getRoomTypes()
-        }
-        homeViewModel.roomContractLiveData.value?.let {
-            homeViewModel.getRoomContract()
-        }
+        homeViewModel.viewProfile()
+        homeViewModel.getRoomTypes()
+        homeViewModel.getRoomContract()
     }
 
     override fun onCreateView(
@@ -88,6 +86,25 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupObserver() {
+        homeViewModel.viewProfileLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val studentProfile = resource.data
+                    binding.fullName.text = studentProfile.fullName
+                }
+                is Resource.Error -> {
+                    startActivity(
+                        Intent(requireActivity(), LoginActivity::class.java).addFlags(
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        )
+                    )
+                }
+            }
+        }
+
         homeViewModel.roomTypesLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
@@ -116,8 +133,6 @@ class HomeFragment : Fragment() {
                     binding.currentRoomContainer.visibility = View.VISIBLE
 
                     val response = resource.data
-                    // Bind full name
-                    binding.fullName.text = response.fullName
                     // Bind room contract
                     bindRoomContractData(response)
                 }

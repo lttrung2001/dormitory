@@ -5,10 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lttrung.dormitory.domain.data.network.models.FetchRoomContractResponse
 import com.lttrung.dormitory.domain.data.network.models.RoomType
-import com.lttrung.dormitory.domain.usecases.CancelContractUseCase
-import com.lttrung.dormitory.domain.usecases.ExtendRoomUseCase
-import com.lttrung.dormitory.domain.usecases.GetRoomContractUseCase
-import com.lttrung.dormitory.domain.usecases.GetRoomTypesUseCase
+import com.lttrung.dormitory.domain.data.network.models.StudentProfile
+import com.lttrung.dormitory.domain.usecases.*
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -24,7 +22,8 @@ class HomeViewModel @Inject constructor(
     private val getRoomTypesUseCase: GetRoomTypesUseCase,
     private val getRoomContractUseCase: GetRoomContractUseCase,
     private val cancelContractUseCase: CancelContractUseCase,
-    private val extendRoomUseCase: ExtendRoomUseCase
+    private val extendRoomUseCase: ExtendRoomUseCase,
+    private val viewProfileUseCase: ViewProfileUseCase
 ) : ViewModel() {
     internal val roomTypesLiveData: MutableLiveData<Resource<List<RoomType>>> by lazy {
         MutableLiveData<Resource<List<RoomType>>>()
@@ -130,6 +129,31 @@ class HomeViewModel @Inject constructor(
                 extendRoomUseCase.execute().observeOn(AndroidSchedulers.mainThread())
                     .subscribe(extendRoomObserver) { t ->
                         extendRoomLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
+                    }
+            extendRoomDisposable?.let { composite.add(it) }
+        }.start()
+    }
+
+
+
+    internal val viewProfileLiveData: MutableLiveData<Resource<StudentProfile>> by lazy {
+        MutableLiveData<Resource<StudentProfile>>()
+    }
+    private var viewProfileDisposable: Disposable? = null
+    private val viewProfileObserver: Consumer<StudentProfile> by lazy {
+        Consumer {
+            viewProfileLiveData.postValue(Resource.Success(it))
+        }
+    }
+
+    internal fun viewProfile() {
+        viewModelScope.launch(Dispatchers.IO) {
+            viewProfileLiveData.postValue(Resource.Loading())
+            viewProfileDisposable?.let { composite.remove(it) }
+            viewProfileDisposable =
+                    viewProfileUseCase.execute().observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(viewProfileObserver) { t ->
+                        viewProfileLiveData.postValue(Resource.Error(t.message ?: "Unknown error."))
                     }
             extendRoomDisposable?.let { composite.add(it) }
         }.start()
