@@ -6,28 +6,26 @@
     android:layout_height="wrap_content"
     tools:context=".ui.main.viewprofile.ViewProfileFragment">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/linear_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-
-        app:layoutDescription="@xml/fragment_view_profile_xml_linear_layout_scene">
+        android:padding="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/student_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/img_view_profile"
+            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name"
             style="@style/PrimaryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dang Bac"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -40,7 +38,6 @@
             style="@style/PrimaryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="N19DCCN018"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,14 +125,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+
             android:background="@drawable/bg_corner_16dp"
             android:padding="16dp"
             android:text="@string/log_out"
             android:textColor="@color/error_color"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_logout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_change_password" />
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
