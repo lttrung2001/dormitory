@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.login
+package com.lttrung.dormitory.ui.adminlogin
 
 import android.content.Intent
 import android.graphics.Color
@@ -11,25 +11,20 @@ import com.github.razir.progressbutton.hideProgress
 import com.github.razir.progressbutton.showProgress
 import com.google.android.material.snackbar.Snackbar
 import com.lttrung.dormitory.R
-import com.lttrung.dormitory.databinding.ActivityLoginBinding
-import com.lttrung.dormitory.ui.adminlogin.AdminLoginActivity
-import com.lttrung.dormitory.ui.forgotpassword.ForgotPasswordActivity
-import com.lttrung.dormitory.ui.main.MainActivity
-import com.lttrung.dormitory.ui.register.RegisterActivity
+import com.lttrung.dormitory.databinding.ActivityAdminLoginBinding
+import com.lttrung.dormitory.ui.adminhome.AdminHomeActivity
 import com.lttrung.dormitory.ui.verifycode.VerifyCodeActivity
-import com.lttrung.dormitory.utils.AppConstants.PASSWORD
-import com.lttrung.dormitory.utils.AppConstants.USERNAME
+import com.lttrung.dormitory.utils.AppConstants
 import com.lttrung.dormitory.utils.Resource
 import com.lttrung.dormitory.utils.ValidationHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
-    private val binding: ActivityLoginBinding by lazy {
-        ActivityLoginBinding.inflate(layoutInflater)
+class AdminLoginActivity : AppCompatActivity() {
+    private val binding: ActivityAdminLoginBinding by lazy {
+        ActivityAdminLoginBinding.inflate(layoutInflater)
     }
-    private val loginViewModel: LoginViewModel by viewModels()
-
+    private val viewModel: AdminLoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupView()
@@ -38,20 +33,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
-        loginViewModel.loginLiveData.observe(this) { resource ->
+        viewModel.loginLiveData.observe(this) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     // Loading
                     binding.buttonLogin.isClickable = false
                     binding.buttonLogin.showProgress {
-                        buttonTextRes =R.string.loading
+                        buttonTextRes = R.string.loading
                         progressColor = Color.WHITE
                     }
                 }
                 is Resource.Success -> {
                     binding.buttonLogin.isClickable = true
                     binding.buttonLogin.hideProgress(R.string.login)
-                    val homeIntent = Intent(this, MainActivity::class.java)
+                    val homeIntent = Intent(this, AdminHomeActivity::class.java)
                     homeIntent.flags =
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(homeIntent)
@@ -65,8 +60,8 @@ class LoginActivity : AppCompatActivity() {
                             val password = binding.identifier.text.trim().toString()
                             startActivity(Intent(this, VerifyCodeActivity::class.java).apply {
                                 val verifyCodeBundle = Bundle().apply {
-                                    putString(USERNAME, username)
-                                    putString(PASSWORD, password)
+                                    putString(AppConstants.USERNAME, username)
+                                    putString(AppConstants.PASSWORD, password)
                                 }
                                 putExtras(verifyCodeBundle)
                             })
@@ -97,19 +92,8 @@ class LoginActivity : AppCompatActivity() {
                 binding.password.error = "Password can not be empty."
             }
             if (!validation.hasError) {
-                loginViewModel.login(username, password)
+                viewModel.login(username, password)
             }
-        }
-        binding.buttonRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
-
-        binding.buttonForgotPassword.setOnClickListener {
-            startActivity(Intent(this, ForgotPasswordActivity::class.java))
-        }
-
-        binding.buttonManagerLogin.setOnClickListener {
-            startActivity(Intent(this, AdminLoginActivity::class.java))
         }
     }
 

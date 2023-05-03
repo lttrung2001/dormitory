@@ -69,5 +69,6 @@
     <string name="terms">Terms</string>
     <string name="features">Features</string>
     <string name="room_contracts">Room contracts</string>
+    <string name="login_to_your_admin_account">Login to your admin account</string>
 
 </resources>
