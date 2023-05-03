@@ -1,5 +1,6 @@
 package com.lttrung.dormitory.domain.data.network.services
 
+import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
 import com.lttrung.dormitory.domain.data.network.models.StudentStat
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
@@ -16,4 +17,7 @@ interface AdminLoginService {
 
     @GET("api/analysis/studentInTerm")
     fun fetchStudentStats(@Query("idTerm") term: Int): Single<Response<List<StudentStat>>>
+
+    @GET("api/analysis/loaiKTX")
+    fun fetchRoomTypeStats(): Single<Response<List<RoomTypeStat>>>
 }

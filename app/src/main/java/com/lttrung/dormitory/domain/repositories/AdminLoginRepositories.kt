@@ -1,6 +1,8 @@
 package com.lttrung.dormitory.domain.repositories
 
 import com.lttrung.dormitory.domain.data.network.AdminLoginNetwork
+import com.lttrung.dormitory.domain.data.network.models.RoomType
+import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
 import com.lttrung.dormitory.domain.data.network.models.StudentStat
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Singleton
@@ -12,4 +14,5 @@ interface AdminLoginRepositories {
 
     // Put code here to test without token
     fun getStudentStats(termId: Int): Single<List<StudentStat>>
+    fun getRoomTypeStats(): Single<List<RoomTypeStat>>
 }

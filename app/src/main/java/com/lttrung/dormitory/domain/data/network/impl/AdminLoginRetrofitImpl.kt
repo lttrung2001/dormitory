@@ -1,6 +1,7 @@
 package com.lttrung.dormitory.domain.data.network.impl
 
 import com.lttrung.dormitory.domain.data.network.AdminLoginNetwork
+import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
 import com.lttrung.dormitory.domain.data.network.models.StudentStat
 import com.lttrung.dormitory.domain.data.network.services.AdminLoginService
 import com.lttrung.dormitory.exceptions.FailedException
@@ -28,10 +29,24 @@ class AdminLoginRetrofitImpl @Inject constructor(
 
     override fun fetchStudentStats(term: Int): Single<List<StudentStat>> {
         return service.fetchStudentStats(term).map { response ->
-            when(response.code()) {
+            when (response.code()) {
                 HttpStatusCodes.OK -> {
                     response.body()!!
-                } else -> {
+                }
+                else -> {
+                    throw FailedException()
+                }
+            }
+        }
+    }
+
+    override fun fetchRoomTypeStats(): Single<List<RoomTypeStat>> {
+        return service.fetchRoomTypeStats().map { response ->
+            when (response.code()) {
+                HttpStatusCodes.OK -> {
+                    response.body()!!
+                }
+                else -> {
                     throw FailedException()
                 }
             }
