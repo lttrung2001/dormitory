@@ -1,10 +1,9 @@
-package com.lttrung.dormitory.database.repositories.impl
+package com.lttrung.dormitory.domain.repositories.impl
 
-import com.lttrung.dormitory.database.data.network.RoomManagementNetwork
-import com.lttrung.dormitory.database.repositories.RoomManagementRepositories
+import com.lttrung.dormitory.domain.data.network.RoomManagementNetwork
+import com.lttrung.dormitory.domain.repositories.RoomManagementRepositories
 import com.lttrung.dormitory.domain.data.network.models.Room
 import io.reactivex.rxjava3.core.Single
-import java.lang.reflect.Type
 import javax.inject.Inject
 
 class RoomManagementRepositoriesImpl @Inject constructor(override val network: RoomManagementNetwork) :

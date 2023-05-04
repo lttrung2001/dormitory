@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context=".ui.roomManagement.updateRoomManagement.UpdateRoomManagementActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="20dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/cardview_shadow_start_color"
+                android:contentDescription="Add image here"
+                android:scaleType="centerCrop"
+                app:cardCornerRadius="20dp" />
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btn_image"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/bg_corner_16dp"
+            android:text="Choose Image"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:backgroundTint="@color/cardview_shadow_end_color"
+            app:strokeColor="#000000"
+            app:strokeWidth="2dp" />
+
+        <TextView
+            android:id="@+id/id_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID Room" />
+
+        <TextView
+            android:id="@+id/id_edit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_corner_16dp"
+            android:hint="ID Room"
+            android:paddingLeft="14dp"
+            android:paddingTop="10dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/name_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name Room" />
+
+        <EditText
+            android:id="@+id/name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="20dp"
+            android:autofillHints="Name room"
+            android:background="@drawable/bg_corner_16dp"
+            android:inputType="text"
+            android:labelFor="@id/name_v"
+            android:paddingLeft="14dp"
+            android:hint="Enter Name room..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price Room" />
+
+        <EditText
+            android:id="@+id/price_edit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="20dp"
+            android:autofillHints="Price room"
+            android:background="@drawable/bg_corner_16dp"
+            android:inputType="numberDecimal"
+            android:paddingLeft="14dp"
+            android:hint="Enter Price room..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number beds" />
+
+        <EditText
+            android:id="@+id/number_beds_edit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="20dp"
+            android:autofillHints="Quantity of bedroom"
+            android:background="@drawable/bg_corner_16dp"
+            android:inputType="numberDecimal"
+            android:paddingLeft="14dp"
+            android:hint="Enter quantity of beds..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Type Room" />
+
+        <Spinner
+            android:id="@+id/sp_room_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corner_16dp"
+            android:paddingVertical="16dp"
+            android:spinnerMode="dialog"
+            tools:listitem="@android:layout/list_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Description Room" />
+
+        <EditText
+            android:id="@+id/desc_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:autofillHints="Description"
+            android:background="@drawable/bg_corner_16dp"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:maxLines="10"
+            android:minLines="6"
+            android:paddingLeft="14dp"
+            android:scrollbars="vertical"
+            android:hint="Enter description here" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFD700"
+            android:text="Submit"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</ScrollView>

@@ -1,10 +1,10 @@
-package com.lttrung.dormitory.ui.roomManagement
+package com.lttrung.dormitory.ui.roomManagement.detailRoomManagement
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lttrung.dormitory.domain.data.network.models.Room
-import com.lttrung.dormitory.domain.usecases.RoomsManagementUseCase
+import com.lttrung.dormitory.domain.usecases.DeleteRoomManagementUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -16,11 +16,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RoomsManagementViewModel @Inject constructor(
-    private val useCase: RoomsManagementUseCase
+class DetailRoomManagementViewModel @Inject constructor(
+    private val useCase: DeleteRoomManagementUseCase
 ) : ViewModel() {
-    internal val roomsManagementLiveData: MutableLiveData<Resource<List<Room>>> by lazy {
-        MutableLiveData<Resource<List<Room>>>()
+    internal val deleteRoomManagementLiveData: MutableLiveData<Resource<Room>> by lazy {
+        MutableLiveData<Resource<Room>>()
     }
 
     private val composite: CompositeDisposable by lazy {
@@ -29,20 +29,20 @@ class RoomsManagementViewModel @Inject constructor(
 
     private var roomsDisposable: Disposable? = null
 
-    private val roomsObserver: Consumer<List<Room>> by lazy {
+    private val roomsObserver: Consumer<Room> by lazy {
         Consumer {
-            roomsManagementLiveData.postValue(Resource.Success(it))
+            deleteRoomManagementLiveData.postValue(Resource.Success(it));
         }
     }
 
-    internal fun getRooms(roomTypeId: Int) {
+    internal fun deleteRoom(room: Room) {
         viewModelScope.launch(Dispatchers.IO) {
-            roomsManagementLiveData.postValue(Resource.Loading())
+            deleteRoomManagementLiveData.postValue(Resource.Loading())
             roomsDisposable?.let { composite.remove(it) }
             roomsDisposable =
-                useCase.execute(roomTypeId).observeOn(AndroidSchedulers.mainThread())
+                useCase.execute(room).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(roomsObserver) { t ->
-                        t.message?.let { roomsManagementLiveData.postValue(Resource.Error(t.message!!)) }
+                        t.message?.let { deleteRoomManagementLiveData.postValue(Resource.Error(t.message!!)) }
                     }
             roomsDisposable?.let { composite.add(it) }
         }.start()

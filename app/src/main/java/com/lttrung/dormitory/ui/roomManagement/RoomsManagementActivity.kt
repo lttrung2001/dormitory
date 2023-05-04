@@ -1,5 +1,6 @@
 package com.lttrung.dormitory.ui.roomManagement
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,8 @@ import com.lttrung.dormitory.databinding.ActivityRoomsManagementBinding
 import com.lttrung.dormitory.domain.data.network.models.Room
 import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.ui.adapters.RoomAdapter
+import com.lttrung.dormitory.ui.roomManagement.detailRoomManagement.DetailRoomManagementActivity
+import com.lttrung.dormitory.utils.AppConstants
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +24,12 @@ class RoomsManagementActivity : AppCompatActivity() {
         RoomAdapter(object : RoomAdapter.ItemListener {
             override fun onClick(room: Room) {
                 // View room details
+                val viewRoomManagementDetailIntent =
+                    Intent(this@RoomsManagementActivity, DetailRoomManagementActivity::class.java)
+                val roomType = intent.getSerializableExtra(ROOM_TYPE) as RoomType
+                viewRoomManagementDetailIntent.putExtra(ROOM_TYPE, roomType)
+                viewRoomManagementDetailIntent.putExtra(AppConstants.ROOM, room)
+                startActivity(viewRoomManagementDetailIntent)
             }
         })
     }
@@ -51,6 +60,7 @@ class RoomsManagementActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     // Error
                 }
+                else -> {}
             }
         }
     }

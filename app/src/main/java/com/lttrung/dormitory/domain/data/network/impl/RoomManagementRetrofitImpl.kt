@@ -1,7 +1,7 @@
-package com.lttrung.dormitory.database.data.network.impl
+package com.lttrung.dormitory.domain.data.network.impl
 
-import com.lttrung.dormitory.database.data.network.RoomManagementNetwork
-import com.lttrung.dormitory.database.data.network.services.RoomManagementService
+import com.lttrung.dormitory.domain.data.network.RoomManagementNetwork
+import com.lttrung.dormitory.domain.data.network.services.RoomManagementService
 import com.lttrung.dormitory.domain.data.network.models.Room
 import com.lttrung.dormitory.exceptions.FailedException
 import com.lttrung.dormitory.utils.HttpStatusCodes
