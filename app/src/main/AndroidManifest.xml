@@ -32,6 +32,18 @@
             android:name=".ui.adminhome.AdminHomeActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.roomManagement.updateRoomManagement.UpdateRoomManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.roomManagement.detailRoomManagement.DetailRoomManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.roommanagement.RoomsManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.roomManagement.addRoomManagement.AddRoomManagementActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.registerroom.RegisterRoomActivity"
             android:exported="false" />
         <activity

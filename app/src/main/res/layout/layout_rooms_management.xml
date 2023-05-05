@@ -6,7 +6,6 @@
     android:layout_marginBottom="16dp"
     android:background="@drawable/bg_corner_16dp"
     android:padding="16dp">
-<!--    android:background="@drawable/bg_gray_border_16dp"-->
 
     <TextView
         android:id="@+id/tv_room_id"
