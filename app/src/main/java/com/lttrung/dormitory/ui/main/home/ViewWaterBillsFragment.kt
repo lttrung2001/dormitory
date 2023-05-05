@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.lttrung.dormitory.databinding.FragmentWaterBillsBinding
 import com.lttrung.dormitory.domain.data.network.models.WaterBill
 import com.lttrung.dormitory.domain.data.network.models.WaterCostByMonth
-import com.lttrung.dormitory.databinding.FragmentWaterBillsBinding
 import com.lttrung.dormitory.ui.adapters.WaterBillAdapter
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
+
 @AndroidEntryPoint
 class ViewWaterBillsFragment : Fragment() {
     private val binding: FragmentWaterBillsBinding by lazy {
@@ -41,7 +42,14 @@ class ViewWaterBillsFragment : Fragment() {
                 )
             )
         }
-        adapter.submitList(data)
+        adapter.submitList(
+            data.sortedWith(
+                compareBy(
+                    { it.status },
+                    { -it.waterCostByMonth.year },
+                    { -it.waterCostByMonth.month })
+            )
+        )
         adapter
     }
 

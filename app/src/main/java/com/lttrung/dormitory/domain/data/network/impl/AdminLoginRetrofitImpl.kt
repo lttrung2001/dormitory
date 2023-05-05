@@ -6,6 +6,7 @@ import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
 import com.lttrung.dormitory.domain.data.network.models.StudentStat
 import com.lttrung.dormitory.domain.data.network.services.AdminLoginService
 import com.lttrung.dormitory.exceptions.FailedException
+import com.lttrung.dormitory.exceptions.NotFoundException
 import com.lttrung.dormitory.utils.HttpStatusCodes
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -58,12 +59,18 @@ class AdminLoginRetrofitImpl @Inject constructor(
         return service.fetchGenderStats().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> {
-                    response.body()!!
+                    response.body()?.let { stats ->
+                        if (stats.isEmpty()) {
+                            throw NotFoundException()
+                        } else {
+                            stats[0]
+                        }
+                    }
                 }
                 else -> {
                     throw FailedException()
                 }
-            }
+            }!!
         }
     }
 }

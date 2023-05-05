@@ -41,7 +41,12 @@ class ViewElectricBillsFragment : Fragment() {
                 )
             )
         }
-        adapter.submitList(data)
+        adapter.submitList(data.sortedWith(
+            compareBy(
+                { it.status },
+                { -it.electricCostByMonth.year },
+                { -it.electricCostByMonth.month })
+        ))
         adapter
     }
     override fun onCreate(savedInstanceState: Bundle?) {

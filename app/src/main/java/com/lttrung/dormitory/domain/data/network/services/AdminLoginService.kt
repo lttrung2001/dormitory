@@ -23,5 +23,5 @@ interface AdminLoginService {
     fun fetchRoomTypeStats(): Single<Response<List<RoomTypeStat>>>
 
     @GET("api/analysis/gender")
-    fun fetchGenderStats(): Single<Response<GenderStats>>
+    fun fetchGenderStats(): Single<Response<List<GenderStats>>>
 }

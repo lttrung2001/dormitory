@@ -2,6 +2,9 @@ package com.lttrung.dormitory.ui.viewrooms
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
@@ -33,15 +36,21 @@ class ViewRoomsActivity : AppCompatActivity() {
                 Pair(viewBinding.roomImage, getString(R.string.room_image_transition)),
                 Pair(
                     viewBinding.roomId, getString(R.string.room_name_transition),
-                    ),
-                    Pair(viewBinding.roomPrice, getString(R.string.room_price_transition)),
-                    Pair(
-                        viewBinding.roomAvailableBeds,
-                        getString(R.string.room_available_beds_transition)
-                    )
+                ),
+                Pair(viewBinding.roomPrice, getString(R.string.room_price_transition)),
+                Pair(
+                    viewBinding.roomAvailableBeds,
+                    getString(R.string.room_available_beds_transition)
                 )
-                startActivity(viewRoomDetailsIntent, options.toBundle())
-            }
+            )
+            startActivity(viewRoomDetailsIntent, options.toBundle())
+        }
+    }
+    private val spinnerAdapter: ArrayAdapter<String> by lazy {
+        val sortByList = listOf("Available beds ascending", "Available beds descending")
+        val adapter =
+            ArrayAdapter(this@ViewRoomsActivity, R.layout.layout_sort_by, sortByList)
+        adapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,10 +74,41 @@ class ViewRoomsActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     val rooms = resource.data
                     roomAdapter.submitList(rooms)
+                    setupSpinner()
                 }
                 is Resource.Error -> {
                     // Error
                 }
+            }
+        }
+    }
+
+    private fun setupSpinner() {
+        binding.spinnerSortBy.adapter = spinnerAdapter
+        binding.spinnerSortBy.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        roomAdapter.submitList(roomAdapter.currentList.toMutableList().sortedBy {
+                            it.availableBeds
+                        })
+                    }
+                    1 -> {
+                        roomAdapter.submitList(
+                            roomAdapter.currentList.toMutableList().sortedByDescending {
+                                it.availableBeds
+                            })
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
             }
         }
     }

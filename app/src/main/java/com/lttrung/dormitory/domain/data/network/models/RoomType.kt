@@ -9,5 +9,6 @@ data class RoomType (
     @SerializedName("soGiuong") val numOfBeds: Int,
     @SerializedName("giaPhong") val cost: Double,
     @SerializedName("description") val description: String,
-    @SerializedName("image") val image: String
+    @SerializedName("image") val image: String,
+    @SerializedName("gioiTnh") val isMale: Boolean
     ) : Serializable
