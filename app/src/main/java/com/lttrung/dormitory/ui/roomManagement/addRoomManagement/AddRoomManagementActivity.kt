@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.roomManagement.addRoomManagement
+package com.lttrung.dormitory.ui.roommanagement.addRoomManagement
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.lttrung.dormitory.databinding.ActivityAddRoomManagementBinding
 import com.lttrung.dormitory.domain.data.network.models.Room
-import com.lttrung.dormitory.ui.roomManagement.RoomsManagementActivity
+import com.lttrung.dormitory.ui.roommanagement.RoomsManagementActivity
 import com.lttrung.dormitory.utils.AppConstants
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +39,6 @@ class AddRoomManagementActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     // Error
                 }
-                else -> {}
             }
         }
     }

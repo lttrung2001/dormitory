@@ -6,5 +6,5 @@ import javax.inject.Singleton
 
 @Singleton
 interface GetStudentStatsUseCase {
-    fun execute(termId: Int): Single<List<StudentStat>>
+    fun execute(): Single<List<StudentStat>>
 }

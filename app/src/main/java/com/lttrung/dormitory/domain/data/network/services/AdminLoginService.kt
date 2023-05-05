@@ -1,5 +1,6 @@
 package com.lttrung.dormitory.domain.data.network.services
 
+import com.lttrung.dormitory.domain.data.network.models.GenderStats
 import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
 import com.lttrung.dormitory.domain.data.network.models.StudentStat
 import io.reactivex.rxjava3.core.Single
@@ -16,8 +17,11 @@ interface AdminLoginService {
     ): Single<Response<Unit>>
 
     @GET("api/analysis/studentInTerm")
-    fun fetchStudentStats(@Query("idTerm") term: Int): Single<Response<List<StudentStat>>>
+    fun fetchStudentStats(): Single<Response<List<StudentStat>>>
 
     @GET("api/analysis/loaiKTX")
     fun fetchRoomTypeStats(): Single<Response<List<RoomTypeStat>>>
+
+    @GET("api/analysis/gender")
+    fun fetchGenderStats(): Single<Response<GenderStats>>
 }

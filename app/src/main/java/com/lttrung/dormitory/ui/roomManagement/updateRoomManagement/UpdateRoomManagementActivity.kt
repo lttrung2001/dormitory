@@ -1,17 +1,12 @@
-package com.lttrung.dormitory.ui.roomManagement.updateRoomManagement
+package com.lttrung.dormitory.ui.roommanagement.updateRoomManagement
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.lttrung.dormitory.databinding.ActivityAddRoomManagementBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.lttrung.dormitory.databinding.ActivityUpdateRoomManagementBinding
 import com.lttrung.dormitory.domain.data.network.models.Room
-import com.lttrung.dormitory.domain.data.network.models.RoomType
-import com.lttrung.dormitory.ui.adapters.RoomAdapter
-import com.lttrung.dormitory.ui.roomManagement.RoomsManagementActivity
-import com.lttrung.dormitory.ui.roomManagement.RoomsManagementViewModel
-import com.lttrung.dormitory.ui.roomManagement.detailRoomManagement.DetailRoomManagementActivity
+import com.lttrung.dormitory.ui.roommanagement.detailRoomManagement.DetailRoomManagementActivity
 import com.lttrung.dormitory.utils.AppConstants
 import com.lttrung.dormitory.utils.Resource
 

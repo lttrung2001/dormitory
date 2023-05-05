@@ -1,4 +1,4 @@
-package com.lttrung.dormitory.ui.roomManagement.updateRoomManagement
+package com.lttrung.dormitory.ui.roommanagement.updateRoomManagement
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,9 +27,9 @@ class UpdateRoomManagementViewModel @Inject constructor(
         CompositeDisposable()
     }
 
-    private var roomsDisposable: Disposable? = null
+    private var updateRoomDisposable: Disposable? = null
 
-    private val roomsObserver: Consumer<Room> by lazy {
+    private val updateRoomObserver: Consumer<Room> by lazy {
         Consumer {
             updateRoomManagementLiveData.postValue(Resource.Success(it));
         }
@@ -38,13 +38,13 @@ class UpdateRoomManagementViewModel @Inject constructor(
     internal fun updateRoom(room: Room) {
         viewModelScope.launch(Dispatchers.IO) {
             updateRoomManagementLiveData.postValue(Resource.Loading())
-            roomsDisposable?.let { composite.remove(it) }
-            roomsDisposable =
+            updateRoomDisposable?.let { composite.remove(it) }
+            updateRoomDisposable =
                 useCase.execute(room).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(roomsObserver) { t ->
+                    .subscribe(updateRoomObserver) { t ->
                         t.message?.let { updateRoomManagementLiveData.postValue(Resource.Error(t.message!!)) }
                     }
-            roomsDisposable?.let { composite.add(it) }
+            updateRoomDisposable?.let { composite.add(it) }
         }.start()
     }
 }

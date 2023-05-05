@@ -33,7 +33,7 @@ class AdminViewStudentStatsViewModel @Inject constructor(private val getStudentS
             getStudentStatsLiveData.postValue(Resource.Loading())
             getStudentStatsDisposable?.let { composite.remove(it) }
             getStudentStatsDisposable =
-                getStudentStatsUseCase.execute(1)
+                getStudentStatsUseCase.execute()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getStudentStatsObserver) { t: Throwable ->
                         t.message?.let { getStudentStatsLiveData.postValue(Resource.Error(t.message!!)) }

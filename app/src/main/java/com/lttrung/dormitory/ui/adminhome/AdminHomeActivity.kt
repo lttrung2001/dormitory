@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.lttrung.dormitory.databinding.ActivityAdminHomeBinding
+import com.lttrung.dormitory.ui.adminviewgenderstats.AdminViewGenderStatsActivity
 import com.lttrung.dormitory.ui.adminviewroomtypestats.AdminViewRoomTypeStatsActivity
 import com.lttrung.dormitory.ui.adminviewstudentstats.AdminViewStudentStatsActivity
 
@@ -24,6 +25,9 @@ class AdminHomeActivity : AppCompatActivity() {
         }
         binding.buttonChart2.setOnClickListener {
             startActivity(Intent(this, AdminViewRoomTypeStatsActivity::class.java))
+        }
+        binding.buttonChart3.setOnClickListener {
+            startActivity(Intent(this, AdminViewGenderStatsActivity::class.java))
         }
     }
 }

@@ -51,11 +51,13 @@ class AdminViewStudentStatsActivity : AppCompatActivity() {
         val cartesian = AnyChart.column()
         val data: MutableList<DataEntry> = ArrayList()
         var max = 0
+        var i = 1
         for (studentStat in studentStats) {
             if (studentStat.studentCount > max) {
                 max = studentStat.studentCount
             }
-            data.add(ValueDataEntry("Học kỳ ${studentStat.term}", studentStat.studentCount))
+            data.add(ValueDataEntry("Học kỳ $i", studentStat.studentCount))
+            i++
         }
 
         val column = cartesian.column(data)

@@ -9,7 +9,7 @@ import com.lttrung.dormitory.databinding.ActivityRoomsManagementBinding
 import com.lttrung.dormitory.domain.data.network.models.Room
 import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.ui.adapters.RoomAdapter
-import com.lttrung.dormitory.ui.roomManagement.detailRoomManagement.DetailRoomManagementActivity
+import com.lttrung.dormitory.ui.roommanagement.detailRoomManagement.DetailRoomManagementActivity
 import com.lttrung.dormitory.utils.AppConstants.ROOM
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
 import com.lttrung.dormitory.utils.Resource
@@ -58,7 +58,6 @@ class RoomsManagementActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     // Error
                 }
-                else -> {}
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.lttrung.dormitory.domain.data.network.impl
 
 import com.lttrung.dormitory.domain.data.network.AdminLoginNetwork
+import com.lttrung.dormitory.domain.data.network.models.GenderStats
 import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
 import com.lttrung.dormitory.domain.data.network.models.StudentStat
 import com.lttrung.dormitory.domain.data.network.services.AdminLoginService
@@ -27,8 +28,8 @@ class AdminLoginRetrofitImpl @Inject constructor(
         }
     }
 
-    override fun fetchStudentStats(term: Int): Single<List<StudentStat>> {
-        return service.fetchStudentStats(term).map { response ->
+    override fun fetchStudentStats(): Single<List<StudentStat>> {
+        return service.fetchStudentStats().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> {
                     response.body()!!
@@ -42,6 +43,19 @@ class AdminLoginRetrofitImpl @Inject constructor(
 
     override fun fetchRoomTypeStats(): Single<List<RoomTypeStat>> {
         return service.fetchRoomTypeStats().map { response ->
+            when (response.code()) {
+                HttpStatusCodes.OK -> {
+                    response.body()!!
+                }
+                else -> {
+                    throw FailedException()
+                }
+            }
+        }
+    }
+
+    override fun fetchGenderStats(): Single<GenderStats> {
+        return service.fetchGenderStats().map { response ->
             when (response.code()) {
                 HttpStatusCodes.OK -> {
                     response.body()!!

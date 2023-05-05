@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetStudentStatsUseCaseImpl @Inject constructor(
     private val adminLoginRepositories: AdminLoginRepositories
 ) : GetStudentStatsUseCase {
-    override fun execute(termId: Int): Single<List<StudentStat>> {
-        return adminLoginRepositories.getStudentStats(termId)
+    override fun execute(): Single<List<StudentStat>> {
+        return adminLoginRepositories.getStudentStats()
     }
 }
