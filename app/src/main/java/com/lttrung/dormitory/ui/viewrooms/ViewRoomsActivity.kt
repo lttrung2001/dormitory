@@ -78,6 +78,12 @@ class ViewRoomsActivity : AppCompatActivity() {
                 }
                 is Resource.Error -> {
                     // Error
+                    binding.errorText.text = "Can not view rooms at this time!"
+                    binding.buttonGoBack.setOnClickListener {
+                        finish()
+                    }
+                    binding.errorText.visibility = View.VISIBLE
+                    binding.buttonGoBack.visibility = View.VISIBLE
                 }
             }
         }

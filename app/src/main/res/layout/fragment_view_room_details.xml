@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.registerroom.ViewRoomDetailsFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/button_register_room"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <com.lttrung.dormitory.customs.RoundedImageView
+                android:id="@+id/room_image"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/demo"
+                android:transitionName="@string/room_image_transition"
+                app:borderColor="@color/primary_edit_text_background"
+                app:borderWidth="32dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:radius="16dp" />
+
+            <TextView
+                android:id="@+id/room_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Room 4"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:transitionName="@string/room_name_transition"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/room_image" />
+
+            <TextView
+                android:id="@+id/room_beds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="6 beds"
+                android:textSize="20sp"
+                android:transitionName="@string/room_beds_transition"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/room_name" />
+
+            <TextView
+                android:id="@+id/room_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="240.000 đ/m"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:transitionName="@string/room_price_transition"
+                app:layout_constraintBottom_toBottomOf="@+id/room_name"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/room_name" />
+
+            <TextView
+                android:id="@+id/room_available_beds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 available bed"
+                android:textSize="20sp"
+                android:transitionName="@string/room_available_beds_transition"
+                app:layout_constraintBottom_toBottomOf="@+id/room_beds"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/room_beds" />
+
+            <LinearLayout
+                android:id="@+id/room_info_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_corner_16dp"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/room_beds">
+
+                <TextView
+                    android:id="@+id/room_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Basic"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:transitionName="@string/room_type_name_transition" />
+
+                <TextView
+                    android:id="@+id/room_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+                    android:textSize="16sp"
+                    android:transitionName="@string/room_description_transition" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/button_register_room"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
