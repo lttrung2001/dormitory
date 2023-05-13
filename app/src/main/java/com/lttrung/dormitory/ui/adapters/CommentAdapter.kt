@@ -7,16 +7,19 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.lttrung.dormitory.databinding.LayoutMyCommentBinding
 import com.lttrung.dormitory.databinding.LayoutOtherCommentBinding
-import com.lttrung.dormitory.domain.data.network.models.Comment
+import com.lttrung.dormitory.domain.data.local.room.entities.CommentLocalModel
 
 class CommentAdapter(
-    private val studentId: String, private val deleteListener: (comment: Comment) -> Unit
-) : ListAdapter<Comment, ViewHolder>(object : DiffUtil.ItemCallback<Comment>() {
-    override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+    private val deleteListener: (comment: CommentLocalModel) -> Unit
+) : ListAdapter<CommentLocalModel, ViewHolder>(object : DiffUtil.ItemCallback<CommentLocalModel>() {
+    override fun areItemsTheSame(oldItem: CommentLocalModel, newItem: CommentLocalModel): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+    override fun areContentsTheSame(
+        oldItem: CommentLocalModel,
+        newItem: CommentLocalModel
+    ): Boolean {
         return oldItem == newItem
     }
 
@@ -48,7 +51,7 @@ class CommentAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        return if (item.studentId == this.studentId) {
+        return if (item.isOwner) {
             ITEM_MY_COMMENT
         } else {
             ITEM_OTHER_COMMENT
@@ -62,7 +65,7 @@ class CommentAdapter(
 }
 
 private class MyCommentViewHolder(val binding: LayoutMyCommentBinding) : ViewHolder(binding.root) {
-    fun bind(comment: Comment, deleteListener: (comment: Comment) -> Unit) {
+    fun bind(comment: CommentLocalModel, deleteListener: (comment: CommentLocalModel) -> Unit) {
         binding.userFullName.text = comment.studentId
         binding.commentContent.text = comment.content
         binding.buttonDeleteComment.setOnClickListener { deleteListener(comment) }
@@ -71,7 +74,7 @@ private class MyCommentViewHolder(val binding: LayoutMyCommentBinding) : ViewHol
 
 private class OtherCommentViewHolder(val binding: LayoutOtherCommentBinding) :
     ViewHolder(binding.root) {
-    fun bind(comment: Comment) {
+    fun bind(comment: CommentLocalModel) {
         binding.userFullName.text = comment.studentId
         binding.commentContent.text = comment.content
     }

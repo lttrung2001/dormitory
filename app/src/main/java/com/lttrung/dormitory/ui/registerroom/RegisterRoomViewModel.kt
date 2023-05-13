@@ -18,6 +18,7 @@ import javax.inject.Inject
 class RegisterRoomViewModel @Inject constructor(
     private val registerRoomUseCase: RegisterRoomUseCase
 ) : ViewModel() {
+    internal var roomId = 0
     internal val registerRoomLiveData: MutableLiveData<Resource<Boolean>> by lazy {
         MutableLiveData<Resource<Boolean>>()
     }
