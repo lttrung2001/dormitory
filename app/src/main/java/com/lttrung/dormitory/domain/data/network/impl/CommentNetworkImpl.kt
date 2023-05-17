@@ -21,7 +21,9 @@ class CommentNetworkImpl @Inject constructor(
     }
 
     override fun createComment(commentNetworkModel: CommentNetworkModel): Single<CommentNetworkModel> {
-        return service.createComment(commentNetworkModel).map { response ->
+        val body = hashMapOf<String, String>()
+        body["content"] = commentNetworkModel.content
+        return service.createComment(body).map { response ->
             if (response.isSuccessful) {
                 response.body()!!
             } else {
@@ -30,13 +32,9 @@ class CommentNetworkImpl @Inject constructor(
         }
     }
 
-    override fun deleteComment(commentId: Int): Single<Unit> {
-        return service.deleteComment(commentId).map { response ->
-            if (response.isSuccessful) {
-                response.body()!!
-            } else {
-                throw FailedException(response.message())
-            }
+    override fun deleteComment(commentId: Int): Single<Int> {
+        return service.deleteComment(commentId).toSingle {
+            commentId
         }
     }
 }

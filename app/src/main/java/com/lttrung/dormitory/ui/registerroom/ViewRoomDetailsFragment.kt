@@ -1,6 +1,7 @@
 package com.lttrung.dormitory.ui.registerroom
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -127,8 +128,15 @@ class ViewRoomDetailsFragment : Fragment() {
     private fun setupListener() {
         binding.buttonRegisterRoom.setOnClickListener {
             // Register
-            val room = requireActivity().intent.getSerializableExtra(AppConstants.ROOM) as Room
-            viewModel.registerRoom(room.id)
+            AlertDialog.Builder(context).setTitle("Register room entry")
+                .setMessage("Are you sure to register this room?")
+                .setPositiveButton(android.R.string.yes) { dialog, which ->
+                    val room =
+                        requireActivity().intent.getSerializableExtra(AppConstants.ROOM) as Room
+                    viewModel.registerRoom(room.id)
+                }
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(R.drawable.ic_app_registration_24).show()
         }
     }
 }

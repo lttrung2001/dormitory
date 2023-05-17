@@ -8,5 +8,5 @@ import javax.inject.Singleton
 interface CommentNetwork {
     fun fetchComments(roomId: Int): Single<List<CommentNetworkModel>>
     fun createComment(commentNetworkModel: CommentNetworkModel): Single<CommentNetworkModel>
-    fun deleteComment(commentId: Int): Single<Unit>
+    fun deleteComment(commentId: Int): Single<Int>
 }

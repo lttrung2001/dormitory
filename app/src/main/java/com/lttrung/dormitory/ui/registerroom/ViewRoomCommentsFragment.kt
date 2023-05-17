@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.lttrung.dormitory.databinding.FragmentViewRoomCommentsBinding
+import com.lttrung.dormitory.domain.data.local.room.entities.CommentLocalModel
 import com.lttrung.dormitory.domain.data.network.models.CommentNetworkModel
 import com.lttrung.dormitory.ui.adapters.CommentAdapter
 import com.lttrung.dormitory.utils.Resource
@@ -36,6 +38,7 @@ class ViewRoomCommentsFragment : Fragment() {
         setupRecyclerView()
         setupListener()
         setupObserver()
+        viewRoomCommentViewModel.getComments(registerRoomViewModel.roomId)
         return binding.root
     }
 
@@ -69,7 +72,12 @@ class ViewRoomCommentsFragment : Fragment() {
                     binding.commentContent.setText("")
                 }
                 is Resource.Error -> {
-
+                    Snackbar.make(
+                        requireContext(),
+                        binding.linearLayout,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -83,12 +91,37 @@ class ViewRoomCommentsFragment : Fragment() {
                     val deletedCommentId = resource.data
                     val currentList = commentAdapter.currentList.toMutableList()
                     currentList.removeIf {
-                        it.roomId == deletedCommentId
+                        it.id == deletedCommentId
                     }
                     commentAdapter.submitList(currentList)
                 }
                 is Resource.Error -> {
+                    Snackbar.make(
+                        requireContext(),
+                        binding.linearLayout,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
 
+        viewRoomCommentViewModel.getCommentsLiveData.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val comments = resource.data
+                    commentAdapter.submitList(comments)
+                }
+                is Resource.Error -> {
+                    Snackbar.make(
+                        requireContext(),
+                        binding.linearLayout,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }

@@ -24,6 +24,7 @@ class ViewRoomCommentsViewModel @Inject constructor(
     private val deleteCommentUseCase: DeleteCommentUseCase,
     private val getCommentsUseCase: GetCommentsUseCase
 ) : ViewModel() {
+
     internal val writeCommentLiveData: MutableLiveData<Resource<CommentLocalModel>> by lazy {
         MutableLiveData<Resource<CommentLocalModel>>()
     }

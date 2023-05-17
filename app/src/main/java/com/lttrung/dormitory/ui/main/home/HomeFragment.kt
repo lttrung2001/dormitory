@@ -1,5 +1,6 @@
 package com.lttrung.dormitory.ui.main.home
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -205,7 +206,13 @@ class HomeFragment : Fragment() {
                 }
                 binding.buttonCancel.setOnClickListener {
                     // Cancel
-                    homeViewModel.cancelContract()
+                    AlertDialog.Builder(context).setTitle("Cancel contract entry")
+                        .setMessage("Are you sure to cancel contract?")
+                        .setPositiveButton(android.R.string.yes) { dialog, which ->
+                            homeViewModel.cancelContract()
+                        }
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(R.drawable.ic_cancel_presentation_24).show()
                 }
             }
         }

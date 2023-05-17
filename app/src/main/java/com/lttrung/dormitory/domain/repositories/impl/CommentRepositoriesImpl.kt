@@ -24,7 +24,6 @@ class CommentRepositoriesImpl @Inject constructor(
     }
 
     override fun deleteComment(commentId: Int): Single<Int> {
-        network.deleteComment(commentId)
-        return Single.just(commentId)
+        return network.deleteComment(commentId)
     }
 }

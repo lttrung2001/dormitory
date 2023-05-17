@@ -71,5 +71,6 @@
     <string name="room_contracts">Room contracts</string>
     <string name="login_to_your_admin_account">Login to your admin account</string>
     <string name="delete">Delete</string>
+    <string name="write_comment">Write comment...</string>
 
 </resources>

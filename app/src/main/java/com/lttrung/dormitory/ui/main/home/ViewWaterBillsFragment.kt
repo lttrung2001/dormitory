@@ -55,9 +55,7 @@ class ViewWaterBillsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewWaterBillsViewModel.waterBillsLiveData.value?.let {
-            viewWaterBillsViewModel.getWaterBills()
-        }
+        viewWaterBillsViewModel.getWaterBills()
     }
 
     override fun onCreateView(

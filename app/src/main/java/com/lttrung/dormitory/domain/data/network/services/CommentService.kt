@@ -1,6 +1,7 @@
 package com.lttrung.dormitory.domain.data.network.services
 
 import com.lttrung.dormitory.domain.data.network.models.CommentNetworkModel
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.Body
@@ -14,10 +15,10 @@ interface CommentService {
     fun fetchComments(@Path("roomId") roomId: Int): Single<Response<List<CommentNetworkModel>>>
 
     @POST("$PATH/create")
-    fun createComment(@Body commentNetworkModel: CommentNetworkModel): Single<Response<CommentNetworkModel>>
+    fun createComment(@Body body: Map<String, String>): Single<Response<CommentNetworkModel>>
 
     @DELETE("$PATH/delete/{commentId}")
-    fun deleteComment(@Path("commentId") commentId: Int): Single<Response<Unit>>
+    fun deleteComment(@Path("commentId") commentId: Int): Completable
 
     companion object {
         private const val PATH = "api/student/comment"
