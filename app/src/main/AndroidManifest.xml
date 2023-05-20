@@ -44,7 +44,7 @@
             android:name=".ui.roommanagement.RoomsManagementActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.roomManagement.addRoomManagement.AddRoomManagementActivity"
+            android:name=".ui.roommanagement.addRoomManagement.AddRoomManagementActivity"
             android:exported="false" />
         <activity
             android:name=".ui.registerroom.RegisterRoomActivity"
