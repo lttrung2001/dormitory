@@ -9,12 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lttrung.dormitory.databinding.FragmentWaterBillsBinding
-import com.lttrung.dormitory.domain.data.network.models.WaterBill
-import com.lttrung.dormitory.domain.data.network.models.WaterCostByMonth
 import com.lttrung.dormitory.ui.adapters.WaterBillAdapter
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class ViewWaterBillsFragment : Fragment() {
@@ -24,32 +21,6 @@ class ViewWaterBillsFragment : Fragment() {
     private val viewWaterBillsViewModel: ViewWaterBillsViewModel by viewModels()
     private val waterBillAdapter: WaterBillAdapter by lazy {
         val adapter = WaterBillAdapter()
-        val data = mutableListOf<WaterBill>()
-        for (i in 1..10) {
-            data.add(
-                WaterBill(
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000) % 2 == 0,
-                    WaterCostByMonth(
-                        Random.nextInt(1, 1000),
-                        Random.nextInt(1, 12),
-                        2023,
-                        Random.nextInt(1, 1000).toDouble()
-                    ),
-                    Random.nextInt(1, 1000).toDouble()
-                )
-            )
-        }
-        adapter.submitList(
-            data.sortedWith(
-                compareBy(
-                    { it.status },
-                    { -it.waterCostByMonth.year },
-                    { -it.waterCostByMonth.month })
-            )
-        )
         adapter
     }
 

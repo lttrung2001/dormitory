@@ -16,12 +16,12 @@ interface AdminLoginService {
         @Body body: Map<String, String>
     ): Single<Response<Unit>>
 
-    @GET("api/analysis/studentInTerm")
+    @GET("api/manage/analysis/studentInTerm")
     fun fetchStudentStats(): Single<Response<List<StudentStat>>>
 
-    @GET("api/analysis/loaiKTX")
+    @GET("api/manage/analysis/loaiKTX")
     fun fetchRoomTypeStats(): Single<Response<List<RoomTypeStat>>>
 
-    @GET("api/analysis/gender")
+    @GET("api/manage/analysis/gender")
     fun fetchGenderStats(): Single<Response<List<GenderStats>>>
 }

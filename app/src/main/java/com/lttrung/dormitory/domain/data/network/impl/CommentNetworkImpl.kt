@@ -25,7 +25,9 @@ class CommentNetworkImpl @Inject constructor(
         body["content"] = commentNetworkModel.content
         return service.createComment(body).map { response ->
             if (response.isSuccessful) {
-                response.body()!!
+                response.body()!!.sortedByDescending {
+                    it.timePost.time
+                }[0]
             } else {
                 throw FailedException(response.message())
             }

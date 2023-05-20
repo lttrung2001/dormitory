@@ -35,10 +35,10 @@
             android:name=".ui.adminhome.AdminHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.roomManagement.updateRoomManagement.UpdateRoomManagementActivity"
+            android:name=".ui.roommanagement.updateRoomManagement.UpdateRoomManagementActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.roomManagement.detailRoomManagement.DetailRoomManagementActivity"
+            android:name=".ui.roommanagement.detailRoomManagement.DetailRoomManagementActivity"
             android:exported="false" />
         <activity
             android:name=".ui.roommanagement.RoomsManagementActivity"
@@ -56,6 +56,7 @@
             android:name=".ui.changepassword.ChangePasswordActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.Dormitory.Material.NoActionBar"
             android:name=".ui.viewrooms.ViewRoomsActivity"
             android:exported="false" />
         <activity

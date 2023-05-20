@@ -8,13 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.lttrung.dormitory.domain.data.network.models.ElectricBill
-import com.lttrung.dormitory.domain.data.network.models.ElectricCostByMonth
 import com.lttrung.dormitory.databinding.FragmentElectricBillsBinding
 import com.lttrung.dormitory.ui.adapters.ElectricBillAdapter
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class ViewElectricBillsFragment : Fragment() {
@@ -24,29 +21,6 @@ class ViewElectricBillsFragment : Fragment() {
     private val viewElectricBillsViewModel: ViewElectricBillsViewModel by viewModels()
     private val electricBillAdapter: ElectricBillAdapter by lazy {
         val adapter = ElectricBillAdapter()
-        val data = mutableListOf<ElectricBill>()
-        for (i in 1..10) {
-            data.add(
-                ElectricBill(
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000),
-                    Random.nextInt(1, 1000) % 2 == 0,
-                    ElectricCostByMonth(
-                        Random.nextInt(1, 12),
-                        2023,
-                        Random.nextInt(1, 1000).toDouble()
-                    ),
-                    Random.nextInt(1, 1000).toDouble()
-                )
-            )
-        }
-        adapter.submitList(data.sortedWith(
-            compareBy(
-                { it.status },
-                { -it.electricCostByMonth.year },
-                { -it.electricCostByMonth.month })
-        ))
         adapter
     }
     override fun onCreate(savedInstanceState: Bundle?) {

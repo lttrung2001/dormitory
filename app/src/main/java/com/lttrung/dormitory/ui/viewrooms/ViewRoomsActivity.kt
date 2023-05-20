@@ -3,8 +3,6 @@ package com.lttrung.dormitory.ui.viewrooms
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
@@ -12,6 +10,7 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lttrung.dormitory.R
 import com.lttrung.dormitory.databinding.ActivityViewRoomsBinding
+import com.lttrung.dormitory.domain.data.local.models.FilterSortModel
 import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.ui.adapters.RoomAdapter
 import com.lttrung.dormitory.ui.registerroom.RegisterRoomActivity
@@ -19,6 +18,7 @@ import com.lttrung.dormitory.utils.AppConstants.ROOM
 import com.lttrung.dormitory.utils.AppConstants.ROOM_TYPE
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class ViewRoomsActivity : AppCompatActivity() {
@@ -46,26 +46,57 @@ class ViewRoomsActivity : AppCompatActivity() {
             startActivity(viewRoomDetailsIntent, options.toBundle())
         }
     }
-    private val spinnerAdapter: ArrayAdapter<String> by lazy {
-        val sortByList = listOf("Available beds ascending", "Available beds descending")
-        val adapter =
-            ArrayAdapter(this@ViewRoomsActivity, R.layout.layout_sort_by, sortByList)
-        adapter
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupView()
         setupObserver()
-        fetchData()
+        setupListener()
+        viewRoomsViewModel.getRooms(getRoomTypeId(), null)
     }
 
-    private fun fetchData() {
+    private fun setupListener() {
+        binding.buttonOpenFilter.setOnClickListener {
+            var maxBed = 1
+            var minBed = 0
+            val values = mutableListOf(minBed, maxBed)
+            var sortPosition = 0
+            if (viewRoomsViewModel.filterSortLiveData.value != null) {
+                val value = viewRoomsViewModel.filterSortLiveData.value!!
+                maxBed = value.maxBeds
+                minBed = value.minBeds
+                values[0] = value.bedsRange[0]
+                values[1] = value.bedsRange[1]
+                sortPosition = value.sortPosition
+            } else if (roomAdapter.currentList.isNotEmpty()) {
+                maxBed = roomAdapter.currentList.maxOf { it.availableBeds }
+                minBed = roomAdapter.currentList.minOf { it.availableBeds }
+                minBed = if (minBed == maxBed) 0 else minBed
+                values[0] = minBed
+                values[1] = maxBed
+            }
+            val fragment = FilterSortFragment(
+                FilterSortModel(
+                    minBed,
+                    maxBed,
+                    values,
+                    sortPosition
+                )
+            )
+            fragment.show(supportFragmentManager, FilterSortFragment.TAG)
+        }
+    }
+
+    private fun getRoomTypeId(): Int {
         val roomType = intent.getSerializableExtra(ROOM_TYPE) as RoomType
-        viewRoomsViewModel.getRooms(roomType.id)
+        return roomType.id
     }
 
     private fun setupObserver() {
+        viewRoomsViewModel.filterSortLiveData.observe(this) { filterSort ->
+            viewRoomsViewModel.getRooms(getRoomTypeId(), filterSort)
+        }
+
         viewRoomsViewModel.roomsLiveData.observe(this) { resource ->
             when (resource) {
                 is Resource.Loading -> {
@@ -74,7 +105,6 @@ class ViewRoomsActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     val rooms = resource.data
                     roomAdapter.submitList(rooms)
-                    setupSpinner()
                 }
                 is Resource.Error -> {
                     // Error
@@ -85,36 +115,6 @@ class ViewRoomsActivity : AppCompatActivity() {
                     binding.errorText.visibility = View.VISIBLE
                     binding.buttonGoBack.visibility = View.VISIBLE
                 }
-            }
-        }
-    }
-
-    private fun setupSpinner() {
-        binding.spinnerSortBy.adapter = spinnerAdapter
-        binding.spinnerSortBy.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                when (position) {
-                    0 -> {
-                        roomAdapter.submitList(roomAdapter.currentList.toMutableList().sortedBy {
-                            it.availableBeds
-                        })
-                    }
-                    1 -> {
-                        roomAdapter.submitList(
-                            roomAdapter.currentList.toMutableList().sortedByDescending {
-                                it.availableBeds
-                            })
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
         }
     }

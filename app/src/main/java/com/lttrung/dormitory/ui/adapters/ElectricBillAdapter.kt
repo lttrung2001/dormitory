@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.lttrung.dormitory.domain.data.network.models.ElectricBill
 import com.lttrung.dormitory.databinding.LayoutBillBinding
+import com.lttrung.dormitory.domain.data.network.models.ElectricBill
 import java.util.*
 
 class ElectricBillAdapter :
@@ -18,10 +18,15 @@ class ElectricBillAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(electricBill: ElectricBill) {
             val electricCostByMonth = electricBill.electricCostByMonth
+            binding.time.text = "Undefined"
+            binding.cost.text = "Undefined"
+
             binding.roomName.text = electricBill.roomId.toString()
-            binding.time.text = "${electricCostByMonth.month} ${electricCostByMonth.year} "
+            electricCostByMonth?.let {
+                binding.time.text = "${electricCostByMonth.month} ${electricCostByMonth.year} "
+                binding.cost.text = "${electricCostByMonth.cost}đ / kWh"
+            }
             binding.usage.text = "${electricBill.waterUsage} kWh"
-            binding.cost.text = "${electricCostByMonth.cost}đ / kWh"
             binding.totalCost.text = "${electricBill.totalCost}đ"
             binding.status.setTextColor(
                 if (electricBill.status) {

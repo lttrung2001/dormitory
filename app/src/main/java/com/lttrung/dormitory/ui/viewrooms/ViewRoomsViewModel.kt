@@ -3,6 +3,7 @@ package com.lttrung.dormitory.ui.viewrooms
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lttrung.dormitory.domain.data.local.models.FilterSortModel
 import com.lttrung.dormitory.domain.data.network.models.Room
 import com.lttrung.dormitory.domain.usecases.ViewRoomsUseCase
 import com.lttrung.dormitory.utils.Resource
@@ -19,6 +20,10 @@ import javax.inject.Inject
 class ViewRoomsViewModel @Inject constructor(
     private val viewRoomsUseCase: ViewRoomsUseCase
 ) : ViewModel() {
+    internal val filterSortLiveData: MutableLiveData<FilterSortModel> by lazy {
+        MutableLiveData<FilterSortModel>()
+    }
+
     internal val roomsLiveData: MutableLiveData<Resource<List<Room>>> by lazy {
         MutableLiveData<Resource<List<Room>>>()
     }
@@ -35,16 +40,20 @@ class ViewRoomsViewModel @Inject constructor(
         }
     }
 
-    internal fun getRooms(roomTypeId: Int) {
+    internal fun getRooms(roomTypeId: Int, filterSortModel: FilterSortModel?) {
         viewModelScope.launch(Dispatchers.IO) {
             roomsLiveData.postValue(Resource.Loading())
             roomsDisposable?.let { composite.remove(it) }
             roomsDisposable =
-                viewRoomsUseCase.execute(roomTypeId).observeOn(AndroidSchedulers.mainThread())
+                viewRoomsUseCase.execute(roomTypeId, filterSortModel).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(roomsObserver) { t ->
                         t.message?.let { roomsLiveData.postValue(Resource.Error(t.message!!)) }
                     }
             roomsDisposable?.let { composite.add(it) }
         }.start()
+    }
+
+    internal fun applyFilterSort(filterSortModel: FilterSortModel) {
+        filterSortLiveData.postValue(filterSortModel)
     }
 }

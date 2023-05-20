@@ -15,7 +15,7 @@ interface CommentService {
     fun fetchComments(@Path("roomId") roomId: Int): Single<Response<List<CommentNetworkModel>>>
 
     @POST("$PATH/create")
-    fun createComment(@Body body: Map<String, String>): Single<Response<CommentNetworkModel>>
+    fun createComment(@Body body: Map<String, String>): Single<Response<List<CommentNetworkModel>>>
 
     @DELETE("$PATH/delete/{commentId}")
     fun deleteComment(@Path("commentId") commentId: Int): Completable

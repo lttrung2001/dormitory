@@ -27,8 +27,16 @@ class ViewWaterBillsViewModel @Inject constructor(
     }
     private var waterBillsDisposable: Disposable? = null
     private val waterBillsObserver: Consumer<List<WaterBill>> by lazy {
-        Consumer {
-            waterBillsLiveData.postValue(Resource.Success(it))
+        Consumer { waterBills ->
+            waterBillsLiveData.postValue(
+                Resource.Success(
+                    waterBills.sortedWith(compareBy(
+                        { it.status },
+                        { -it.waterCostByMonth?.year!! or 0 },
+                        { -it.waterCostByMonth?.month!! or 0 }
+                    ))
+                )
+            )
         }
     }
 

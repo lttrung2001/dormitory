@@ -8,6 +8,6 @@ data class ElectricBill(
     @SerializedName("maSoKTX") val roomId: Int,
     @SerializedName("soDienTieuThu") val waterUsage: Int,
     @SerializedName("trangThai") val status: Boolean,
-    @SerializedName("giaDienTheoThang") val electricCostByMonth: ElectricCostByMonth,
+    @SerializedName("giaDienTheoThang") val electricCostByMonth: ElectricCostByMonth?,
     @SerializedName("total") val totalCost: Double
 ) : Serializable

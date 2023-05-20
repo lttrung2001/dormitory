@@ -27,8 +27,16 @@ class ViewElectricBillsViewModel @Inject constructor(
     }
     private var electricBillsDisposable: Disposable? = null
     private val electricBillsObserver: Consumer<List<ElectricBill>> by lazy {
-        Consumer {
-            electricBillsLiveData.postValue(Resource.Success(it))
+        Consumer { electricBills ->
+            electricBillsLiveData.postValue(
+                Resource.Success(
+                    electricBills.sortedWith(compareBy(
+                        { it.status },
+                        { -it.electricCostByMonth?.year!! or 0 },
+                        { -it.electricCostByMonth?.month!! or 0 }
+                    ))
+                )
+            )
         }
     }
 

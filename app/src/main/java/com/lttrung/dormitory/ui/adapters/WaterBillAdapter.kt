@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.lttrung.dormitory.domain.data.network.models.WaterBill
 import com.lttrung.dormitory.databinding.LayoutBillBinding
+import com.lttrung.dormitory.domain.data.network.models.WaterBill
 import java.util.*
 
 class WaterBillAdapter : ListAdapter<WaterBill, WaterBillAdapter.WaterBillViewHolder>(ITEM_CALLBACK) {
@@ -16,20 +16,24 @@ class WaterBillAdapter : ListAdapter<WaterBill, WaterBillAdapter.WaterBillViewHo
         @SuppressLint("SetTextI18n")
         fun bind(waterBill: WaterBill) {
             val waterCostByMonth = waterBill.waterCostByMonth
-            val calendar = Calendar.getInstance().also {
-                it.set(waterCostByMonth.year, waterCostByMonth.month, 1)
-                return@also
+
+            binding.time.text = "Undefined"
+            binding.cost.text = "Undefined"
+
+            waterCostByMonth?.let {
+                binding.time.text = "${waterCostByMonth.month} ${waterCostByMonth.year}"
+                binding.cost.text = "${waterCostByMonth.cost}đ / m3"
             }
+
             binding.roomName.text = waterBill.roomId.toString()
-            binding.time.text = "${calendar.get(Calendar.MONTH)} ${calendar.get(Calendar.YEAR)}"
             binding.usage.text = "${waterBill.waterUsage} m3"
-            binding.cost.text = "${waterCostByMonth.cost}đ / m3"
             binding.totalCost.text = "${waterBill.totalCost}đ"
-            binding.status.setTextColor(if (waterBill.status) {
-                binding.status.text = "Paid"
-                Color.GREEN
-            } else {
-                binding.status.text = "Unpaid"
+            binding.status.setTextColor(
+                if (waterBill.status) {
+                    binding.status.text = "Paid"
+                    Color.GREEN
+                } else {
+                    binding.status.text = "Unpaid"
                 Color.RED
             })
         }
