@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.adminverifyotp.AdminVerifyOtpActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.adminviewgenderstats.AdminViewGenderStatsActivity"
             android:exported="false" />
         <activity
@@ -56,9 +59,9 @@
             android:name=".ui.changepassword.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:theme="@style/Theme.Dormitory.Material.NoActionBar"
             android:name=".ui.viewrooms.ViewRoomsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Dormitory.Material.NoActionBar" />
         <activity
             android:name=".ui.forgotpassword.ForgotPasswordActivity"
             android:exported="false" />

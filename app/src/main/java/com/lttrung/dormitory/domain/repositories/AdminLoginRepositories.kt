@@ -12,9 +12,5 @@ import javax.inject.Singleton
 interface AdminLoginRepositories {
     val network: AdminLoginNetwork
     fun login(username: String, password: String): Single<Unit>
-
-    // Put code here to test without token
-    fun getStudentStats(): Single<List<StudentStat>>
-    fun getRoomTypeStats(): Single<List<RoomTypeStat>>
-    fun getGenderStats(): Single<GenderStats>
+    fun verifyAdmin(username: String, password: String, otp: String): Single<String>
 }

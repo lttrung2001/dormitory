@@ -47,7 +47,7 @@ class ViewProfileViewModel @Inject constructor(
                 profile?.let {
                     data =
                         StudentProfile(
-                            currentUser.studentId,
+                            currentUser.username,
                             profile.fullName,
                             profile.isMale,
                             Date(profile.dob),

@@ -2,6 +2,7 @@ package com.lttrung.dormitory.domain.data.network.impl
 
 import com.lttrung.dormitory.domain.data.network.AdminLoginNetwork
 import com.lttrung.dormitory.domain.data.network.models.GenderStats
+import com.lttrung.dormitory.domain.data.network.models.LoginResponse
 import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
 import com.lttrung.dormitory.domain.data.network.models.StudentStat
 import com.lttrung.dormitory.domain.data.network.services.AdminLoginService
@@ -29,48 +30,17 @@ class AdminLoginRetrofitImpl @Inject constructor(
         }
     }
 
-    override fun fetchStudentStats(): Single<List<StudentStat>> {
-        return service.fetchStudentStats().map { response ->
-            when (response.code()) {
-                HttpStatusCodes.OK -> {
-                    response.body()!!
-                }
-                else -> {
-                    throw FailedException()
-                }
+    override fun verifyAdmin(username: String, password: String, otp: String): Single<LoginResponse> {
+        val body = hashMapOf<String, String>()
+        body["username"] = username
+        body["password"] = password
+        body["OTP"] = otp
+        return service.verifyAdmin(body).map { response ->
+            if (response.isSuccessful) {
+                response.body()!!
+            } else {
+                throw FailedException("Time out or otp code is incorrect!")
             }
-        }
-    }
-
-    override fun fetchRoomTypeStats(): Single<List<RoomTypeStat>> {
-        return service.fetchRoomTypeStats().map { response ->
-            when (response.code()) {
-                HttpStatusCodes.OK -> {
-                    response.body()!!
-                }
-                else -> {
-                    throw FailedException()
-                }
-            }
-        }
-    }
-
-    override fun fetchGenderStats(): Single<GenderStats> {
-        return service.fetchGenderStats().map { response ->
-            when (response.code()) {
-                HttpStatusCodes.OK -> {
-                    response.body()?.let { stats ->
-                        if (stats.isEmpty()) {
-                            throw NotFoundException()
-                        } else {
-                            stats[0]
-                        }
-                    }
-                }
-                else -> {
-                    throw FailedException()
-                }
-            }!!
         }
     }
 }

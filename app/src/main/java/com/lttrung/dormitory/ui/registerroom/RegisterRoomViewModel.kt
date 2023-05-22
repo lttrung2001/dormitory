@@ -3,7 +3,6 @@ package com.lttrung.dormitory.ui.registerroom
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lttrung.dormitory.domain.data.local.UserLocal
 import com.lttrung.dormitory.domain.usecases.RegisterRoomUseCase
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,13 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterRoomViewModel @Inject constructor(
-    private val registerRoomUseCase: RegisterRoomUseCase,
-    private val userLocal: UserLocal
+    private val registerRoomUseCase: RegisterRoomUseCase
 ) : ViewModel() {
     internal var roomId = 0
-    internal val studentId = viewModelScope.launch(Dispatchers.IO) {
-        userLocal.getCurrentUser()?.studentId
-    }
 
     internal val registerRoomLiveData: MutableLiveData<Resource<Boolean>> by lazy {
         MutableLiveData<Resource<Boolean>>()

@@ -7,7 +7,7 @@ import java.io.Serializable
 
 @Entity
 class CurrentUser(
-    @PrimaryKey val studentId: String,
+    @PrimaryKey val username: String,
     var password: String, val role: List<String>,
     val token: String,
     @Embedded var profile: CurrentUserProfile? = null

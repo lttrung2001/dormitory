@@ -13,8 +13,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.lttrung.dormitory.R
 import com.lttrung.dormitory.databinding.ActivityAdminLoginBinding
 import com.lttrung.dormitory.ui.adminhome.AdminHomeActivity
+import com.lttrung.dormitory.ui.adminverifyotp.AdminVerifyOtpActivity
 import com.lttrung.dormitory.ui.verifycode.VerifyCodeActivity
 import com.lttrung.dormitory.utils.AppConstants
+import com.lttrung.dormitory.utils.AppConstants.PASSWORD
+import com.lttrung.dormitory.utils.AppConstants.USERNAME
 import com.lttrung.dormitory.utils.Resource
 import com.lttrung.dormitory.utils.ValidationHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +28,8 @@ class AdminLoginActivity : AppCompatActivity() {
         ActivityAdminLoginBinding.inflate(layoutInflater)
     }
     private val viewModel: AdminLoginViewModel by viewModels()
+    private lateinit var username: String
+    private lateinit var password: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupView()
@@ -46,9 +51,9 @@ class AdminLoginActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     binding.buttonLogin.isClickable = true
                     binding.buttonLogin.hideProgress(R.string.login)
-                    val homeIntent = Intent(this, AdminHomeActivity::class.java)
-                    homeIntent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    val homeIntent = Intent(this, AdminVerifyOtpActivity::class.java)
+                    homeIntent.putExtra(USERNAME, username)
+                    homeIntent.putExtra(PASSWORD, password)
                     startActivity(homeIntent)
                 }
                 is Resource.Error -> {
@@ -60,8 +65,8 @@ class AdminLoginActivity : AppCompatActivity() {
                             val password = binding.identifier.text.trim().toString()
                             startActivity(Intent(this, VerifyCodeActivity::class.java).apply {
                                 val verifyCodeBundle = Bundle().apply {
-                                    putString(AppConstants.USERNAME, username)
-                                    putString(AppConstants.PASSWORD, password)
+                                    putString(USERNAME, username)
+                                    putString(PASSWORD, password)
                                 }
                                 putExtras(verifyCodeBundle)
                             })
@@ -82,8 +87,8 @@ class AdminLoginActivity : AppCompatActivity() {
 
     private fun setupListener() {
         binding.buttonLogin.setOnClickListener {
-            val username = binding.identifier.text.toString()
-            val password = binding.password.text.toString()
+            username = binding.identifier.text.toString()
+            password = binding.password.text.toString()
             val validation = ValidationHelper()
             if (validation.isBlank(username)) {
                 binding.identifier.error = "Username can not be empty."

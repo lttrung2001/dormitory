@@ -13,13 +13,13 @@ class CommentRepositoriesImpl @Inject constructor(
 ) : CommentRepositories {
     override fun fetchComments(roomId: Int): Single<List<CommentLocalModel>> {
         return network.fetchComments(roomId).map { networkComments ->
-            val studentId = userLocal.getCurrentUser()!!.studentId
+            val studentId = userLocal.getCurrentUser()!!.username
             networkComments.map { it.toCommentLocalModel(studentId) }
         }
     }
 
     override fun createComment(commentNetworkModel: CommentNetworkModel): Single<CommentLocalModel> {
-        val studentId = userLocal.getCurrentUser()!!.studentId
+        val studentId = userLocal.getCurrentUser()!!.username
         return network.createComment(commentNetworkModel).map { it.toCommentLocalModel(studentId) }
     }
 

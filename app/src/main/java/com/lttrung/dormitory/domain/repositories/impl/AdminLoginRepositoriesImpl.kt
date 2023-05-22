@@ -1,5 +1,7 @@
 package com.lttrung.dormitory.domain.repositories.impl
 
+import com.lttrung.dormitory.domain.data.local.LoginLocal
+import com.lttrung.dormitory.domain.data.local.room.entities.CurrentUser
 import com.lttrung.dormitory.domain.data.network.AdminLoginNetwork
 import com.lttrung.dormitory.domain.data.network.models.GenderStats
 import com.lttrung.dormitory.domain.data.network.models.RoomTypeStat
@@ -9,7 +11,8 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class AdminLoginRepositoriesImpl @Inject constructor(
-    override val network: AdminLoginNetwork
+    override val network: AdminLoginNetwork,
+    private val loginLocal: LoginLocal
 ) : AdminLoginRepositories {
     override fun login(username: String, password: String): Single<Unit> {
         return try {
@@ -19,25 +22,12 @@ class AdminLoginRepositoriesImpl @Inject constructor(
         }
     }
 
-    override fun getStudentStats(): Single<List<StudentStat>> {
+    override fun verifyAdmin(username: String, password: String, otp: String): Single<String> {
         return try {
-            network.fetchStudentStats()
-        } catch (ex: Exception) {
-            throw ex
-        }
-    }
-
-    override fun getRoomTypeStats(): Single<List<RoomTypeStat>> {
-        return try {
-            network.fetchRoomTypeStats()
-        } catch (ex: Exception) {
-            throw ex
-        }
-    }
-
-    override fun getGenderStats(): Single<GenderStats> {
-        return try {
-            network.fetchGenderStats()
+            network.verifyAdmin(username, password, otp).map {
+                loginLocal.login(CurrentUser(it.studentId, "", it.roles, it.token))
+                it.token
+            }
         } catch (ex: Exception) {
             throw ex
         }
