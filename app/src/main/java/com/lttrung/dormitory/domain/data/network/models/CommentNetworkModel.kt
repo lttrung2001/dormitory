@@ -26,7 +26,7 @@ open class CommentNetworkModel(
     fun toCommentLocalModel(studentId: String): CommentLocalModel {
         return CommentLocalModel(
             id,
-            studentId,
+            this.studentId,
             roomId,
             content,
             timePost,

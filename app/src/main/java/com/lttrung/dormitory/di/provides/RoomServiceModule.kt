@@ -1,5 +1,6 @@
 package com.lttrung.dormitory.di.provides
 
+import com.lttrung.dormitory.domain.data.network.services.AdminLoginService
 import com.lttrung.dormitory.domain.data.network.services.RoomService
 import dagger.Module
 import dagger.Provides
