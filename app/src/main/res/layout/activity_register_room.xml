@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".ui.registerroom.RegisterRoomActivity">
+    tools:context=".ui.activities.registerroom.RegisterRoomActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

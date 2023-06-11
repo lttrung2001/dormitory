@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:layout_behavior="@string/bottom_sheet_behavior"
-    tools:context=".ui.viewrooms.FilterSortFragment">
+    tools:context=".ui.activities.viewrooms.FilterSortFragment">
 
     <TextView
         android:layout_width="match_parent"

@@ -20,22 +20,22 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.adminverifyotp.AdminVerifyOtpActivity"
+            android:name=".ui.activities.adminverifyotp.AdminVerifyOtpActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.adminviewgenderstats.AdminViewGenderStatsActivity"
+            android:name=".ui.activities.adminviewgenderstats.AdminViewGenderStatsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.adminviewroomtypestats.AdminViewRoomTypeStatsActivity"
+            android:name=".ui.activities.adminviewroomtypestats.AdminViewRoomTypeStatsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.adminviewstudentstats.AdminViewStudentStatsActivity"
+            android:name=".ui.activities.adminviewstudentstats.AdminViewStudentStatsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.adminlogin.AdminLoginActivity"
+            android:name=".ui.activities.adminlogin.AdminLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.adminhome.AdminHomeActivity"
+            android:name=".ui.activities.adminhome.AdminHomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.roommanagement.updateRoomManagement.UpdateRoomManagementActivity"
@@ -50,35 +50,35 @@
             android:name=".ui.roommanagement.addRoomManagement.AddRoomManagementActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.registerroom.RegisterRoomActivity"
+            android:name=".ui.activities.registerroom.RegisterRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SuccessActivity"
+            android:name=".ui.activities.SuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.changepassword.ChangePasswordActivity"
+            android:name=".ui.activities.changepassword.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.viewrooms.ViewRoomsActivity"
+            android:name=".ui.activities.viewrooms.ViewRoomsActivity"
             android:exported="false"
             android:theme="@style/Theme.Dormitory.Material.NoActionBar" />
         <activity
-            android:name=".ui.forgotpassword.ForgotPasswordActivity"
+            android:name=".ui.activities.forgotpassword.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.viewroomtypedetails.ViewRoomTypeDetailsActivity"
+            android:name=".ui.activities.viewroomtypedetails.ViewRoomTypeDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.verifycode.VerifyCodeActivity"
+            android:name=".ui.activities.verifycode.VerifyCodeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.register.RegisterActivity"
+            android:name=".ui.activities.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.activities.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.activities.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Dormitory">
             <intent-filter>

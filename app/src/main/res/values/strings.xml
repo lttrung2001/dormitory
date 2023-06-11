@@ -72,5 +72,11 @@
     <string name="login_to_your_admin_account">Login to your admin account</string>
     <string name="delete">Delete</string>
     <string name="write_comment">Write comment...</string>
+    <string name="agree">Agree</string>
+    <string name="notification">Notification</string>
+    <string name="notice">Notice</string>
+    <string name="register_room_entry">Register room entry</string>
+    <string name="ask_for_register_room">Are you sure to register this room?</string>
+    <string name="ask_for_logout">Are you sure to logout?</string>
 
 </resources>
