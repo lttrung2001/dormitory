@@ -1,7 +1,6 @@
 package com.lttrung.dormitory.ui.activities.registerroom
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -22,7 +21,7 @@ import com.lttrung.dormitory.domain.data.network.models.Room
 import com.lttrung.dormitory.domain.data.network.models.RoomType
 import com.lttrung.dormitory.ui.activities.main.MainActivity
 import com.lttrung.dormitory.ui.activities.main.home.HomeViewModel
-import com.lttrung.dormitory.ui.bases.BaseActivity
+import com.lttrung.dormitory.ui.dialogs.builder.DialogBuilder
 import com.lttrung.dormitory.utils.AppConstants
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -133,12 +132,13 @@ class ViewRoomDetailsFragment : Fragment() {
     private fun setupListener() {
         binding.buttonRegisterRoom.setOnClickListener {
             // Register
-            (requireActivity() as BaseActivity).confirmDialog.newBuild().setNoticeTitle(R.string.register_room_entry)
+            val dialog = DialogBuilder.Builder(requireContext()).setNoticeTitle(R.string.register_room_entry)
                 .setNotice(R.string.ask_for_register_room).addButtonLeft(R.string.agree) {
                     val room =
                         requireActivity().intent.getSerializableExtra(AppConstants.ROOM) as Room
                     viewModel.registerRoom(room.id)
-                }.addButtonRight(R.string.cancel)
+                }.addButtonRight(R.string.cancel).build()
+            dialog.show()
         }
     }
 }

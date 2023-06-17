@@ -17,6 +17,7 @@ import com.lttrung.dormitory.ui.activities.forgotpassword.ForgotPasswordActivity
 import com.lttrung.dormitory.ui.activities.main.MainActivity
 import com.lttrung.dormitory.ui.activities.register.RegisterActivity
 import com.lttrung.dormitory.ui.activities.verifycode.VerifyCodeActivity
+import com.lttrung.dormitory.ui.dialogs.builder.DialogBuilder
 import com.lttrung.dormitory.utils.AppConstants.PASSWORD
 import com.lttrung.dormitory.utils.AppConstants.USERNAME
 import com.lttrung.dormitory.utils.Resource
@@ -37,6 +38,16 @@ class LoginActivity : AppCompatActivity() {
         setupObserver()
     }
 
+    override fun onBackPressed() {
+        val dialog = DialogBuilder.Builder(this@LoginActivity).setNoticeTitle(R.string.notice)
+            .setNotice(getString(R.string.ask_for_quit_app))
+            .addButtonLeft(getString(R.string.quit)) {
+                finish()
+            }.addButtonRight(R.string.cancel)
+            .setCanTouchOutside(false).build()
+        dialog.show()
+    }
+
     private fun setupObserver() {
         loginViewModel.loginLiveData.observe(this) { resource ->
             when (resource) {
@@ -44,10 +55,11 @@ class LoginActivity : AppCompatActivity() {
                     // Loading
                     binding.buttonLogin.isClickable = false
                     binding.buttonLogin.showProgress {
-                        buttonTextRes =R.string.loading
+                        buttonTextRes = R.string.loading
                         progressColor = Color.WHITE
                     }
                 }
+
                 is Resource.Success -> {
                     binding.buttonLogin.isClickable = true
                     binding.buttonLogin.hideProgress(R.string.login)
@@ -56,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(homeIntent)
                 }
+
                 is Resource.Error -> {
                     binding.buttonLogin.isClickable = true
                     binding.buttonLogin.hideProgress(R.string.login)
@@ -71,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
                                 putExtras(verifyCodeBundle)
                             })
                         }
+
                         else -> {
                             Snackbar.make(
                                 this,

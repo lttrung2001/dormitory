@@ -78,5 +78,7 @@
     <string name="register_room_entry">Register room entry</string>
     <string name="ask_for_register_room">Are you sure to register this room?</string>
     <string name="ask_for_logout">Are you sure to logout?</string>
+    <string name="ask_for_quit_app">Are you sure to quit app?</string>
+    <string name="quit">Quit</string>
 
 </resources>

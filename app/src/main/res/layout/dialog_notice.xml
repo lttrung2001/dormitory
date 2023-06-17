@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_radius_white"
     android:minWidth="280dp"
-    android:orientation="vertical"
-    android:paddingTop="30dp">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivAlert"

@@ -12,7 +12,7 @@ import com.lttrung.dormitory.databinding.FragmentViewProfileBinding
 import com.lttrung.dormitory.domain.data.network.models.StudentProfile
 import com.lttrung.dormitory.ui.activities.changepassword.ChangePasswordActivity
 import com.lttrung.dormitory.ui.activities.login.LoginActivity
-import com.lttrung.dormitory.ui.bases.BaseActivity
+import com.lttrung.dormitory.ui.dialogs.builder.DialogBuilder
 import com.lttrung.dormitory.utils.ExtensionFunctionHelper.format
 import com.lttrung.dormitory.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,14 +49,15 @@ class ViewProfileFragment : Fragment() {
             startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
         }
         binding.buttonLogout.setOnClickListener {
-            (requireActivity() as BaseActivity).confirmDialog.newBuild().setNoticeTitle(R.string.notice)
+            val dialog = DialogBuilder.Builder(requireContext()).setNoticeTitle(R.string.notice)
                 .setNotice(R.string.ask_for_logout)
                 .addButtonLeft(R.string.log_out) {
                     viewProfileViewModel.logout()
                     startActivity(Intent(requireContext(), LoginActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     })
-                }.addButtonRight(R.string.cancel)
+                }.addButtonRight(R.string.cancel).build()
+            dialog.show()
         }
     }
 
